@@ -1,0 +1,33 @@
+/*Mobile and Tablet*/
+@media (max-width:1023px){
+
+}
+/*Tablet*/
+@media (min-width:740px) and (max-width: 1023px){
+    .product-detail__introduce{
+        margin-top: 60px;
+    }
+}
+
+/*Mobile*/
+@media (max-width:739px) {
+    .product-detail__img-main{
+        width: 100%;
+    }
+    .product-detail__img-sub{
+        width: 20%;
+    }
+    .product-detail__info{
+        margin-top: calc(var(--header-with-search-height) + var(--sort-bar-height));
+    }
+    .product-detail__attribute-list{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .product-detail__attribute-item{
+        margin-top: 10px;
+    }
+    .product-detail__attribute-btn{
+        min-width: 10rem;
+    }
+}

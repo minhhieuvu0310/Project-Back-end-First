@@ -1,0 +1,130 @@
+.home-filter {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--hover-color);
+    padding: 12px 20px;
+    border-radius: 3px;
+}
+
+/* 
+*Css Control 
+*/
+.home-filter__control {
+    display: flex;
+    align-items: center;
+}
+
+.home-filter__title {
+    font-size: 1.4rem;
+    color: var(--text-color);
+    margin-right: 10px;
+}
+
+.btn.home-filter__btn {
+    padding: 0 15px;
+    margin: 0 5px;
+    min-width: 0;
+}
+
+.home-filter__sort {
+    background-color: var(--white-color);
+    width: 200px;
+    height: 34px;
+    padding: 0 12px;
+    margin: 0 5px;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    cursor: pointer;
+    color: var(--text-color);
+    position: relative;
+}
+
+.home-filter__sort-lable {
+    font-size: 1.4rem;
+}
+
+.home-filter__sort-list {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    width: 200px;
+    background-color: var(--white-color);
+    margin: 0;
+    padding: 0;
+    border-radius: 3px;
+    z-index: 1;
+    display: none;
+}
+
+.home-filter__sort-item {
+    list-style: none;
+}
+
+.home-filter__sort-item-link {
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1.4rem;
+    border-top: 1px solid var(--hover-color);
+    padding: 10px 12px;
+    color: var(--text-color);
+}
+
+.home-filter__sort:hover  .home-filter__sort-list {
+    display: block;
+}
+
+.home-filter__sort-item:hover .home-filter__sort-item-link{
+    background-color: var(--hover-color);
+    color: var(--primary-color);
+}
+/* 
+*Css page 
+*/
+.home-filter__page {
+    display: flex;
+    align-items: center;
+}
+
+.home-filter__page-number {
+    display: flex;
+    align-items: center;
+    font-size: 1.5rem;
+    padding: 0 20px;
+    color: var(--text-color);
+}
+
+.home-filter__page-current {
+    color: var(--primary-color);
+}
+
+.home-filter__page-control {
+    border-radius:3px;
+    overflow: hidden;
+}
+
+.home-filter__page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    text-decoration: none;
+    font-size: 1.4rem;
+    background-color: var(--white-color);
+}
+
+.home-filter__page-btn--disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.home-filter__page-icon {
+    color: var(--text-color);
+}

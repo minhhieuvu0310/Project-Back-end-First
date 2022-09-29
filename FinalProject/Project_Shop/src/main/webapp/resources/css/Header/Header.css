@@ -1,0 +1,8 @@
+@import url(./Cart_Header.css);
+@import url(./Nav_Header.css);
+@import url(./Search_Header.css);
+@import url(./sort-bar.css);
+.header {
+    height: var(--header-height);
+    background-image: linear-gradient(0, #fe6232, #f53f2d);
+}

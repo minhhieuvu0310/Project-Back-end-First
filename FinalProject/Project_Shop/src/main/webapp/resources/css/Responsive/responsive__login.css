@@ -1,0 +1,65 @@
+
+/*Mobile and Tablet*/
+@media (max-width:1023px) {
+    .from-login{
+        width: unset;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .form-login-body{
+        position: unset;
+        width: 100%;
+        padding: 15px 0;
+    }
+    .btn--with-icon{
+        min-width: 30%;
+    }
+
+    .auth-from{
+        width: 100%;
+    }
+
+    .btn.auth-from__social--login .auth-from__social-title {
+        margin: 0px 9px;
+    }
+}
+
+/*Tablet*/
+@media (min-width:740px) and (max-width: 1023px) {
+
+}
+
+/*Mobile*/
+@media (max-width:739px) {
+    .header-login-wap{
+        padding-left:8px ;
+        padding-right: 8px;
+    }
+    .form-login-body {
+        position: unset;
+        padding: 15px 8px;
+    }
+
+    .btn--with-icon{
+        margin: 0 3px;
+
+    }
+    .auth-from__social-title{
+        margin: 0 20px;
+    }
+    .header-login__name{
+        font-size: 1.6rem;
+        margin-top: 0;
+        margin-left: 8px;
+    }
+    .header-login__logo-img{
+        width: 100px;
+        margin-bottom: 5px;
+    }
+
+    .btn--with-icon.btn--with-icon-onmobile{
+        font-size: 10px;
+    }
+    
+}
