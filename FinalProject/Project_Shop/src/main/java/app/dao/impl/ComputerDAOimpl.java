@@ -2,6 +2,8 @@ package app.dao.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -17,22 +19,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	@Override
-	public List<Computer> getComputer() {
-		Session session = sessionFactory.openSession();
-		try {
-			List list = session.createQuery("from Computer com where com.status = 1").list();
-			return list;
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-		return null;
-	}
-
 	public List<Computer> lstCom(List<Computer> lst1, List<Computer> lst2) {
-		List<Computer> lstComputer = new ArrayList<Computer>(lst1);
+//		List<Computer> lstComputer = new ArrayList<Computer>();
 //		for (Computer com1 : lst1) {
 //			for (Computer com2 : lst2) {
 //				if (com1.getComId() == com2.getComId()) {
@@ -40,7 +28,18 @@ public class ComputerDAOimpl implements ComputerDAO {
 //				}
 //			}
 //		}
-		lstComputer.retainAll(lst2);
+		// sử dụng hasmap
+//		Set<String> collect = lst1.stream().map(i -> i.getComId().toString().toLowerCase())
+//                .collect(Collectors.toSet());
+//		for(Computer tx : lst2 )
+//		    if(collect.contains(tx.getComId().toString()))
+//		    	lstComputer.add(tx);
+//		return lstComputer;
+		Set<String> collect = lst1.stream().map(i -> i.getComId().toString().toLowerCase())
+              .collect(Collectors.toSet());
+		List<Computer> lstComputer = lst2.stream()
+                .filter(tx -> collect.contains(tx.getComId().toString()))
+                .collect(Collectors.toList());
 		return lstComputer;
 	}
 
@@ -57,6 +56,20 @@ public class ComputerDAOimpl implements ComputerDAO {
 			}
 		}
 		return listcomPa;
+	}
+
+	@Override
+	public List<Computer> getComputer() {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery("from Computer com where com.status = 1").list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
 	}
 
 	@Override
@@ -176,17 +189,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 				List list = getComputerByProdureId(produre);
 				lstcom.addAll(list);
 			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstcom.size() <= maxResult) {
-				listcomPa = lstcom;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstcom.size()) {
-						listcomPa.add(lstcom.get(i));
-					}
-				}
-			}
+			List<Computer> listcomPa = listcomPa(lstcom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,17 +231,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 						.setParameter("address", address).list();
 				lstcom.addAll(list);
 			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstcom.size() <= maxResult) {
-				listcomPa = lstcom;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstcom.size()) {
-						listcomPa.add(lstcom.get(i));
-					}
-				}
-			}
+			List<Computer> listcomPa = listcomPa(lstcom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -285,15 +278,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerBylstProdureId = getComputerBylstProdureId(lstProdureId);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer address : computerBylstAddress) {
-				for (Computer produre : computerBylstProdureId) {
-					if (address.getComId() == produre.getComId()) {
-						lstComputer.add(produre);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerBylstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -310,27 +296,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerBylstProdureId = getComputerBylstProdureId(lstProdureId);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstcom = new ArrayList<Computer>();
-			for (Computer address : computerBylstAddress) {
-				for (Computer produre : computerBylstProdureId) {
-					if (address.getComId() == produre.getComId()) {
-						lstcom.add(produre);
-					}
-				}
-			}
-
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstcom.size() <= maxResult) {
-				listcomPa = lstcom;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstcom.size()) {
-						listcomPa.add(lstcom.get(i));
-					}
-				}
-			}
-
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerBylstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -453,15 +420,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -475,26 +435,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -507,15 +449,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -529,25 +464,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -561,15 +479,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId_lstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -584,28 +495,13 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId_lstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			
 		}
 		return null;
 	}
@@ -615,15 +511,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceTallest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceTallest) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceTallest, computerBylstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -637,25 +526,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceTallest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceTallest) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceTallest, computerBylstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -668,15 +540,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceTallest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceTallest) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceTallest, computerBylstId);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -690,25 +555,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceTallest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceTallest) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceTallest, computerBylstId);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -722,15 +570,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId_lstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -744,25 +585,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPriceShortest = getComputerByPriceTallest(priceTallest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPriceShortest) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPriceShortest, computerBylstId_lstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -776,15 +600,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -798,25 +615,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comAddress : computerBylstAddress) {
-					if (comPrice.getComId() == comAddress.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -830,15 +630,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstId);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -852,25 +645,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstId = getComputerBylstProdureId(lstId);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comId : computerBylstId) {
-					if (comPrice.getComId() == comId.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstId);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -884,15 +660,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstId_lstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -906,25 +675,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		try {
 			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comPrice : computerByPrice) {
-				for (Computer comAd_Id : computerBylstId_lstAddress) {
-					if (comPrice.getComId() == comAd_Id.getComId()) {
-						lstComputer.add(comPrice);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerByPrice, computerBylstId_lstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -967,137 +719,72 @@ public class ComputerDAOimpl implements ComputerDAO {
 	// lấy ra sản phẩm mới nhất theo nơi ở
 	@Override
 	public List<Computer> getComputerBylstAddressNew(List<String> lstAddress) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computerBylstAddress) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerNew, computerBylstAddress);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerBylstAddressNew(List<String> lstAddress, Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computerBylstAddress) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerNew, computerBylstAddress);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerBylstProdureIdNew(List<Integer> listId) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computerBylstProdureId) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computerNew, computerBylstProdureId);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerBylstProdureIdNew(List<Integer> listId, Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computerBylstProdureId) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computerNew, computerBylstProdureId);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerBylstProdureIAndlstAddressNew(List<Integer> listId, List<String> lstAddress) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computer = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computer) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			return lstComputer;
+			List<Computer> lstCom = lstCom(computer, computerNew);
+			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1105,41 +792,21 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerBylstProdureIAndlstAddressNew(List<Integer> listId, List<String> lstAddress,
 			Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computer = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> lstComputer = new ArrayList<Computer>();
-			for (Computer comNew : computerNew) {
-				for (Computer com : computer) {
-					if (comNew.getComId() == com.getComId()) {
-						lstComputer.add(com);
-					}
-				}
-			}
-			List<Computer> listcomPa = new ArrayList<Computer>();
-			Integer n = offset + maxResult;
-			if (lstComputer.size() <= maxResult) {
-				listcomPa = lstComputer;
-			} else {
-				for (int i = offset; i < n; i++) {
-					if (i < lstComputer.size()) {
-						listcomPa.add(lstComputer.get(i));
-					}
-				}
-			}
+			List<Computer> lstCom = lstCom(computer, computerNew);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceShortest(Float priceShortest, Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
@@ -1149,14 +816,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceShortest(Float priceShortest) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPriceShortest = getComputerByPriceShortest(priceShortest);
@@ -1165,7 +830,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1173,7 +837,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerNewByPriceShortestAndlstAddress(Float priceShortest, List<String> listAddress,
 			Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortestAndlstAddress(priceShortest, listAddress);
@@ -1183,14 +846,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceShortestAndlstAddress(Float priceShortest, List<String> listAddress) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortestAndlstAddress(priceShortest, listAddress);
@@ -1199,7 +860,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1207,7 +867,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerNewByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId,
 			Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortestAndlstProdureId(priceShortest, listId);
@@ -1217,14 +876,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortestAndlstProdureId(priceShortest, listId);
@@ -1233,7 +890,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1241,7 +897,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerNewByPriceShortest_lstAddress_lstId(Float priceShortest, List<String> listAddress,
 			List<Integer> listId, Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
@@ -1252,7 +907,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1260,7 +914,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerNewByPriceShortest_lstAddress_lstId(Float priceShortest, List<String> listAddress,
 			List<Integer> listId) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
@@ -1270,14 +923,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceTallest(Float priceTallest, Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceTallest(priceTallest);
@@ -1287,14 +938,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceTallest(Float priceTallest) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceTallest(priceTallest);
@@ -1303,7 +952,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1311,7 +959,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 	@Override
 	public List<Computer> getComputerNewByPriceTallestAndlstAddress(Float priceTallest, List<String> listAddress,
 			Integer offset, Integer maxResult) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceTallestAndlstAddress(priceTallest, listAddress);
@@ -1321,14 +968,12 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
 
 	@Override
 	public List<Computer> getComputerNewByPriceTallestAndlstAddress(Float priceTallest, List<String> listAddress) {
-		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
 			List<Computer> computerByPrice = getComputerByPriceTallestAndlstAddress(priceTallest, listAddress);
@@ -1337,7 +982,6 @@ public class ComputerDAOimpl implements ComputerDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			session.close();
 		}
 		return null;
 	}
@@ -1420,8 +1064,8 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceTallest, priceTallest);
-			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> lstComputer = lstCom(computerByPrice, computerNew);
 			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
 			return listcomPa;
 		} catch (Exception e) {
@@ -1437,7 +1081,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceTallest, priceTallest);
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest(priceShortest, priceTallest);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			return lstComputer;
 		} catch (Exception e) {
@@ -1454,7 +1098,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstAddress(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstAddress(priceShortest,
 					priceTallest, listAddress);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
@@ -1473,7 +1117,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstAddress(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstAddress(priceShortest,
 					priceTallest, listAddress);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			return lstComputer;
@@ -1491,7 +1135,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstId(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstId(priceShortest,
 					priceTallest, listId);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
@@ -1510,7 +1154,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstId(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest__lstId(priceShortest,
 					priceTallest, listId);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			return lstComputer;
@@ -1528,7 +1172,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest_lstAddress_lstId(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest_lstAddress_lstId(priceShortest,
 					priceTallest, listAddress, listId);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
@@ -1547,7 +1191,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List<Computer> computerNew = getComputerNew();
-			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest_lstAddress_lstId(priceTallest,
+			List<Computer> computerByPrice = getComputerByPriceTallestAndPriceShortest_lstAddress_lstId(priceShortest,
 					priceTallest, listAddress, listId);
 			List<Computer> lstComputer = lstCom(computerNew, computerByPrice);
 			return lstComputer;
