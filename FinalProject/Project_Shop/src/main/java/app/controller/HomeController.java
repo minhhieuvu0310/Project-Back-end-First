@@ -530,66 +530,66 @@ public class HomeController {
 					}
 				} else if (priceShortest != -1 && priceTallest == -1) {
 					if (listId == null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceShortest(priceShortest, offset, maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceShortest(priceShortest).size();
+						computer = computerDAO.getComputerSortDESCByPriceShortest(priceShortest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceShortest(priceShortest).size();
 					} else if (listId == null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress,
+						computer = computerDAO.getComputerSortDESCByPriceShortestAndlstAddress(priceShortest, listAddress,
 								offset, maxResult);
 						totalCom = (long) computerDAO
-								.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress).size();
+								.getComputerSortDESCByPriceShortestAndlstAddress(priceShortest, listAddress).size();
 					} else if (listId != null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId, offset,
+						computer = computerDAO.getComputerSortDESCByPriceShortestAndlstProdureId(priceShortest, listId, offset,
 								maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId)
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceShortestAndlstProdureId(priceShortest, listId)
 								.size();
 					} else if (listId != null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
+						computer = computerDAO.getComputerSortDESCByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
 								listId, offset, maxResult);
 						totalCom = (long) computerDAO
-								.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress, listId)
+								.getComputerSortDESCByPriceShortest_lstAddress_lstId(priceShortest, listAddress, listId)
 								.size();
 					}
 				} else if (priceShortest == -1 && priceTallest != -1) {
 					if (listId == null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceTallest(priceTallest, offset, maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceTallest(priceTallest).size();
+						computer = computerDAO.getComputerSortDESCByPriceTallest(priceTallest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceTallest(priceTallest).size();
 					} else if (listId == null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress,
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndlstAddress(priceTallest, listAddress,
 								offset, maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress)
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceTallestAndlstAddress(priceTallest, listAddress)
 								.size();
 					} else if (listId != null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId, offset,
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndlstProdureId(priceTallest, listId, offset,
 								maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId)
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceTallestAndlstProdureId(priceTallest, listId)
 								.size();
 					} else if (listId != null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress,
+						computer = computerDAO.getComputerSortDESCByPriceTallest_lstAddress_lstId(priceTallest, listAddress,
 								listId, offset, maxResult);
 						totalCom = (long) computerDAO
-								.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress, listId).size();
+								.getComputerSortDESCByPriceTallest_lstAddress_lstId(priceTallest, listAddress, listId).size();
 					}
 				} else {
 					if (listId == null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest,
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest,
 								offset, maxResult);
 						totalCom = (long) computerDAO
-								.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest).size();
+								.getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest).size();
 					} else if (listId == null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(priceShortest,
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest__lstAddress(priceShortest,
 								priceTallest, listAddress, offset, maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest__lstAddress(
 								priceShortest, priceTallest, listAddress).size();
 					} else if (listId != null && listAddress == null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest,
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest__lstId(priceShortest,
 								priceTallest, listId, offset, maxResult);
 						totalCom = (long) computerDAO
-								.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest, priceTallest, listId)
+								.getComputerSortDESCByPriceTallestAndPriceShortest__lstId(priceShortest, priceTallest, listId)
 								.size();
 					} else if (listId != null && listAddress != null) {
-						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+						computer = computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest_lstAddress_lstId(
 								priceShortest, priceTallest, listAddress, listId, offset, maxResult);
-						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+						totalCom = (long) computerDAO.getComputerSortDESCByPriceTallestAndPriceShortest_lstAddress_lstId(
 								priceShortest, priceTallest, listAddress, listId).size();
 					}
 				}

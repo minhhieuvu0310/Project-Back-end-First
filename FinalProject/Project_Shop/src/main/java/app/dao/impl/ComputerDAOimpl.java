@@ -1874,7 +1874,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 			Integer offset, Integer maxResult) {
 		try {
 			List<Computer> computerSortASCByPriceShortest = getComputerSortASCByPriceShortest(priceShortest);
-			List<Computer> computerSortASCBylstAddress = getComputerSortASCBylstAddress(lstAddress);
+			List<Computer> computerSortASCBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> lstCom = lstCom(computerSortASCBylstAddress, computerSortASCByPriceShortest);
 			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
@@ -1888,7 +1888,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 	public List<Computer> getComputerSortASCByPriceShortestAndlstAddress(Float priceShortest, List<String> lstAddress) {
 		try {
 			List<Computer> computerSortASCByPriceShortest = getComputerSortASCByPriceShortest(priceShortest);
-			List<Computer> computerSortASCBylstAddress = getComputerSortASCBylstAddress(lstAddress);
+			List<Computer> computerSortASCBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> lstCom = lstCom(computerSortASCBylstAddress, computerSortASCByPriceShortest);
 			return lstCom;
 		} catch (Exception e) {
@@ -1995,7 +1995,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 			Integer offset, Integer maxResult) {
 		try {
 			List<Computer> computerSortASCByPrice = getComputerSortASCByPriceTallest(priceTallest);
-			List<Computer> computerSortASCBylstAddress = getComputerSortASCBylstAddress(lstAddress);
+			List<Computer> computerSortASCBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> lstCom = lstCom(computerSortASCBylstAddress,computerSortASCByPrice );
 			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
 			return listcomPa;
@@ -2009,7 +2009,7 @@ public class ComputerDAOimpl implements ComputerDAO {
 	public List<Computer> getComputerSortASCByPriceTallestAndlstAddress(Float priceTallest, List<String> lstAddress) {
 		try {
 			List<Computer> computerSortASCByPrice = getComputerSortASCByPriceTallest(priceTallest);
-			List<Computer> computerSortASCBylstAddress = getComputerSortASCBylstAddress(lstAddress);
+			List<Computer> computerSortASCBylstAddress = getComputerBylstAddress(lstAddress);
 			List<Computer> lstCom = lstCom(computerSortASCBylstAddress,computerSortASCByPrice );
 			return lstCom;
 		} catch (Exception e) {
@@ -2320,6 +2320,379 @@ public class ComputerDAOimpl implements ComputerDAO {
 			List<Computer> computerBylstProdureIAndlstAddress = getComputerBylstProdureIAndlstAddress(listId,
 					lstAddress);
 			List<Computer> lstCom = lstCom(computerBylstProdureIAndlstAddress, computerSort);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	// Sắp xếp theo giá cả giảm dần và giá thấp nhất
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortest(Float priceShortest, Integer offset, Integer maxResult) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"from Computer com where com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) >= :priceShortest order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceShortest", priceShortest).list();
+			List<Computer> lstCom = listcomPa(list, offset, maxResult);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortest(Float priceShortest) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"from Computer com where com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) >= :priceShortest order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceShortest", priceShortest).list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortestAndlstAddress(Float priceShortest, List<String> lstAddress,
+			Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerSortDESCBylstAddress = getComputerBylstAddress(lstAddress);
+			List<Computer> lstCom = lstCom(computerSortDESCBylstAddress, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortestAndlstAddress(Float priceShortest,
+			List<String> lstAddress) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerSortDESCBylstAddress = getComputerBylstAddress(lstAddress);
+			List<Computer> lstCom = lstCom(computerSortDESCBylstAddress, computerSortDESCByPrice);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId,
+			Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerSortDESCByPrice);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortest_lstAddress_lstId(Float priceShortest,
+			List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerBylstProdureIAndlstAddress = getComputerBylstProdureIAndlstAddress(listId,
+					lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstProdureIAndlstAddress, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceShortest_lstAddress_lstId(Float priceShortest,
+			List<String> lstAddress, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceShortest(priceShortest);
+			List<Computer> computerBylstProdureIAndlstAddress = getComputerBylstProdureIAndlstAddress(listId,
+					lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstProdureIAndlstAddress, computerSortDESCByPrice);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallest(Float priceTallest, Integer offset, Integer maxResult) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"from Computer com where com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) <= :priceTallest order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceTallest", priceTallest).list();
+			List<Computer> lstCom = listcomPa(list, offset, maxResult);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallest(Float priceTallest) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"from Computer com where com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) <= :priceTallest order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceTallest", priceTallest).list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndlstAddress(Float priceTallest, List<String> lstAddress,
+			Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstAddress,computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndlstAddress(Float priceTallest, List<String> lstAddress) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstAddress = getComputerBylstAddress(lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstAddress,computerSortDESCByPrice );
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndlstProdureId(Float priceTallest, List<Integer> listId,
+			Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndlstProdureId(Float priceTallest, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstProdureId = getComputerBylstProdureId(listId);
+			List<Computer> lstCom = lstCom(computerBylstProdureId, computerSortDESCByPrice);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallest_lstAddress_lstId(Float priceTallest,
+			List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstProdureIAndlstAddress = getComputerBylstProdureIAndlstAddress(listId,
+					lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstProdureIAndlstAddress, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallest_lstAddress_lstId(Float priceTallest,
+			List<String> lstAddress, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallest(priceTallest);
+			List<Computer> computerBylstProdureIAndlstAddress = getComputerBylstProdureIAndlstAddress(listId,
+					lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstProdureIAndlstAddress, computerSortDESCByPrice);
+			return lstCom;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest,
+			Integer offset, Integer maxResult) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"FROM Computer com WHERE com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) between :priceShortest and :priceTallest "
+							+ "order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceShortest", priceShortest).setParameter("priceTallest", priceTallest)
+					.setFirstResult(offset).setMaxResults(maxResult)
+					.list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery(
+					"FROM Computer com WHERE com.status = 1  and (com.priceOutput-(com.priceOutput * com.discount)) between :priceShortest and :priceTallest "
+							+ "order by (com.priceOutput-(com.priceOutput * com.discount)) desc")
+					.setParameter("priceShortest", priceShortest).setParameter("priceTallest", priceTallest)
+					.list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computer = getComputerBylstAddress(lstAddress);
+			List<Computer> lstComputer = lstCom(computer, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computer = getComputerBylstAddress(lstAddress);
+			List<Computer> lstComputer = lstCom(computer, computerSortDESCByPrice);
+			return lstComputer;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest__lstId(Float priceShortest,
+			Float priceTallest, List<Integer> listId, Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computer = getComputerBylstProdureId(listId);
+			List<Computer> lstComputer = lstCom(computer, computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstComputer, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest__lstId(Float priceShortest,
+			Float priceTallest, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computer = getComputerBylstProdureId(listId);
+			List<Computer> lstComputer = lstCom(computer, computerSortDESCByPrice);
+			return lstComputer;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstId_lstAddress,computerSortDESCByPrice);
+			List<Computer> listcomPa = listcomPa(lstCom, offset, maxResult);
+			return listcomPa;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Computer> getComputerSortDESCByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId) {
+		try {
+			List<Computer> computerSortDESCByPrice = getComputerSortDESCByPriceTallestAndPriceShortest(priceShortest, priceTallest);
+			List<Computer> computerBylstId_lstAddress = getComputerBylstProdureIAndlstAddress(listId, lstAddress);
+			List<Computer> lstCom = lstCom(computerBylstId_lstAddress,computerSortDESCByPrice);
 			return lstCom;
 		} catch (Exception e) {
 			e.printStackTrace();
