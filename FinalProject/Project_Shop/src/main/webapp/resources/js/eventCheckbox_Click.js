@@ -53,9 +53,24 @@ try {
 
 	$(document).ready(function() {
 		$('.category-group-item-check').click(function() {
-			var sortBy = document.querySelector('.home-filter__btn.btn--primary').value;
+			var sortBy;
+			var sortByPrice = '';
+			var sortByPrice_str = '';
+			var iconSortPrice_str = '';
+			if (document.querySelector('.home-filter__btn.btn--primary') != null) {
+				sortBy = document.querySelector('.home-filter__btn.btn--primary').value;
+				sortByPrice = '';
+				sortByPrice_str = '';
+				iconSortPrice_str = '';
+			} else {
+				var sortBy = 'Price';
+				sortByPrice = document.querySelector('.home-filter__sort-item.home-filter__sort-item--active').id;
+				sortByPrice_str = document.querySelector('#home-filter__sortbyPrice .home-filter__sort-lable').innerHTML;
+				iconSortPrice_str = document.querySelector('#home-filter__sortbyPrice .home-filter__sort-icon').innerHTML;
+			}
 			var priceShortest = txtpriceShortest.value;
 			var priceTallest = txtpriceTallest.value;
+
 			$.ajax({
 				type: "GET",
 				url: "listComputerBySort",
@@ -64,8 +79,11 @@ try {
 					listId: listId.toString(),
 					listAddress: listAddress.toString(),
 					sortBy: sortBy.toString(),
-					priceShortest : priceShortest.toString(),
-					priceTallest : priceTallest.toString()
+					priceShortest: priceShortest.toString(),
+					priceTallest: priceTallest.toString(),
+					sortByPrice: sortByPrice.toString(),
+					sortByPrice_str: sortByPrice_str.toString(),
+					iconSortPrice_str: iconSortPrice_str.toString()
 				},
 				success: function(response) {
 					$('div#product-container').html(response);
@@ -73,7 +91,6 @@ try {
 			});
 		})
 	});
-
 } catch (error) {
 	error.log();
 }

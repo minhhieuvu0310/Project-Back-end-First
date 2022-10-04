@@ -279,29 +279,137 @@ public interface ComputerDAO {
 
 	public List<Computer> getComputerSalesByPriceTallest_lstAddress_lstId(Float priceTallest, List<String> lstAddress,
 			List<Integer> listId);
-	
+
 	//
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest
-																				, Integer offset, Integer maxResult);
-	
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest,
+			Integer offset, Integer maxResult);
+
 	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest);
-	
+
 	//
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstAddress(Float priceShortest, Float priceTallest
-			,List<String> lstAddress, Integer offset, Integer maxResult);
-	
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstAddress(Float priceShortest, Float priceTallest
-			,List<String> lstAddress);
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress);
+
 	//
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest
-			,List<Integer> listId, Integer offset, Integer maxResult);
-	
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest
-			,List<Integer> listId);
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest,
+			List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest,
+			List<Integer> listId);
+
 	//
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest, Float priceTallest
-			,List<String> lstAddress ,List<Integer> listId, Integer offset, Integer maxResult);
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId);
+	// Sắp xếp theo giá cả tăng dần
+
+	public List<Computer> getComputerSortASC(Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASC();
+
+	public List<Computer> getComputerSortASCBylstAddress(List<String> lstAddress, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCBylstAddress(List<String> lstAddress);
+
+	public List<Computer> getComputerSortASCBylstProdureId(List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCBylstProdureId(List<Integer> listId);
+
+	public List<Computer> getComputerSortASCBylstProdureIAndlstAddress(List<Integer> listId, List<String> lstAddress,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCBylstProdureIAndlstAddress(List<Integer> listId, List<String> lstAddress);
+
+	// Sắp xếp theo giá cả tăng dần và giá thấp nhất
+	public List<Computer> getComputerSortASCByPriceShortest(Float priceShortest, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceShortest(Float priceShortest);
+
+	public List<Computer> getComputerSortASCByPriceShortestAndlstAddress(Float priceShortest, List<String> lstAddress,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceShortestAndlstAddress(Float priceShortest, List<String> lstAddress);
+
+	public List<Computer> getComputerSortASCByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceShortestAndlstProdureId(Float priceShortest, List<Integer> listId);
+
+	public List<Computer> getComputerSortASCByPriceShortest_lstAddress_lstId(Float priceShortest,
+			List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceShortest_lstAddress_lstId(Float priceShortest,
+			List<String> lstAddress, List<Integer> listId);
 	
-	public List<Computer> getComputerSalesByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest, Float priceTallest
-			,List<String> lstAddress ,List<Integer> listId);
+	//Sắp xếp theo giá cả tăng dần và giá cao nhất
+	
+	public List<Computer> getComputerSortASCByPriceTallest(Float priceTallest, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallest(Float priceTallest);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndlstAddress(Float priceTallest, List<String> lstAddress,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndlstAddress(Float priceTallest, List<String> lstAddress);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndlstProdureId(Float priceTallest, List<Integer> listId,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndlstProdureId(Float priceTallest, List<Integer> listId);
+
+	public List<Computer> getComputerSortASCByPriceTallest_lstAddress_lstId(Float priceTallest,
+			List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallest_lstAddress_lstId(Float priceTallest,
+			List<String> lstAddress, List<Integer> listId);
+	
+	//Sắp xếp theo giá cả tăng dần và min max Price
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest(Float priceShortest, Float priceTallest);
+
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(Float priceShortest,
+			Float priceTallest, List<String> lstAddress);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest,
+			List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest__lstId(Float priceShortest, Float priceTallest,
+			List<Integer> listId);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(Float priceShortest,
+			Float priceTallest, List<String> lstAddress, List<Integer> listId);
+	
+	//sắp xếp theo giá cả giảm dần
+
+	public List<Computer> getComputerSortDESC(Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortDESC();
+
+	public List<Computer> getComputerSortDESCBylstAddress(List<String> lstAddress, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortDESCBylstAddress(List<String> lstAddress);
+
+	public List<Computer> getComputerSortDESCBylstProdureId(List<Integer> listId, Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortDESCBylstProdureId(List<Integer> listId);
+
+	public List<Computer> getComputerSortDESCBylstProdureIAndlstAddress(List<Integer> listId, List<String> lstAddress,
+			Integer offset, Integer maxResult);
+
+	public List<Computer> getComputerSortDESCBylstProdureIAndlstAddress(List<Integer> listId, List<String> lstAddress);
+
 }

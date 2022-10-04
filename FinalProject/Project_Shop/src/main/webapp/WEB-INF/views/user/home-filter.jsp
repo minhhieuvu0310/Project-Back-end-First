@@ -49,6 +49,7 @@
 	<c:if test = "${!sortBy.contains('Price')}">
 	document.getElementById('sortBy-${sortBy == null ? "relevancy" : sortBy}').classList
 			.add('btn--primary');
+	
 	</c:if>
 try {
 		var sortBy;
@@ -56,6 +57,7 @@ try {
 	    for (const btnFilter of lstfiltercontrol) {
 	        btnFilter.addEventListener('click',function(){
 	        	sortBy = this.value;
+	        	var sortByPrice_str;
 	            var priceShortest = txtpriceShortest.value;
 	            var priceTallest = txtpriceTallest.value;
 	        	$.ajax({
@@ -67,7 +69,7 @@ try {
 	                     , priceShortest: priceShortest.toString() 
 	                     , priceTallest: priceTallest.toString()
 	 					 , sortBy: sortBy.toString()
-	 					 ,
+	 					 , 
 	 						},
 	 				success: function(response) {
 	 					$('div#product-container').html(response);
@@ -79,29 +81,44 @@ try {
 	    for (const option of document.getElementsByClassName('home-filter__sort-item')) {
 	        option.addEventListener('click',function(){            
 	            if(!this.classList.contains('home-filter__sort-item--active')){
+	            	var priceShortest = txtpriceShortest.value;
+		            var priceTallest = txtpriceTallest.value;
 	                var kt = this.parentNode.querySelector('.home-filter__sort-item.home-filter__sort-item--active');
 	                var sortByPrice;
+	                var sortByPrice_str;
+	                var iconSortPrice_str;
 	                if(kt == null){
-	                    this.classList.add('home-filter__sort-item--active');
-	                    var sortByPrice_str = ((this.id == 'desc')? 'Giảm dần' : 'Tăng Dần');
-	                    var iconSortPrice_str = ((this.id == 'desc')? '<i class="fas fa-sort-amount-down-alt"></i>' : '<i class="fas fa-sort-amount-up-alt"></i>');
-	                    this.parentNode.parentNode.parentNode.querySelector('.home-filter__sort-lable').innerHTML = sortByPrice_str;
-	                    this.parentNode.parentNode.parentNode.querySelector('.home-filter__sort-icon').innerHTML = iconSortPrice_str;
+	                   	sortByPrice_str = ((this.id == 'desc')? 'Giảm dần' : 'Tăng Dần');
+	                   	iconSortPrice_str = ((this.id == 'desc')? '<i class="fas fa-sort-amount-down-alt"></i>' : '<i class="fas fa-sort-amount-up-alt"></i>');
 	                    sortby = 'Price';
 	                    sortByPrice = this.id;
-	                    // console.log(sortby + " " + sortByPrice)
+	                    console.log(sortByPrice_str + " " + iconSortPrice_str)
 	                }
 	                else{
-	                    this.parentNode.querySelector('.home-filter__sort-item.home-filter__sort-item--active').classList.remove('home-filter__sort-item--active');
-	                    this.classList.add('home-filter__sort-item--active');
-	                    var sortByPrice_str = ((this.id == 'desc')? 'Giảm dần' : 'Tăng Dần');
-	                    var iconSortPrice_str = ((this.id == 'desc')? '<i class="fas fa-sort-amount-down-alt"></i>' : '<i class="fas fa-sort-amount-up-alt"></i>');
-	                    this.parentNode.parentNode.parentNode.querySelector('.home-filter__sort-lable').innerHTML = sortByPrice_str;
-	                    this.parentNode.parentNode.parentNode.querySelector('.home-filter__sort-icon').innerHTML = iconSortPrice_str;
+	                    sortByPrice_str = ((this.id == 'desc')? 'Giảm dần' : 'Tăng Dần');
+	                   	iconSortPrice_str = ((this.id == 'desc')? '<i class="fas fa-sort-amount-down-alt"></i>' : '<i class="fas fa-sort-amount-up-alt"></i>');
 	                    sortby = 'Price';
 	                    sortByPrice = this.id;
-	                    // console.log(sortby + " " + sortByPrice)
+	                    console.log(sortByPrice_str + " " + iconSortPrice_str)
 	                }
+	                $.ajax({
+		 				type: "GET",
+		 				url: "listComputerBySort",
+		 				contentType: "application/json",
+		 				data: { listId: listId.toString()
+		                     , listAddress: listAddress.toString()
+		                     , priceShortest: priceShortest.toString() 
+		                     , priceTallest: priceTallest.toString()
+		 					 , sortBy: sortby.toString()
+		 					 , sortByPrice : sortByPrice.toString()
+		 					 , sortByPrice_str : sortByPrice_str.toString()
+		 					 , iconSortPrice_str : iconSortPrice_str.toString()
+		 					 
+		 						},
+		 				success: function(response) {
+		 					$('div#product-container').html(response);
+		 				}
+		 			});
 	            }
 	            
 	        }) 

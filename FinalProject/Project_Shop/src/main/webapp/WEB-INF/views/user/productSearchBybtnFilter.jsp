@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 .pagination-item {
@@ -86,15 +86,32 @@
 
 <!-- phân trang cho các sản phẩm(pagination product by ajax) -->
 <script>
-	document.getElementById('page-${page == null ? "1" : page}').classList
-			.add('pagination-item--active');
+	<c:if test = "${sortBy.contains('Price') && sortByPrice != null}">
+		document.querySelector("#${sortByPrice}.home-filter__sort-item").classList.add('home-filter__sort-item--active');
+		<c:if test = "${sortByPrice_str != null && iconSortPrice_str != null}">
+			document.querySelector('#home-filter__sortbyPrice .home-filter__sort-lable').innerHTML = `${sortByPrice_str}`;
+			document.querySelector('#home-filter__sortbyPrice .home-filter__sort-icon').innerHTML  = `${iconSortPrice_str}`;
+		</c:if>
+	</c:if>
+	<c:if test = "${totalPage != 0}">
+		document.getElementById('page-${page == null ? "1" : page}').classList
+		.add('pagination-item--active');
+	</c:if>
 	try {
 		$(document).ready(function() {
 			$('#pagination .pagination-item--number').click(function() {
 				var page = this.value;
 				var priceShortest = txtpriceShortest.value;
 				var priceTallest = txtpriceTallest.value;
-				var sortBy = document.querySelector('.home-filter__btn.btn--primary').value;
+				var sortBy;
+				var sortByPrice_str = `${sortByPrice_str}`;
+				var iconSortPrice_str = `${iconSortPrice_str}`;
+				var sortByPrice = `${sortByPrice}`;
+				if(${sortBy.contains('Price')}){
+					sortBy = "Price";
+				}else{
+					sortBy = document.querySelector('.home-filter__btn.btn--primary').value;
+				}		
 				$.ajax({
 					type : "GET",
 					url : "listComputerBySort",
@@ -105,7 +122,10 @@
 	                     , priceShortest: priceShortest.toString() 
 	                     , priceTallest: priceTallest.toString()
 	 					 , sortBy: sortBy.toString()
-	 					 , page : page.toString(),
+	 					 , page : page.toString()
+	 					 , sortByPrice_str : sortByPrice_str.toString()
+	 					 , iconSortPrice_str : iconSortPrice_str.toString()
+	 					 , sortByPrice : sortByPrice.toString()
 					},
 					success : function(response) {
 						$('div#product-container').html(response);

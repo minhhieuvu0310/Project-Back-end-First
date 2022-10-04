@@ -154,6 +154,9 @@ public class HomeController {
 		String priceShortest_str = request.getParameter("priceShortest");
 		String priceTallest_str = request.getParameter("priceTallest");
 		String sortBy = request.getParameter("sortBy");
+		String sortByPrice = request.getParameter("sortByPrice");
+		String sortByPrice_str = request.getParameter("sortByPrice_str");
+		String iconSortPrice_str = request.getParameter("iconSortPrice_str");
 		List<Integer> listId = new ArrayList<Integer>();
 		List<String> listAddress = new ArrayList<String>();
 		List<Computer> computer = new ArrayList<Computer>();
@@ -425,6 +428,172 @@ public class HomeController {
 							priceShortest, priceTallest, listAddress, listId).size();
 				}
 			}
+		}else if(sortBy.equals("Price")) {
+			if(sortByPrice.equals("asc")) {
+				if (priceShortest == -1 && priceTallest == -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASC(offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASC().size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCBylstAddress(listAddress, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCBylstAddress(listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCBylstProdureId(listId, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCBylstProdureId(listId).size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCBylstProdureIAndlstAddress(listId, listAddress, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCBylstProdureIAndlstAddress(listId, listAddress)
+								.size();
+					}
+				} else if (priceShortest != -1 && priceTallest == -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceShortest(priceShortest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceShortest(priceShortest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress,
+								offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
+								listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress, listId)
+								.size();
+					}
+				} else if (priceShortest == -1 && priceTallest != -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallest(priceTallest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallest(priceTallest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress,
+								offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress)
+								.size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress,
+								listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress, listId).size();
+					}
+				} else {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest,
+								offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(priceShortest,
+								priceTallest, listAddress, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(
+								priceShortest, priceTallest, listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest,
+								priceTallest, listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest, priceTallest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+								priceShortest, priceTallest, listAddress, listId, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+								priceShortest, priceTallest, listAddress, listId).size();
+					}
+				}
+			}else if(sortByPrice.equals("desc")){
+				if (priceShortest == -1 && priceTallest == -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortDESC(offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESC().size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortDESCBylstAddress(listAddress, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESCBylstAddress(listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortDESCBylstProdureId(listId, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESCBylstProdureId(listId).size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortDESCBylstProdureIAndlstAddress(listId, listAddress, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortDESCBylstProdureIAndlstAddress(listId, listAddress)
+								.size();
+					}
+				} else if (priceShortest != -1 && priceTallest == -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceShortest(priceShortest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceShortest(priceShortest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress,
+								offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceShortestAndlstAddress(priceShortest, listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceShortestAndlstProdureId(priceShortest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress,
+								listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceShortest_lstAddress_lstId(priceShortest, listAddress, listId)
+								.size();
+					}
+				} else if (priceShortest == -1 && priceTallest != -1) {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallest(priceTallest, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallest(priceTallest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress,
+								offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstAddress(priceTallest, listAddress)
+								.size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId, offset,
+								maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndlstProdureId(priceTallest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress,
+								listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallest_lstAddress_lstId(priceTallest, listAddress, listId).size();
+					}
+				} else {
+					if (listId == null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest,
+								offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallestAndPriceShortest(priceShortest, priceTallest).size();
+					} else if (listId == null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(priceShortest,
+								priceTallest, listAddress, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstAddress(
+								priceShortest, priceTallest, listAddress).size();
+					} else if (listId != null && listAddress == null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest,
+								priceTallest, listId, offset, maxResult);
+						totalCom = (long) computerDAO
+								.getComputerSortASCByPriceTallestAndPriceShortest__lstId(priceShortest, priceTallest, listId)
+								.size();
+					} else if (listId != null && listAddress != null) {
+						computer = computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+								priceShortest, priceTallest, listAddress, listId, offset, maxResult);
+						totalCom = (long) computerDAO.getComputerSortASCByPriceTallestAndPriceShortest_lstAddress_lstId(
+								priceShortest, priceTallest, listAddress, listId).size();
+					}
+				}
+			}
 		}
 
 		ModelAndView model = new ModelAndView("user/productSearchBybtnFilter");
@@ -440,7 +609,13 @@ public class HomeController {
 		model.getModelMap().put("list", computer);
 		model.getModelMap().put("sortBy", sortBy);
 		model.getModelMap().put("totalPage", totalPage);
+		model.getModelMap().put("sortByPrice", sortByPrice);
+		model.getModelMap().put("iconSortPrice_str", iconSortPrice_str);
+		model.getModelMap().put("sortByPrice_str", sortByPrice_str);
+		
 		System.out.println("so page la : " + page + " totalpage : " + totalPage);
+		System.out.println("sortBy : " + sortBy + " sortByPrice : " + sortByPrice);
+		System.out.println("sortByPrice_str : " + sortByPrice_str + " iconSortPrice_str : " + iconSortPrice_str);
 		return model;
 	}
 }

@@ -30,6 +30,7 @@
                     sortby = 'Price';
                     sortByPrice = this.id;
                     // console.log(sortby + " " + sortByPrice)
+                    
                 }
                 else{
                     this.parentNode.querySelector('.home-filter__sort-item.home-filter__sort-item--active').classList.remove('home-filter__sort-item--active');
