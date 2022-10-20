@@ -28,12 +28,12 @@
 <link href="<c:url value="resources/css/Footer/footer.css" />"
 	rel="stylesheet">
 <link href="<c:url value="resources/css/base.css" />" rel="stylesheet">
- 	<style>
-        .home-filter__sort-item--active .home-filter__sort-item-link {
-            background-color: var(--hover-color);
-            color: var(--primary-color);
-        }
-    </style>
+<style>
+.home-filter__sort-item--active .home-filter__sort-item-link {
+	background-color: var(- -hover-color);
+	color: var(- -primary-color);
+}
+</style>
 </head>
 
 <body>
@@ -45,60 +45,7 @@
 			<div class="grid wide">
 				<div class="row sm-gutter">
 					<!-- begin category -->
-					<div class="col l-2 m-0 c-0">
-						<nav class="category">
-							<h3 class="category-heading">
-								<i class="category-heading-icon fas fa-list-ul"></i> Bộ Lọc Tìm
-								Kiếm
-							</h3>
-							<div class="category-group">
-								<div class="category-group-title">Hãng Sản Xuất</div>
-								<ul class="category-group-list"
-									id="category-group-list--produre">
-									<c:forEach items="${listPro }" var="produre">
-										<li class="category-group-item"><input type="checkbox"
-											class="category-group-item-check" id="${produre.produreId}"
-											value="${produre.proName }"> <a
-											href="listComputerByProdureName?proName=${produre.proName }"
-											class="category-group-item__link"
-											style="text-decoration: none; color: unset;">${produre.proName }</a></li>
-									</c:forEach>
-								</ul>
-							</div>
-							<div class="category-group">
-								<div class="category-group-title">Nơi Bán</div>
-								<ul class="category-group-list"
-									id="category-group-list--address">
-									<c:forEach items="${listAdd }" var="c">
-										<li class="category-group-item"><input type="checkbox"
-											class="category-group-item-check" value="${c}"> <a
-											href="listComputerByAdderss?address=${c}"
-											class="category-group-item__link"
-											style="text-decoration: none; color: unset;">${c}</a></li>
-									</c:forEach>
-								</ul>
-							</div>
-							<div class="category-group">
-								<div class="category-group-title">Khoảng Giá</div>
-								<div class="category-group-filter"
-									id="category-group-filter--price">
-									<input type="text" class="category-group-filter-input"
-										placeholder="đ Từ" name="priceShortest"
-										onkeypress="return isNumberKey(event)"> <i
-										class="fas fa-arrow-right"></i> <input type="text"
-										class="category-group-filter-input" placeholder="đ Đến"
-										name="priceTallest" onkeypress="return isNumberKey(event)">
-								</div>
-								<span id="error_inputPrice"
-									style="color: red; padding-left: 8px; display: block; display: -webkit-box; max-width: 100%; margin: 0 auto; font-size: 12px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"></span>
-								<button class="btn btn--primary category-group-filter-btn"
-									id="btn--price">Áp Dụng</button>
-							</div>
-							<a href="home"
-								class="btn btn--primary category-group-filter-btn category-group--margin">
-								Làm Mới </a>
-						</nav>
-					</div>
+					<jsp:include page="category.jsp"></jsp:include>
 					<!-- End category -->
 					<!-- Begin Product -->
 					<div class="col l-10 m-12 c-12">
@@ -123,7 +70,11 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.js"
 		integrity="sha512-CX7sDOp7UTAq+i1FYIlf9Uo27x4os+kGeoT7rgwvY+4dmjqV0IuE/Bl5hVsjnQPQiTOhAX1O2r2j5bjsFBvv/A=="
 		crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-	<script src="<c:url value="resources/js/EventCheckbox_Click.js" />"></script>
-	<script src="<c:url value="resources/js/EventBtnPrice_Click.js" />"></script>
+	<script src="<c:url value="resources/js/eventCheckbox__Click.js" />"></script>
+	<script src="<c:url value="resources/js/eventBtnPrice_Click.js" />"></script>
+	<script src="<c:url value="resources/js/test.js" />"></script>
+	<script>
+	
+	</script>
 </body>
 </html>

@@ -35,7 +35,7 @@ try {
 			}
 			else {
 				$('#btn--price').click(function() {
-					var sortBy;
+					/*var sortBy;
 					var sortByPrice = '';
 					var sortByPrice_str = '';
 					var iconSortPrice_str = '';
@@ -49,37 +49,32 @@ try {
 						sortByPrice = document.querySelector('.home-filter__sort-item.home-filter__sort-item--active').id;
 						sortByPrice_str = document.querySelector('#home-filter__sortbyPrice .home-filter__sort-lable').innerHTML;
 						iconSortPrice_str = document.querySelector('#home-filter__sortbyPrice .home-filter__sort-icon').innerHTML;
-					}
-					var priceShortest = txtpriceShortest.value;
-					var priceTallest = txtpriceTallest.value;
-					$.ajax({
-						type: "GET",
-						url: "listComputerBySort",
-						contentType: "application/json",
-						data: {
-							listId: listId.toString(),
-							listAddress: listAddress.toString(),
-							sortBy: sortBy.toString(),
-							priceShortest: priceShortest.toString(),
-							priceTallest: priceTallest.toString(),
-							sortByPrice: sortByPrice.toString(),
-							sortByPrice_str: sortByPrice_str.toString(),
-							iconSortPrice_str: iconSortPrice_str.toString()
-						},
-						success: function(response) {
-							$('div#product-container').html(response);
+					}*/
+					if (listProvider.length == 0 && listCatalog.length == 0) {
+						if (priceShortest > 0 && priceTallest == '') {
+							location.href = `getAllProductSearch?priceShortest=${priceShortest}`
+						} else if (priceShortest == '' && priceTallest >= 0) {
+							location.href = `getAllProductSearch?priceTallest=${priceTallest}`
 						}
-					});
-					// var priceShortest = txtpriceShortest.value;
-					// var priceTallest = txtpriceTallest.value;
-					// console.log(priceShortest);
-					// console.log(priceTallest);
+					}else if(listProvider.length != 0 && listCatalog.length == 0){
+						if (priceShortest > 0 && priceTallest == '') {
+							location.href = `getAllProductSearch?providerName=${listProvider}&priceShortest=${priceShortest}`
+						} else if (priceShortest == '' && priceTallest >= 0) {
+							location.href = `getAllProductSearch?providerName=${listProvider}&priceTallest=${priceTallest}`
+						}
+					}else if(listProvider.length == 0 && listCatalog.length != 0){
+						if (priceShortest > 0 && priceTallest == '') {
+							location.href = `getAllProductSearch?catalogName=${listCatalog}&priceShortest=${priceShortest}`
+						} else if (priceShortest == '' && priceTallest >= 0) {
+							location.href = `getAllProductSearch?catalogName=${listCatalog}&priceTallest=${priceTallest}`
+						}
+					}
+					errorPrice.style.height = '0px';
+					errorPrice.innerHTML = "";
 				})
-				errorPrice.style.height = '0px';
-				errorPrice.innerHTML = "";
 			}
 		});
-	})	;
+	});
 } catch (error) {
 	error.log()
 }

@@ -12,14 +12,14 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "Produre")
-public class Produre {
+@Table(name = "Provider")
+public class Provider {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "ProdureId")
-	private Integer produreId;
-	@Column(name = "ProName")
-	private String proName;
+	@Column(name = "providerId")
+	private Integer providerId;
+	@Column(name = "providerName")
+	private String providerName;
 	@Column(name = "Address")
 	private String address;
 	@Column(name = "Email")
@@ -29,39 +29,40 @@ public class Produre {
 	@Column(name = "Status")
 	private Boolean status;
 	
-	@OneToMany(mappedBy = "produre",fetch = FetchType.EAGER)
-	private Set<Computer> computer;
+	@OneToMany(mappedBy = "provider",fetch = FetchType.EAGER)
+	private Set<Product> product;
 
-	public Produre() {
+	public Provider() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	public Produre(Integer produreId, String proName, String address, String email, String phone, Boolean status,
-			Set<Computer> computer) {
+	public Provider(Integer providerId, String providerName, String address, String email, String phone, Boolean status,
+			Set<Product> product) {
 		super();
-		this.produreId = produreId;
-		this.proName = proName;
+		this.providerId = providerId;
+		this.providerName = providerName;
 		this.address = address;
 		this.email = email;
 		this.phone = phone;
 		this.status = status;
-		this.computer = computer;
+		this.product = product;
 	}
 
-	public Integer getProdureId() {
-		return produreId;
+	public Integer getProviderId() {
+		return providerId;
 	}
 
-	public void setProdureId(Integer produreId) {
-		this.produreId = produreId;
+	public void setProviderId(Integer providerId) {
+		this.providerId = providerId;
 	}
 
-	public String getProName() {
-		return proName;
+	public String getProviderName() {
+		return providerName;
 	}
 
-	public void setProName(String proName) {
-		this.proName = proName;
+	public void setProviderName(String providerName) {
+		this.providerName = providerName;
 	}
 
 	public String getAddress() {
@@ -96,13 +97,14 @@ public class Produre {
 		this.status = status;
 	}
 
-	public Set<Computer> getComputer() {
-		return computer;
+	public Set<Product> getProduct() {
+		return product;
 	}
 
-	public void setComputer(Set<Computer> computer) {
-		this.computer = computer;
+	public void setProduct(Set<Product> product) {
+		this.product = product;
 	}
 
+	
 	
 }
