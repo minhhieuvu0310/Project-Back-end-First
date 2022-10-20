@@ -48,6 +48,7 @@ try {
 					const element = listCatalog[i];
 					if (element == this.value) {
 						listCatalog.splice(i, 1);
+						
 					}
 				}
 			}
@@ -58,7 +59,6 @@ try {
 	$(document).ready(function() {
 		$('.category-group-item-check').click(function() {
 
-
 			var urlStr = document.location.search.substr(1).split('&');
 			if (urlStr == '') {
 				if (listProvider.length > 0 && listCatalog.length == 0) {
@@ -67,50 +67,74 @@ try {
 					location.href = `getAllProductSearch?catalogName=${listCatalog}`;
 				}
 			} else {
-				if (listProvider.length > 0 && listCatalog.length > 0) {
-					insertParam2('providerName', listProvider, 'catalogName', listCatalog);
-				} else if (listProvider.length > 0 && listCatalog.length == 0) {				
-					insertParam('providerName', listProvider);
-				} else if (listProvider.length == 0 && listCatalog.length > 0) {
-					insertParam('catalogName', listCatalog);
-				}
+				insertParam2('providerName', listProvider, 'catalogName', listCatalog);
 			}
 		})
 	});
 
-	/*var listProviderLink = document.getElementById('provider').getElementsByClassName('category-group-item-link');
-	for (const item of listProviderLink) {
-		item.addEventListener('click', function(event) {
-			if (this.querySelector('.category-group-item-check').checked == false) {
-				listProvider.push(this.querySelector('.category-group-item-check').value);
-				location.href = `getAllProductSearch?providerName=${listProvider}`
-			}
-			else {
-				for (let i = 0; i < listProvider.length; i++) {
-					const element = listProvider[i];
-					if (element == this.querySelector('.category-group-item-check').value) {
-						listProvider.splice(i, 1);
-						location.href = `getAllProductSearch?providerName=${listProvider}`;
-					}
-				}	
-			}
-		});
-	}*/
 } catch (error) {
 	console.log(error)
 }
 
+/*function insertParam(key, value) {
+	key = encodeURIComponent(key);
+	value = encodeURIComponent(value);
+
+	// kvp looks like ['key1=value1', 'key2=value2', ...]
+	var kvp = document.location.search.substr(1).split('&');
+	let i = 0;
+	let is = 0;
+	if (value != "") {
+		for (; i < kvp.length; i++) {
+			if (kvp[i].startsWith(key + '=')) {
+				let pair = kvp[i].split('=');
+				pair[1] = value;
+				kvp[i] = pair.join('=');
+				break;
+			}
+		}
+
+		if (i >= kvp.length) {
+			kvp[kvp.length] = [key, value].join('=');
+		}
+
+		var n = kvp.length
+		for (let i = 0; i < kvp.length; i++) {
+			if (kvp[i].startsWith('sortBy=')) {
+				const tam = kvp[i];
+				kvp[i] = kvp[n - 1];
+				kvp[n - 1] = tam;
+			} else {
+				continue
+			}
+		}
+		console.log(kvp);
+	} else {
+		for (; is < kvp.length; is++) {
+			if (kvp[is].startsWith(key + '=') == true) {
+				kvp.splice(is, 1);
+				console.log('Đã vào đây rồi và có value = ' + value + ' is là :' + is);
+				break;
+			}
+			console.log(kvp[is].startsWith(key + '='));
+		}
+	}
+	// can return this or...
+	let params = kvp.join('&');
+	console.log(params);
+
+
+	// reload page with new params
+	document.location.search = params;
+}*/
 function insertParam(key, value) {
 	key = encodeURIComponent(key);
 	value = encodeURIComponent(value);
 
-	if (value = '') {
-
-	}
 	// kvp looks like ['key1=value1', 'key2=value2', ...]
 	var kvp = document.location.search.substr(1).split('&');
 	let i = 0;
-
+	let is = 0;
 	for (; i < kvp.length; i++) {
 		if (kvp[i].startsWith(key + '=')) {
 			let pair = kvp[i].split('=');
@@ -123,7 +147,9 @@ function insertParam(key, value) {
 	if (i >= kvp.length) {
 		kvp[kvp.length] = [key, value].join('=');
 	}
+	console.log(kvp);
 
+	//kiểm tra xem có sortBy hay không
 	var n = kvp.length
 	for (let i = 0; i < kvp.length; i++) {
 		if (kvp[i].startsWith('sortBy=')) {
@@ -134,8 +160,14 @@ function insertParam(key, value) {
 			continue
 		}
 	}
-	console.log(kvp);
-
+	//kiểm tra xem có phần tử nào có value = '' hay không
+	for (; is < kvp.length; is++) {
+		let element = kvp[is].split('=');
+		if (element[1] == '') {
+			kvp.splice(is, 1);
+			continue;
+		}
+	}
 	// can return this or...
 	let params = kvp.join('&');
 	console.log(params);
@@ -144,6 +176,7 @@ function insertParam(key, value) {
 	// reload page with new params
 	document.location.search = params;
 }
+
 
 function insertParam2(key1, value1, key2, value2) {
 	key1 = encodeURIComponent(key1);
@@ -181,6 +214,8 @@ function insertParam2(key1, value1, key2, value2) {
 		kvp[kvp.length] = [key2, value2].join('=');
 	}
 
+	console.log(kvp);
+
 	var n = kvp.length
 	for (let i = 0; i < kvp.length; i++) {
 		if (kvp[i].startsWith('sortBy=')) {
@@ -191,15 +226,31 @@ function insertParam2(key1, value1, key2, value2) {
 			continue
 		}
 	}
-	console.log(kvp);
+	
+	let is = 0;
+	var listValeEmpty = [''];
+	for (; is < kvp.length; is++) {
+		let element = kvp[is].split('=');
+		console.log(is + ' ' + kvp[is]);
+		if (element[1] == '') {
+			listValeEmpty.push(kvp[is]);
+		}
+	}
+	
+	kvp = kvp.filter(val => !listValeEmpty.includes(val));
 
-	// can return this or...
 	let params = kvp.join('&');
 	console.log(params);
+	if (params == '') {
+		location.href = 'home';
+	} else {
+		// reload page with new params
+		document.location.search = params;
+	}
 
 
-	// reload page with new params
-	document.location.search = params;
+
+
 }
 
 function removeParam(key, sourceURL) {
@@ -215,7 +266,7 @@ function removeParam(key, sourceURL) {
 				params_arr.splice(i, 1);
 			}
 		}
-		
+
 		if (params_arr.length) rtn = rtn + "?" + params_arr.join("&");
 	}
 	location.href = rtn;
