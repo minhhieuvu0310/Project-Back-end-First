@@ -68,34 +68,20 @@
 	<!-- pagination -->
 	<ul class="pagination home-product__pagination" id="pagination">
 		<li class="pagination-item"
-			style="${listPage == null ? 'display:none' : ''}"><a
-			href="${nameController }?page=${page-1}"
+			style="${totalPage == 0 ? 'display:none' : ''}"><a
 			class="pagination-item__link pagination-item__link--disable"> <i
 				class="fas fa-chevron-left pagination-item__icon"></i>
 		</a></li>
 		<c:forEach items="${listPage }" var="page">
-			<li class="pagination-item pagination-item--number"
-				id="page-${page }"><a
-				href="${nameController }?page=${page}"
-				class="pagination-item__link">${page }</a></li>
+			<li class="pagination-item pagination-item--number" id="page-${page}"
+				value="${page }">
+				<p class="pagination-item__link">${page }</p>
+			</li>
 		</c:forEach>
 		<li class="pagination-item"
-			style="${listPage == null ? 'display:none' : ''}"><a
-			href="${nameController }?page=${page + 1}"
+			style="${totalPage == 0 ? 'display:none' : ''}"><a
 			class="pagination-item__link"> <i
 				class="fas fa-chevron-right pagination-item__icon"></i>
 		</a></li>
 	</ul>
 </div>
-
-<script>
-	/**
-	 * Sự kiện click vào pagination
-	 */
-	try {
-		document.getElementById('page-${page == null ? "1" : page}').classList
-				.add('pagination-item--active');
-	} catch (error) {
-		error.log()
-	}
-</script>

@@ -50,12 +50,14 @@
 		<div class="category-group">
 			<div class="category-group-title">Khoảng Giá</div>
 			<div class="category-group-filter" id="category-group-filter--price">
-				<input type="text" class="category-group-filter-input"
-					placeholder="đ Từ" name="priceShortest"
-					onkeypress="return isNumberKey(event)"> <i
-					class="fas fa-arrow-right"></i> <input type="text"
-					class="category-group-filter-input" placeholder="đ Đến"
-					name="priceTallest" onkeypress="return isNumberKey(event)">
+						<input type="text" 
+							class="category-group-filter-input"placeholder="đ Từ" 
+							name="priceShortest" onkeypress="return isNumberKey(event)" value="${priceShortest}"> 
+					<i class="fas fa-arrow-right"></i>
+						<input type="text"
+								class="category-group-filter-input" placeholder="đ Đến"
+								name="priceTallest" onkeypress="return isNumberKey(event)" value="${priceTallest}">
+				
 			</div>
 			<span id="error_inputPrice"
 				style="color: red; padding-left: 8px; display: block; display: -webkit-box; max-width: 100%; margin: 0 auto; font-size: 12px; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; text-overflow: ellipsis;"></span>

@@ -45,11 +45,3 @@
 	</div>
 </div>
 
-<script>
-	<c:if test = "${!sortBy.contains('Price')}">
-	document.getElementById('sortBy-${sortBy == null ? "relevancy" : sortBy}').classList
-			.add('btn--primary');
-	
-	</c:if>
-
-</script>

@@ -29,13 +29,12 @@ import app.entities.Provider;
 public class HomeController {
 	@Autowired
 	private ProductDAO productDAO;
-	
+
 	@Autowired
 	private ProviderDAO providerDAO;
-	
+
 	@Autowired
 	private CataLogsDAO cataLogsDAO;
-
 
 	@RequestMapping(value = { "/", "home" })
 	public String home(@RequestParam(name = "page", required = false) Integer page, Model model) {
@@ -48,7 +47,8 @@ public class HomeController {
 		} else {
 			offset = (page - 1) * maxResult;
 		}
-		List<Product> products = productDAO.getAllProduct(offset, maxResult);
+		List<Product> lstproducts = productDAO.getAllProduct();
+		List<Product> products = productDAO.listProPa(lstproducts, offset, maxResult);
 		List<CataLogs> allcatalog = cataLogsDAO.getAllCataLog();
 		List<Provider> allProvider = providerDAO.getAllProvider();
 		model.addAttribute("listProduct", products);
@@ -68,11 +68,15 @@ public class HomeController {
 		model.addAttribute("nameController", "home");
 		return "user/index";
 	}
-	@RequestMapping(value = {"/getAllProductSearch"})
-	public String getAllProductSearch(@RequestParam(name = "page", required = false) Integer page,@RequestParam(name = "providerName", required = false) String providerName
-					,@RequestParam(name = "catalogName" , required = false) String catalogName
-					,@RequestParam(name = "sortBy" , required = false) String sortBy
-					, Model model) {
+
+	@RequestMapping(value = { "/getAllProductSearch" })
+	public String getAllProductSearch(@RequestParam(name = "page", required = false) Integer page,
+			@RequestParam(name = "providerName", required = false) String providerName,
+			@RequestParam(name = "catalogName", required = false) String catalogName,
+			@RequestParam(name = "sortBy", required = false) String sortBy,
+			@RequestParam(name = "priceShortest", required = false) String priceShortest,
+			@RequestParam(name = "priceTallest", required = false) String priceTallest,
+			@RequestParam(name = "sortByPrice", required = false) String sortByPrice, Model model) {
 		Integer offset, maxResult;
 
 		maxResult = 10;
@@ -82,34 +86,74 @@ public class HomeController {
 		} else {
 			offset = (page - 1) * maxResult;
 		}
+
+		List<Product> productsProvider = new ArrayList<Product>();
 		List<String> lstProvider = new ArrayList<String>();
 		if (providerName == null || providerName.isEmpty()) {
-			lstProvider = null;
-		}else {
+			productsProvider = null;
+		} else {
 			String items[] = providerName.split(",");
 			for (int i = 0; i < items.length; i++) {
 				lstProvider.add(items[i]);
 			}
+			productsProvider = productDAO.getAllProductByProvider(lstProvider);
 		}
-		
+
+		List<Product> productsCatalog = new ArrayList<Product>();
 		List<String> lstCataLog = new ArrayList<String>();
 		if (catalogName == null || catalogName.isEmpty()) {
-			catalogName = null;
-		}else {
+			productsCatalog = null;
+		} else {
 			String items[] = catalogName.split(",");
 			for (int i = 0; i < items.length; i++) {
 				lstCataLog.add(items[i]);
 			}
+			productsCatalog = productDAO.getAllProductByCatalog(lstCataLog);
+		}
+
+		List<Product> productsPrice = new ArrayList<Product>();
+		if (priceShortest == null && priceTallest == null) {
+			productsPrice = null;
+		} else if (priceShortest != null && priceTallest == null) {
+			Float MinPrice = Float.parseFloat(priceShortest);
+			productsPrice = productDAO.getAllProductByPriceShortest(MinPrice);
+		} else if (priceShortest != null && priceTallest == null) {
+			Float MaxPrice = Float.parseFloat(priceTallest);
+			productsPrice = productDAO.getAllProductByPriceTallest(MaxPrice);
+		} else if (priceShortest != null && priceTallest != null) {
+			Float MinPrice = Float.parseFloat(priceShortest);
+			Float MaxPrice = Float.parseFloat(priceTallest);
+			productsPrice = productDAO.getAllProductByPrice(MinPrice,MaxPrice);
 		}
 		
-		List<Product> products = productDAO.getAllProduct(offset, maxResult);
+
+		
+		
+
+		List<Product> productsSortBy = new ArrayList<Product>();
+		if(sortBy == null || sortBy.equals("revancy")) {
+			productsSortBy = null;
+		}else if(sortBy.equals("new") || sortBy.equals("sales")) {
+			productsSortBy = productDAO.getAllProductBySortBy(sortBy);
+		}else if(sortBy.equals("Price")) {
+			productsSortBy = null;
+		}
+		
+		List<Product> productAll = productDAO.getAllProduct();
+		List<Product> lst1 = productDAO.lstPro(productAll, productsProvider);
+		List<Product> lst2 = productDAO.lstPro(lst1, productsCatalog);
+		List<Product> lst3 = productDAO.lstPro(lst2, productsPrice);
+		List<Product> lst4 = productDAO.lstPro(lst3, productsSortBy);
+		List<Product> lstproduct = lst4;
+		List<Product> products = productDAO.listProPa(lstproduct, offset, maxResult);
 		List<CataLogs> allcatalog = cataLogsDAO.getAllCataLog();
 		List<Provider> allProvider = providerDAO.getAllProvider();
+
 		model.addAttribute("listProduct", products);
 		model.addAttribute("listProvider", allProvider);
 		model.addAttribute("listCatalogs", allcatalog);
 
-		Long totalCom = (long) productDAO.getAllProduct().size();
+		Long totalCom = (long) lstproduct.size();
 		int totalPage = (int) (totalCom / maxResult);
 		totalPage = totalPage + (totalCom % maxResult == 0 ? 0 : 1);
 		List<Integer> listPage = new ArrayList<>();
@@ -119,12 +163,25 @@ public class HomeController {
 		model.addAttribute("listPage", listPage);
 		model.addAttribute("totalPage", totalPage);
 		model.addAttribute("page", page);
-		model.addAttribute("nameController", "home");
-		model.addAttribute("lstProvider",lstProvider);
-		model.addAttribute("lstCataLog",lstCataLog);
-		System.out.println("ProciderId la : "+lstProvider);
-		System.out.println("catalogName la : "+lstCataLog);
-		System.out.println("sortBy : " + sortBy);
+		model.addAttribute("nameController", "getAllProductSearch");
+		model.addAttribute("lstProvider", lstProvider);
+		model.addAttribute("lstCataLog", lstCataLog);
+		model.addAttribute("priceShortest", priceShortest);
+		model.addAttribute("priceTallest", priceTallest);
+		model.addAttribute("sortBy", sortBy);
+		model.addAttribute("sortByPrice", sortByPrice);
+
+		if (products.isEmpty() || products == null) {
+			model.addAttribute("messageNotProduct", "Xin Lỗi bạn Shop không có sản phẩm bạn muốn tìm kiếm");
+		}
+
+		System.out.println("ProciderId la : " + lstProvider);
+		System.out.println("catalogName la : " + lstCataLog);
+		System.out.println("priceShortest la : " + priceShortest);
+		System.out.println("priceTallest la : " + priceTallest);
+		System.out.println("sortBy la : " + sortBy);
+		System.out.println("sortByPrice la : " + sortByPrice);
+		System.out.println("Page : " + page);
 		return "user/index";
 	}
 }

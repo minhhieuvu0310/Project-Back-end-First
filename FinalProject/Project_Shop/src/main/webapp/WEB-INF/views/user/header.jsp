@@ -167,21 +167,6 @@
 					</div>
 					<!--End Search History  -->
 				</div>
-				<div class="header__search-selection hiden-on-mobile-tablet">
-					<span class="header__search-select-lable"> Trong Shop <i
-						class="header__search-select-icon fa-solid fa-chevron-down"></i>
-					</span>
-					<ul class="header__search-option">
-						<li
-							class="header__search-option-item header__search-option-item-active">
-							<span>Trong Shop</span> <i
-							class="header__search-option-icon fa-solid fa-check"></i>
-						</li>
-						<li class="header__search-option-item "><span>Ngoài
-								Shop</span> <i class="header__search-option-icon fa-solid fa-check"></i>
-						</li>
-					</ul>
-				</div>
 				<button class="header__search-btn">
 					<i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
 				</button>
