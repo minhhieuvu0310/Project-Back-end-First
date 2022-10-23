@@ -138,7 +138,7 @@ public class HomeController {
 		}else if(sortBy.equals("new") || sortBy.equals("sales")|| sortBy.equals("relevancy")) {
 			productsSortBy = productDAO.getAllProductBySortBy(sortBy);
 		}else if(sortBy.equals("Price")) {
-			productsSortBy = null;
+			productsSortBy = productDAO.getAllProductBySortPrice(sortByPrice);
 		}
 		
 		//Tìm kiếm theo KeySearch

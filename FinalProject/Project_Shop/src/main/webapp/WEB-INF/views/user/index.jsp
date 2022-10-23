@@ -29,9 +29,9 @@
 	rel="stylesheet">
 <link href="<c:url value="resources/css/base.css" />" rel="stylesheet">
 <style>
-.home-filter__sort-item--active .home-filter__sort-item-link {
-	background-color: var(- -hover-color);
-	color: var(- -primary-color);
+.home-filter__sort-item.home-filter__sort-item--active .home-filter__sort-item-link{
+	background-color: var(--hover-color);
+	color: #EE4D2D;
 }
 
 .NoProduct {
@@ -136,7 +136,7 @@
 	<script src="<c:url value="resources/js/insertParam.js" />"></script>
 	<script src="<c:url value="resources/js/eventCheckbox__Click.js" />"></script>
 	<script src="<c:url value="resources/js/eventBtnPrice__Click.js" />"></script>
-	<script src="<c:url value="resources/js/test.js" />"></script>
+	<script src="<c:url value="resources/js/SortFilter.js" />"></script>
 	<script src="<c:url value="resources/js/KeySearch.js" />"></script>
 	<script>
 		try {

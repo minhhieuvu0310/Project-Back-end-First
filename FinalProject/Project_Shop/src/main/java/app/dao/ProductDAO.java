@@ -84,14 +84,9 @@ public interface ProductDAO {
 	public List<Product> getAllProductByKey(String KeySearch);
 	
 	/**
-     * Lấy danh sách tất cả product theo giá tăng dần
+     * Lấy danh sách tất cả product theo giá tăng dần hoặc giảm
      * @return list product
      */
-	public List<Product> getAllProductBySortASC();
+	public List<Product> getAllProductBySortPrice(String sortPrice);
 	
-	/**
-     * Lấy danh sách tất cả product theo giá giảm dần
-     * @return list product
-     */
-	public List<Product> getAllProductBySortDESC();
 }

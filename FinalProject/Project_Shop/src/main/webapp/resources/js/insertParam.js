@@ -123,11 +123,11 @@ function insertParam2(key1, value1, key2, value2) {
 	kvp = kvp.filter(val => !listValeEmpty.includes(val));
 	for (let i = 0; i < kvp.length; i++) {
 		if (kvp[i].startsWith('page=')) {
-			kvp.splice(i,1);
+			kvp.splice(i, 1);
 			break;
-		} 
+		}
 	}
-	
+
 	let params = kvp.join('&');
 	console.log(params);
 	if (params == '') {

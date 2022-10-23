@@ -22,11 +22,11 @@ public class ProductDAOimpl implements ProductDAO {
 	@Override
 	public List<Product> lstPro(List<Product> lst1, List<Product> lst2) {
 		List<Product> lstProduct = new ArrayList<Product>();
-		if(lst1 == null && lst2 != null) {
+		if (lst1 == null && lst2 != null) {
 			lstProduct = lst2;
-		}else if(lst1 != null && lst2 == null) {
+		} else if (lst1 != null && lst2 == null) {
 			lstProduct = lst1;
-		}else if(lst1 != null && lst2 != null) {
+		} else if (lst1 != null && lst2 != null) {
 			List<Product> lstproMax = (lst1.size() > lst2.size()) ? lst1 : lst2;
 			List<Product> lstproMin = (lst1.size() < lst2.size()) ? lst1 : lst2;
 			Set<String> collect = lstproMin.stream().map(i -> i.getProductId().toString().toLowerCase())
@@ -170,7 +170,7 @@ public class ProductDAOimpl implements ProductDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List list = session.createQuery(
-					"from Product product where (com.priceOutput-(com.priceOutput * com.discount)) between (:priceShortest and :priceTallest) and product.status = 1")
+					"from Product product where (product.priceOutput-(product.priceOutput * product.discount)) between (:priceShortest and :priceTallest) and product.status = 1")
 					.setParameter("priceShortest", priceShortest).setParameter("priceTallest", priceTallest).list();
 			return list;
 		} catch (Exception e) {
@@ -210,11 +210,12 @@ public class ProductDAOimpl implements ProductDAO {
 	public List<Product> getAllProductByKey(String KeySearch) {
 		Session session = sessionFactory.openSession();
 		try {
-			if(KeySearch==null || KeySearch.length()==0)
+			if (KeySearch == null || KeySearch.length() == 0)
 				KeySearch = "%";
 			else
-				KeySearch = "%"+KeySearch+"%";
-			List list = session.createQuery("from Product product where ((product.productName like :KeySearch) or (product.productContent like :KeySearch) or (product.productContentDetail like :KeySearch)) and product.status = 1")
+				KeySearch = "%" + KeySearch + "%";
+			List list = session.createQuery(
+					"from Product product where ((product.productName like :KeySearch) or (product.productContent like :KeySearch) or (product.productContentDetail like :KeySearch)) and product.status = 1")
 					.setParameter("KeySearch", KeySearch).list();
 			return list;
 		} catch (Exception e) {
@@ -226,14 +227,27 @@ public class ProductDAOimpl implements ProductDAO {
 	}
 
 	@Override
-	public List<Product> getAllProductBySortASC() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Product> getAllProductBySortDESC() {
-		// TODO Auto-generated method stub
+	public List<Product> getAllProductBySortPrice(String sortPrice) {
+		Session session = sessionFactory.openSession();
+		try {
+			if(sortPrice.equals("desc")) {
+				List list = session.createQuery(
+					"from Product product where product.status = 1 order by (product.priceOutput-(product.priceOutput * product.discount)) desc")
+					.list();
+				return list;
+			}else if(sortPrice.equals("asc")) {
+				List list = session.createQuery(
+						"from Product product where product.status = 1 order by (product.priceOutput-(product.priceOutput * product.discount)) asc")
+						.list();
+					return list;
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
 		return null;
 	}
 
