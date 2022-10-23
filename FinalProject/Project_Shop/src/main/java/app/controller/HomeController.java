@@ -76,6 +76,7 @@ public class HomeController {
 			@RequestParam(name = "sortBy", required = false) String sortBy,
 			@RequestParam(name = "priceShortest", required = false) String priceShortest,
 			@RequestParam(name = "priceTallest", required = false) String priceTallest,
+			@RequestParam(name = "KeySearch", required = false) String KeySearch,
 			@RequestParam(name = "sortByPrice", required = false) String sortByPrice, Model model) {
 		Integer offset, maxResult;
 
@@ -86,7 +87,8 @@ public class HomeController {
 		} else {
 			offset = (page - 1) * maxResult;
 		}
-
+		
+		//Lấy sản phẩm theo Provider
 		List<Product> productsProvider = new ArrayList<Product>();
 		List<String> lstProvider = new ArrayList<String>();
 		if (providerName == null || providerName.isEmpty()) {
@@ -99,6 +101,7 @@ public class HomeController {
 			productsProvider = productDAO.getAllProductByProvider(lstProvider);
 		}
 
+		//Lấy sản Phẩm theo CataLog
 		List<Product> productsCatalog = new ArrayList<Product>();
 		List<String> lstCataLog = new ArrayList<String>();
 		if (catalogName == null || catalogName.isEmpty()) {
@@ -111,6 +114,7 @@ public class HomeController {
 			productsCatalog = productDAO.getAllProductByCatalog(lstCataLog);
 		}
 
+		//Lấy sản phẩm theo giá
 		List<Product> productsPrice = new ArrayList<Product>();
 		if (priceShortest == null && priceTallest == null) {
 			productsPrice = null;
@@ -126,21 +130,28 @@ public class HomeController {
 			productsPrice = productDAO.getAllProductByPrice(MinPrice,MaxPrice);
 		}
 		
-
+		//Lấy sản phẩm theo sắp xếp
 		
-		
-
 		List<Product> productsSortBy = new ArrayList<Product>();
-		if(sortBy == null || sortBy.equals("revancy")) {
+		if(sortBy == null ) {
 			productsSortBy = null;
-		}else if(sortBy.equals("new") || sortBy.equals("sales")) {
+		}else if(sortBy.equals("new") || sortBy.equals("sales")|| sortBy.equals("relevancy")) {
 			productsSortBy = productDAO.getAllProductBySortBy(sortBy);
 		}else if(sortBy.equals("Price")) {
 			productsSortBy = null;
 		}
 		
+		//Tìm kiếm theo KeySearch
+		List<Product> productsKeys = new ArrayList<Product>();
+		if(KeySearch == null) {
+			productsKeys = null;
+		}else {
+			productsKeys = productDAO.getAllProductByKey(KeySearch);
+		}
+		
 		List<Product> productAll = productDAO.getAllProduct();
-		List<Product> lst1 = productDAO.lstPro(productAll, productsProvider);
+		List<Product> lst0 = productDAO.lstPro(productAll, productsKeys);
+		List<Product> lst1 = productDAO.lstPro(lst0, productsProvider);
 		List<Product> lst2 = productDAO.lstPro(lst1, productsCatalog);
 		List<Product> lst3 = productDAO.lstPro(lst2, productsPrice);
 		List<Product> lst4 = productDAO.lstPro(lst3, productsSortBy);
@@ -170,6 +181,7 @@ public class HomeController {
 		model.addAttribute("priceTallest", priceTallest);
 		model.addAttribute("sortBy", sortBy);
 		model.addAttribute("sortByPrice", sortByPrice);
+		model.addAttribute("KeySearch", KeySearch);
 
 		if (products.isEmpty() || products == null) {
 			model.addAttribute("messageNotProduct", "Xin Lỗi bạn Shop không có sản phẩm bạn muốn tìm kiếm");
@@ -182,6 +194,7 @@ public class HomeController {
 		System.out.println("sortBy la : " + sortBy);
 		System.out.println("sortByPrice la : " + sortByPrice);
 		System.out.println("Page : " + page);
+		System.out.println("KeySearch : " + KeySearch);
 		return "user/index";
 	}
 }

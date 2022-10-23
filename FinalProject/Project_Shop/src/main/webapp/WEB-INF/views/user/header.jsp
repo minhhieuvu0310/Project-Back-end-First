@@ -153,21 +153,9 @@
 				class="mobile-search-checkbox">
 			<div class="header__search">
 				<div class="header__search-input-wrap">
-					<input type="text" class="header__search-input"
-						placeholder="Tìm Kiếm Sản Phẩm">
-					<!--Begin Search History  -->
-					<div class="header__search-history">
-						<h3 class="header__search-history-heading">Lịch sử tìm kiếm</h3>
-						<ul class="header__search-history-list">
-							<li class="header__search-history-item"><a href=""
-								class="header__search-history-link">Kem Dưỡng Da</a></li>
-							<li class="header__search-history-item"><a href=""
-								class="header__search-history-link">Kem Trị mụn</a></li>
-						</ul>
-					</div>
-					<!--End Search History  -->
+					<input type="text" class="header__search-input" placeholder="Tìm Kiếm Sản Phẩm" id="KeySearch" value="${KeySearch }">
 				</div>
-				<button class="header__search-btn">
+				<button class="header__search-btn" id="btn--searchKey">
 					<i class="header__search-btn-icon fa-solid fa-magnifying-glass"></i>
 				</button>
 			</div>

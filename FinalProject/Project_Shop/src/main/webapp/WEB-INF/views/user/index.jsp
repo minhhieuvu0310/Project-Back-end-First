@@ -74,26 +74,27 @@
 		<div class="container">
 			<div class="grid wide">
 				<div class="row sm-gutter">
-					<c:if test="${listProduct == null || listProduct.isEmpty()}">
-						<jsp:include page="NoProduct.jsp"></jsp:include>
-					</c:if>
-					<c:if test="${listProduct != null && !listProduct.isEmpty()}">
-						<!-- begin category -->
-						<jsp:include page="category.jsp"></jsp:include>
-						<!-- End category -->
-						<!-- Begin Product -->
-						<div class="col l-10 m-12 c-12">
-							<div id="product-container">
-								<!-- home filter -->
-								<jsp:include page="home-filter.jsp"></jsp:include>
-								<!-- mobile-category -->
-								<jsp:include page="mobile-category.jsp"></jsp:include>
+					<!-- begin category -->
+					<jsp:include page="category.jsp"></jsp:include>
+					<!-- End category -->
+					<!-- Begin Product -->
+					<div class="col l-10 m-12 c-12">
+						<div id="product-container">
+							<!-- home filter -->
+							<jsp:include page="home-filter.jsp"></jsp:include>
+							<!-- mobile-category -->
+							<jsp:include page="mobile-category.jsp"></jsp:include>
+							<c:if test="${listProduct == null || listProduct.isEmpty()}">
+								<jsp:include page="NoProduct.jsp"></jsp:include>
+							</c:if>
+							<c:if test="${listProduct != null && !listProduct.isEmpty()}">
 								<!-- home product -->
 								<jsp:include page="product.jsp"></jsp:include>
-							</div>
+							</c:if>
 						</div>
-						<!-- End Product -->
-					</c:if>
+					</div>
+					<!-- End Product -->
+
 
 				</div>
 			</div>
@@ -111,9 +112,10 @@
 		 * Sự kiện click vào pagination
 		 */
 		try {
-			document.getElementById('page-${page == null ? "1" : page}').classList
-			.add('pagination-item--active');
-
+			<c:if test="${listProduct != null && !listProduct.isEmpty()}">
+				document.getElementById('page-${page == null ? "1" : page}').classList
+				.add('pagination-item--active');
+			</c:if>
 			<c:if test = "${!sortBy.contains('Price')}">
 				document.getElementById('sortBy-${sortBy == null ? "relevancy" : sortBy}').classList
 						.add('btn--primary');
@@ -135,6 +137,7 @@
 	<script src="<c:url value="resources/js/eventCheckbox__Click.js" />"></script>
 	<script src="<c:url value="resources/js/eventBtnPrice__Click.js" />"></script>
 	<script src="<c:url value="resources/js/test.js" />"></script>
+	<script src="<c:url value="resources/js/KeySearch.js" />"></script>
 	<script>
 		try {
 			$(document).ready(function() {

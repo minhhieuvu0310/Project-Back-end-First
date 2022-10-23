@@ -16,13 +16,11 @@ try {
 			var Provider = this.value;
 			if (this.checked == true) {
 				listProvider.push(Provider);
-				//location.href = `getAllProductSearch?providerName=${listProvider}`;
 			} else {
 				for (let i = 0; i < listProvider.length; i++) {
 					const element = listProvider[i];
 					if (element == this.value) {
 						listProvider.splice(i, 1);
-						//location.href=`getAllProductSearch?providerName=${listProvider}`;
 					}
 				}
 			}
@@ -73,3 +71,4 @@ try {
 } catch (error) {
 	console.log(error)
 }
+

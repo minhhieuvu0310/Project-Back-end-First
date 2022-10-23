@@ -185,24 +185,55 @@ public class ProductDAOimpl implements ProductDAO {
 	public List<Product> getAllProductBySortBy(String SortBy) {
 		Session session = sessionFactory.openSession();
 		try {
-			if (SortBy.contains("new")) {
+			if (SortBy.equals("new")) {
 				List list = session.createQuery(
 						"from Product product where trunc(mod(months_between(sysdate,product.created),12)) <= 2 and product.status = 1")
 						.list();
 				return list;
-			} else if (SortBy.contains("sales")) {
+			} else if (SortBy.equals("sales")) {
 				List list = session
-						.createQuery("from Product product where product.buyItem >= 101 and product.status = 1").list();
+						.createQuery("from Product product where product.buyItem >= 50 and product.status = 1").list();
 				return list;
-			} else {
-				List list = null;
-				return list;
+			} else if (SortBy.equals("relevancy")) {
+				List<Product> allProduct = getAllProduct();
+				return allProduct;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			session.close();
 		}
+		return null;
+	}
+
+	@Override
+	public List<Product> getAllProductByKey(String KeySearch) {
+		Session session = sessionFactory.openSession();
+		try {
+			if(KeySearch==null || KeySearch.length()==0)
+				KeySearch = "%";
+			else
+				KeySearch = "%"+KeySearch+"%";
+			List list = session.createQuery("from Product product where ((product.productName like :KeySearch) or (product.productContent like :KeySearch) or (product.productContentDetail like :KeySearch)) and product.status = 1")
+					.setParameter("KeySearch", KeySearch).list();
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
+	@Override
+	public List<Product> getAllProductBySortASC() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Product> getAllProductBySortDESC() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
