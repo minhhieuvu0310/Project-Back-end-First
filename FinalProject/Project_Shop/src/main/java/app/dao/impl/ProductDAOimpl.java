@@ -251,4 +251,18 @@ public class ProductDAOimpl implements ProductDAO {
 		return null;
 	}
 
+	@Override
+	public Product getProductById(Integer proId) {
+		Session session = sessionFactory.openSession();
+		try {
+			Product product = session.get(Product.class,proId);
+			return product;
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return null;
+	}
+
 }

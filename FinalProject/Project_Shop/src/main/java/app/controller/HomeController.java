@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.server.PathParam;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import app.dao.CataLogsDAO;
+import app.dao.ImageLinkDAO;
 import app.dao.ProductDAO;
 import app.dao.ProviderDAO;
 import app.entities.CataLogs;
@@ -35,13 +37,14 @@ public class HomeController {
 
 	@Autowired
 	private CataLogsDAO cataLogsDAO;
+	
+	@Autowired
+	private ImageLinkDAO imageLinkDAO;
 
 	@RequestMapping(value = { "/", "home" })
 	public String home(@RequestParam(name = "page", required = false) Integer page, Model model) {
 		Integer offset, maxResult;
-
 		maxResult = 10;
-
 		if (page == null) {
 			offset = 0;
 		} else {
@@ -183,9 +186,6 @@ public class HomeController {
 		model.addAttribute("sortByPrice", sortByPrice);
 		model.addAttribute("KeySearch", KeySearch);
 
-		if (products.isEmpty() || products == null) {
-			model.addAttribute("messageNotProduct", "Xin Lỗi bạn Shop không có sản phẩm bạn muốn tìm kiếm");
-		}
 
 		System.out.println("ProciderId la : " + lstProvider);
 		System.out.println("catalogName la : " + lstCataLog);
@@ -197,4 +197,16 @@ public class HomeController {
 		System.out.println("KeySearch : " + KeySearch);
 		return "user/index";
 	}
+	
+	@RequestMapping(value = { "/productDetails" })
+	public String Product(@PathParam("productId") Integer productId , Model model) {
+		Product productById = productDAO.getProductById(productId);
+		List<String> allImageProduct = imageLinkDAO.getAllImageProduct(productId);
+		model.addAttribute("allImages",allImageProduct);
+		model.addAttribute("product", productById);
+		System.out.println("productId : " + productId);
+		System.out.println("all image : " + allImageProduct);
+		return "user/ProductDetails";
+	}
+	
 }

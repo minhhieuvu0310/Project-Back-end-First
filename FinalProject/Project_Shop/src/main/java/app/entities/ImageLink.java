@@ -24,4 +24,51 @@ public class ImageLink {
 	@ManyToOne
 	@JoinColumn(name = "productId", referencedColumnName = "productId")
 	private Product product;
+
+	public ImageLink() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public ImageLink(Integer imageLinkId, String imageLinkName, Boolean status, Product product) {
+		super();
+		this.imageLinkId = imageLinkId;
+		this.imageLinkName = imageLinkName;
+		this.status = status;
+		this.product = product;
+	}
+
+	public Integer getImageLinkId() {
+		return imageLinkId;
+	}
+
+	public void setImageLinkId(Integer imageLinkId) {
+		this.imageLinkId = imageLinkId;
+	}
+
+	public String getImageLinkName() {
+		return imageLinkName;
+	}
+
+	public void setImageLinkName(String imageLinkName) {
+		this.imageLinkName = imageLinkName;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Product getProduct() {
+		return product;
+	}
+
+	public void setProduct(Product product) {
+		this.product = product;
+	}
+	
+	
 }

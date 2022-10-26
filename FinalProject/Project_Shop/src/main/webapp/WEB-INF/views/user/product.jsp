@@ -9,7 +9,7 @@
 	<div id="list-product" class="row sm-gutter">
 		<c:forEach items="${listProduct }" var="product">
 			<div class="col l-2-4 m-4 c-6  home-product-item">
-				<a href="computerDetails?comId = ${product.productId }"
+				<a href="productDetails?productId=${product.productId }"
 					class="home-product-item-link">
 					<div class="home-product-item__img"
 						style="background-image:url(<c:url value='resources'/>/image/buy/${product.images });"></div>
@@ -74,7 +74,7 @@
 		</a></li>
 		<c:forEach items="${listPage }" var="page">
 			<li class="pagination-item pagination-item--number" id="page-${page}"
-				value="${page }">
+				value="${page }" style="cursor: pointer;">
 				<p class="pagination-item__link">${page }</p>
 			</li>
 		</c:forEach>

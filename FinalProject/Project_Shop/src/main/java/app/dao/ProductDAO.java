@@ -89,4 +89,10 @@ public interface ProductDAO {
      */
 	public List<Product> getAllProductBySortPrice(String sortPrice);
 	
+	/**
+     * Lấy danh sách tất cả product theo id của sản phẩm
+     * @return list product
+     */
+	public Product getProductById(Integer proId);
+	
 }
