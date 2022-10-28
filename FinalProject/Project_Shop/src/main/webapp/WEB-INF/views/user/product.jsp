@@ -60,7 +60,6 @@
 							</div>
 						</c:if>
 					</div>
-					<div class="home-product-item__footer">Tìm sản phẩm tương tự</div>
 				</a>
 			</div>
 		</c:forEach>

@@ -7,10 +7,10 @@ for (const btnFilter of lstfiltercontrol) {
 	btnFilter.addEventListener('click', function() {
 		sortBy = this.value;
 		var urlStr = document.location.search.substr(1).split('&');
-		if(urlStr == ''){
+		if (urlStr == '') {
 			location.href = `getAllProductSearch?sortBy=${sortBy}`
-		}else{
-			insertParam2('sortBy', sortBy , 'sortByPrice','');
+		} else {
+			insertParam2('sortBy', sortBy, 'sortByPrice', '');
 		}
 
 
@@ -22,10 +22,10 @@ for (const option of document.getElementsByClassName('home-filter__sort-item')) 
 		sortBy = 'Price';
 		sortByPrice = this.id;
 		var urlStr = document.location.search.substr(1).split('&');
-		if(urlStr == ''){
+		if (urlStr == '') {
 			location.href = `getAllProductSearch?sortBy=${sortBy}&sortByPrice=${sortByPrice}`
-		}else{
-			insertParamSortPrice('sortByPrice', sortByPrice,'sortBy',sortBy);
+		} else {
+			insertParamSortPrice('sortByPrice', sortByPrice, 'sortBy', sortBy);
 		}
 	});
 }
@@ -66,12 +66,22 @@ function insertParamSortPrice(key1, value1, key2, value2) {
 			kvp[kvp.length] = [key2, value2].join('=');
 		}
 	} else if (value1 != '' && value2 != '') {
-		if (i >= kvp.length) {
-			kvp[kvp.length] = [key1, value1].join('=');
+		if (i == j) {
+			if (i >= kvp.length) {
+				kvp[kvp.length] = [key1, value1].join('=');
+			}
+			if (j >= kvp.length - 1) {
+				kvp[kvp.length] = [key2, value2].join('=');
+			}
+		}else if(i != j){
+			if (i >= kvp.length) {
+				kvp[kvp.length] = [key1, value1].join('=');
+			}
+			if (j >= kvp.length) {
+				kvp[kvp.length] = [key2, value2].join('=');
+			}
 		}
-		if (j >= kvp.length ) {
-			kvp[kvp.length] = [key2, value2].join('=');
-		}
+
 	}
 
 
@@ -107,11 +117,13 @@ function insertParamSortPrice(key1, value1, key2, value2) {
 	}
 
 	let params = kvp.join('&');
+	let urlNew = 'getAllProductSearch?' + kvp.join('&');
 	console.log(params);
 	if (params == '') {
 		location.href = 'home';
 	} else {
-		// reload page with new params
-		document.location.search = params;
+		location.href = urlNew;
+
 	}
+	
 }

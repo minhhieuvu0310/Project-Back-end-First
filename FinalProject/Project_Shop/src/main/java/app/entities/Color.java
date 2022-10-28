@@ -20,6 +20,8 @@ public class Color {
 	private Integer colorId ;
 	@Column(name = "colorName")
 	private String colorName;
+	@Column(name = "natation")
+	private String natation;
 	@Column(name = "Status")
 	private Boolean status;
 	

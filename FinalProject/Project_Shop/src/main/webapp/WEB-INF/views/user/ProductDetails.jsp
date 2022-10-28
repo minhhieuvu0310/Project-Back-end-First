@@ -144,22 +144,20 @@
 										</div>
 									</div> -->
 									<div class="product-detail__attribute">
-										<div class="product-detail__Configuration-name">Switch</div>
+										<div class="product-detail__Configuration-name">Color</div>
 										<ul class="product-detail__attribute-list">
-											<li class="product-detail__attribute-item">
+											<!-- <li class="product-detail__attribute-item">
 												<button
 													class="product-detail__attribute-btn attribute-btn-disable">Blue</button>
 											</li>
 											<li class="product-detail__attribute-item">
 												<button class="product-detail__attribute-btn">Red</button>
-											</li>
-											<li class="product-detail__attribute-item">
-												<button class="product-detail__attribute-btn">Black</button>
-											</li>
-											<li class="product-detail__attribute-item">
-												<button
-													class="product-detail__attribute-btn attribute-btn-disable">Brown</button>
-											</li>
+											</li> -->
+											<c:forEach items="${allcolor }" var="allcolor">
+												<li class="product-detail__attribute-item">
+													<button class="product-detail__attribute-btn">${allcolor}</button>
+												</li>
+											</c:forEach>
 										</ul>
 									</div>
 									<div class="product-detail__quantity">
@@ -192,8 +190,7 @@
 							<div
 								style="border-top: 1px solid rgba(0, 0, 0, 0.05); margin-top: 30px">
 								<div class="details__footer">
-									<img
-										src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/pdp/83e10a1f95cb083579c089448ef8dd3b.png"
+									<img src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/pdp/83e10a1f95cb083579c089448ef8dd3b.png"
 										alt="" class="details__footer-img"> <span
 										class="details__commit-lable">Shop Đảm Bảo</span> <span
 										class="details__Refund-lable">3 Ngày Trả Hàng / Hoàn
@@ -222,5 +219,7 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- *End Footer -->
 	</div>
+	<script src="<c:url value="resources/js/UpdateParam.js" />"></script>
+	<script src="<c:url value="resources/js/KeySearch.js" />"></script>
 </body>
 </html>

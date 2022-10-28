@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import app.dao.CataLogsDAO;
 import app.dao.ImageLinkDAO;
+import app.dao.ProductColorDAO;
 import app.dao.ProductDAO;
 import app.dao.ProviderDAO;
 import app.entities.CataLogs;
@@ -40,6 +41,9 @@ public class HomeController {
 	
 	@Autowired
 	private ImageLinkDAO imageLinkDAO;
+	
+	@Autowired
+	private ProductColorDAO productColorDAO;
 
 	@RequestMapping(value = { "/", "home" })
 	public String home(@RequestParam(name = "page", required = false) Integer page, Model model) {
@@ -202,10 +206,13 @@ public class HomeController {
 	public String Product(@PathParam("productId") Integer productId , Model model) {
 		Product productById = productDAO.getProductById(productId);
 		List<String> allImageProduct = imageLinkDAO.getAllImageProduct(productId);
+		List<String> allColor = productColorDAO.getAllColorById(productId);
 		model.addAttribute("allImages",allImageProduct);
 		model.addAttribute("product", productById);
+		model.addAttribute("allcolor", allColor);
 		System.out.println("productId : " + productId);
 		System.out.println("all image : " + allImageProduct);
+		System.out.println("allColor : " + allColor);
 		return "user/ProductDetails";
 	}
 	

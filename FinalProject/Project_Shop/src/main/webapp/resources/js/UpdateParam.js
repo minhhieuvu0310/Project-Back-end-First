@@ -34,21 +34,22 @@ function insertParam(key, value) {
 			continue
 		}
 	}
-	//kiểm tra xem có phần tử nào có value = '' hay không
-	for (; is < kvp.length; is++) {
-		let element = kvp[is].split('=');
-		if (element[1] == '') {
+	//kiểm tra xem có phần tử nào có productId hay không
+	for (let i = 0; i < kvp.length; i++) {
+		if (kvp[i].startsWith('productId=')) {
 			kvp.splice(is, 1);
-			continue;
+			break;
 		}
 	}
 	// can return this or...
 	let params = kvp.join('&');
-	console.log(params);
+	let urlNew = 'getAllProductSearch?' + kvp.join('&');
 
-
-	// reload page with new params
-	document.location.search = params;
+	if (params == '') {
+		location.href = 'home';
+	} else {
+		location.href = urlNew;
+	}
 }
 
 
@@ -129,12 +130,13 @@ function insertParam2(key1, value1, key2, value2) {
 	}
 
 	let params = kvp.join('&');
-	console.log(params);
+	let urlNew = 'getAllProductSearch?' + kvp.join('&');
+
 	if (params == '') {
 		location.href = 'home';
 	} else {
-		// reload page with new params
-		document.location.search = params;
+		location.href = urlNew;
+
 	}
 }
 
