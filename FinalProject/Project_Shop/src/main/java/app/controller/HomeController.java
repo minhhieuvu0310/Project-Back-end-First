@@ -128,7 +128,7 @@ public class HomeController {
 		} else if (priceShortest != null && priceTallest == null) {
 			Float MinPrice = Float.parseFloat(priceShortest);
 			productsPrice = productDAO.getAllProductByPriceShortest(MinPrice);
-		} else if (priceShortest != null && priceTallest == null) {
+		} else if (priceShortest == null && priceTallest != null) {
 			Float MaxPrice = Float.parseFloat(priceTallest);
 			productsPrice = productDAO.getAllProductByPriceTallest(MaxPrice);
 		} else if (priceShortest != null && priceTallest != null) {
