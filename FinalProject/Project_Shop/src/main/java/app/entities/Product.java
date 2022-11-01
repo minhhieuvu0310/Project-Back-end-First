@@ -21,7 +21,7 @@ public class Product {
 	@Id
 	@Column(name = "productId")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer productId ;
+	private Integer productId;
 	@Column(name = "productName")
 	private String productName;
 	@Column(name = "productContent")
@@ -46,27 +46,29 @@ public class Product {
 	private Float discount;
 	@Column(name = "status")
 	private Boolean status;
-	
+
 	@ManyToOne
-	@JoinColumn(name = "providerId",referencedColumnName = "providerId")
-	private Provider provider;	
+	@JoinColumn(name = "providerId", referencedColumnName = "providerId")
+	private Provider provider;
 	@ManyToOne
-	@JoinColumn(name = "catalogId",referencedColumnName = "catalogId")
+	@JoinColumn(name = "catalogId", referencedColumnName = "catalogId")
 	private CataLogs catalog;
-	
+
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<ProductColor> productColors;
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<ImageLink> imagelink;
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	private Set<Orderdetail> orderdetails;
 
-	
 	public Product() {
 		super();
 	}
 
 	public Product(Integer productId, String productName, String productContent, String productContentDetail,
 			String images, Integer views, Integer buyItem, Float priceInput, Float priceOutput, Float quantity,
-			Date created, Float discount, Boolean status, Provider provider, CataLogs catalog) {
+			Date created, Float discount, Boolean status, Provider provider, CataLogs catalog,
+			Set<ProductColor> productColors, Set<ImageLink> imagelink, Set<Orderdetail> orderdetails) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -83,6 +85,9 @@ public class Product {
 		this.status = status;
 		this.provider = provider;
 		this.catalog = catalog;
+		this.productColors = productColors;
+		this.imagelink = imagelink;
+		this.orderdetails = orderdetails;
 	}
 
 	public Integer getProductId() {
@@ -205,5 +210,28 @@ public class Product {
 		this.catalog = catalog;
 	}
 
-	
+	public Set<ProductColor> getProductColors() {
+		return productColors;
+	}
+
+	public void setProductColors(Set<ProductColor> productColors) {
+		this.productColors = productColors;
+	}
+
+	public Set<ImageLink> getImagelink() {
+		return imagelink;
+	}
+
+	public void setImagelink(Set<ImageLink> imagelink) {
+		this.imagelink = imagelink;
+	}
+
+	public Set<Orderdetail> getOrderdetails() {
+		return orderdetails;
+	}
+
+	public void setOrderdetails(Set<Orderdetail> orderdetails) {
+		this.orderdetails = orderdetails;
+	}
+
 }

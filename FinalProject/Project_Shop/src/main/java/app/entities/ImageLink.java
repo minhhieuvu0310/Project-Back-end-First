@@ -27,7 +27,6 @@ public class ImageLink {
 
 	public ImageLink() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ImageLink(Integer imageLinkId, String imageLinkName, Boolean status, Product product) {

@@ -27,4 +27,57 @@ public class Color {
 	
 	@OneToMany(mappedBy = "color",fetch = FetchType.EAGER)
 	private Set<ProductColor> productColors;
+
+	public Color() {
+		super();
+	}
+
+	public Color(Integer colorId, String colorName, String natation, Boolean status, Set<ProductColor> productColors) {
+		super();
+		this.colorId = colorId;
+		this.colorName = colorName;
+		this.natation = natation;
+		this.status = status;
+		this.productColors = productColors;
+	}
+
+	public Integer getColorId() {
+		return colorId;
+	}
+
+	public void setColorId(Integer colorId) {
+		this.colorId = colorId;
+	}
+
+	public String getColorName() {
+		return colorName;
+	}
+
+	public void setColorName(String colorName) {
+		this.colorName = colorName;
+	}
+
+	public String getNatation() {
+		return natation;
+	}
+
+	public void setNatation(String natation) {
+		this.natation = natation;
+	}
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public Set<ProductColor> getProductColors() {
+		return productColors;
+	}
+
+	public void setProductColors(Set<ProductColor> productColors) {
+		this.productColors = productColors;
+	}
 }

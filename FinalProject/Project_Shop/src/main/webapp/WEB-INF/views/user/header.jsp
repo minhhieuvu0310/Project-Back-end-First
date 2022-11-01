@@ -138,25 +138,33 @@
 					class="header__navbar-item-link"> <i
 						class="header__navbar-icon far fa-question-circle"></i> Hỗ Trợ
 				</a></li>
+				<c:if test="${sessionScope.users == null }">
+					<li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+						Đăng kí
+					</li>
+					<li class="header__navbar-item header__navbar-item--strong">
+						<a href="initLoginFontend" style="text-decoration: none; color: #fff;">
+							Đăng Nhập
+						</a>
+					</li>
+				</c:if>
 
-				<li
-					class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
-					Đăng kí</li>
-				<li class="header__navbar-item header__navbar-item--strong">Đăng
-					Nhập</li>
-				<!-- <li class="header__navbar-item header__navbar-user"><img
-					src="./assets/img/user/user.png" alt=""
-					class="header__navbar-user-img"> <span
-					class="header__navbar-user-name">Vũ Minh Hiếu</span>
-					<ul class="header__navbar-user-menu">
-						<li class="header__navbar-user-menu-item"><a href="">Tài
-								Khoản Của Tôi</a></li>
-						<li class="header__navbar-user-menu-item"><a href="">Đơn
-								Mua</a></li>
-						<li
-							class="header__navbar-user-menu-item header__navbar-user-menu-item-separate "><a
-							href="Login.html">Đăng Xuất</a></li>
-					</ul></li> -->
+				<c:if test="${sessionScope.users != null }">
+					<li class="header__navbar-item header__navbar-user"><img
+						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage}" alt=""
+						class="header__navbar-user-img"> <span
+						class="header__navbar-user-name">${sessionScope.users.fullName}</span>
+						<ul class="header__navbar-user-menu">
+							<li class="header__navbar-user-menu-item"><a href="">Tài
+									Khoản Của Tôi</a></li>
+							<li class="header__navbar-user-menu-item"><a href="">Đơn
+									Mua</a></li>
+							<li
+								class="header__navbar-user-menu-item header__navbar-user-menu-item-separate "><a
+								href="Login.html">Đăng Xuất</a></li>
+						</ul></li>
+				</c:if>
+
 			</ul>
 		</nav>
 		<!-- End Nav  -->

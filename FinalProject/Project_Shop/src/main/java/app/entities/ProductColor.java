@@ -27,7 +27,6 @@ public class ProductColor {
 
 	public ProductColor() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	public ProductColor(Integer productColorId, Boolean status, Product product, Color color) {

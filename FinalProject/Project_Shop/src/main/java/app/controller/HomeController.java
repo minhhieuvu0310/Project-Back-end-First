@@ -13,20 +13,24 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import javax.servlet.http.HttpSession;
 
 import app.dao.CataLogsDAO;
 import app.dao.ImageLinkDAO;
 import app.dao.ProductColorDAO;
 import app.dao.ProductDAO;
 import app.dao.ProviderDAO;
+import app.dao.UsersDAO;
 import app.entities.CataLogs;
 import app.entities.Product;
 import app.entities.Provider;
+import app.entities.Users;
 
 @Controller
 public class HomeController {
@@ -44,6 +48,9 @@ public class HomeController {
 	
 	@Autowired
 	private ProductColorDAO productColorDAO;
+	
+	@Autowired
+	private UsersDAO usersDAO;
 
 	@RequestMapping(value = { "/", "home" })
 	public String home(@RequestParam(name = "page", required = false) Integer page, Model model) {
@@ -214,6 +221,28 @@ public class HomeController {
 		System.out.println("all image : " + allImageProduct);
 		System.out.println("allColor : " + allColor);
 		return "user/ProductDetails";
+	}
+	
+	@RequestMapping(value = { "/initLoginFontend" })
+	public String initLoginFontend(Model model) {
+		Users users = new Users();
+		model.addAttribute("users", users);
+		return "user/login";
+	}
+	
+	@RequestMapping(value = { "/LoginFontend" })
+	public String initLoginFontend(@ModelAttribute("users")  Users users,HttpSession session, Model model ) {
+		System.out.println(users.getUserName() + ' ' + users.getPassWord() + ' '+ users.getFullName());
+		if(usersDAO.checkLogin(users)) {
+			Users userinfo = usersDAO.getUsers(users);
+			session.setAttribute("users", userinfo);
+			return "redirect:/home";
+		}else {
+			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng!");
+			
+			return "user/login";
+		}	
+		
 	}
 	
 }
