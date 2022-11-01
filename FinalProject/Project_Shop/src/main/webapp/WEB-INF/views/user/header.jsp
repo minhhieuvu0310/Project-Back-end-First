@@ -140,7 +140,9 @@
 				</a></li>
 				<c:if test="${sessionScope.users == null }">
 					<li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
-						Đăng kí
+						<a href="initRegister" style="text-decoration: none; color: #fff;">
+							Đăng kí
+						</a>						
 					</li>
 					<li class="header__navbar-item header__navbar-item--strong">
 						<a href="initLoginFontend" style="text-decoration: none; color: #fff;">
@@ -151,7 +153,7 @@
 
 				<c:if test="${sessionScope.users != null }">
 					<li class="header__navbar-item header__navbar-user"><img
-						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage}" alt=""
+						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage == null ? 'default.png' : sessionScope.users.userImage}" alt=""
 						class="header__navbar-user-img"> <span
 						class="header__navbar-user-name">${sessionScope.users.fullName}</span>
 						<ul class="header__navbar-user-menu">

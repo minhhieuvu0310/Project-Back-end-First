@@ -1,5 +1,7 @@
 package app.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,9 +27,9 @@ public class Users {
 	@Column(name = "phone")
 	private String phone;
 	@Column(name = "roleId")
-	private String roleId;
+	private Integer roleId;
 	@Column(name = "created")
-	private String created;
+	private Date created;
 	@Column(name = "userImage")
 	private String userImage;
 	@Column(name = "status")
@@ -38,7 +40,7 @@ public class Users {
 	}
 
 	public Users(Integer userId, String userName, String passWord, String fullName, String email, String phone,
-			String roleId, String created, String userImage, Boolean status) {
+			Integer roleId, Date created, String userImage, Boolean status) {
 		super();
 		UserId = userId;
 		this.userName = userName;
@@ -100,19 +102,19 @@ public class Users {
 		this.phone = phone;
 	}
 
-	public String getRoleId() {
+	public Integer getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(String roleId) {
+	public void setRoleId(Integer roleId) {
 		this.roleId = roleId;
 	}
 
-	public String getCreated() {
+	public Date getCreated() {
 		return created;
 	}
 
-	public void setCreated(String created) {
+	public void setCreated(Date created) {
 		this.created = created;
 	}
 

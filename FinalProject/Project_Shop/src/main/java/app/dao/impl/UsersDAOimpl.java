@@ -60,12 +60,83 @@ public class UsersDAOimpl implements UsersDAO{
 			Users users1 = (Users) list.get(0);
 			return users1;
 		} catch (Exception e) {
-			// TODO: handle exception
 			e.printStackTrace();
 		}finally {
 			session.close();
 		}
 		return null;
+	}
+
+	@Override
+	public boolean checkUserName(Users users) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery("from Users users where users.userName = :userName and users.status = 1")
+								.setParameter("userName", users.getUserName())
+								.list();
+			if(list.size() > 0) {
+				return true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkUserEmail(Users users) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery("from Users users where users.email = :email and users.status = 1")
+								.setParameter("email", users.getEmail())
+								.list();
+			if(list.size() > 0) {
+				return true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkUserPhone(Users users) {
+		Session session = sessionFactory.openSession();
+		try {
+			List list = session.createQuery("from Users users where users.phone = :phone and users.status = 1")
+								.setParameter("phone", users.getPhone())
+								.list();
+			if(list.size() > 0) {
+				return true;
+			}			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public boolean insertUsers(Users users) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.save(users);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e1) {
+			// TODO: handle exception
+			e1.printStackTrace();
+			session.getTransaction().rollback();
+		}finally {
+			session.close();
+		}
+		return false;
 	}
 
 }

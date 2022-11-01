@@ -1,7 +1,10 @@
 package app.controller;
 
 import java.net.http.HttpRequest;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,8 +14,11 @@ import javax.websocket.server.PathParam;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,15 +48,21 @@ public class HomeController {
 
 	@Autowired
 	private CataLogsDAO cataLogsDAO;
-	
+
 	@Autowired
 	private ImageLinkDAO imageLinkDAO;
-	
+
 	@Autowired
 	private ProductColorDAO productColorDAO;
-	
+
 	@Autowired
 	private UsersDAO usersDAO;
+	
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(sf, false));
+	}
 
 	@RequestMapping(value = { "/", "home" })
 	public String home(@RequestParam(name = "page", required = false) Integer page, Model model) {
@@ -101,8 +113,8 @@ public class HomeController {
 		} else {
 			offset = (page - 1) * maxResult;
 		}
-		
-		//Lấy sản phẩm theo Provider
+
+		// Lấy sản phẩm theo Provider
 		List<Product> productsProvider = new ArrayList<Product>();
 		List<String> lstProvider = new ArrayList<String>();
 		if (providerName == null || providerName.isEmpty()) {
@@ -115,7 +127,7 @@ public class HomeController {
 			productsProvider = productDAO.getAllProductByProvider(lstProvider);
 		}
 
-		//Lấy sản Phẩm theo CataLog
+		// Lấy sản Phẩm theo CataLog
 		List<Product> productsCatalog = new ArrayList<Product>();
 		List<String> lstCataLog = new ArrayList<String>();
 		if (catalogName == null || catalogName.isEmpty()) {
@@ -128,7 +140,7 @@ public class HomeController {
 			productsCatalog = productDAO.getAllProductByCatalog(lstCataLog);
 		}
 
-		//Lấy sản phẩm theo giá
+		// Lấy sản phẩm theo giá
 		List<Product> productsPrice = new ArrayList<Product>();
 		if (priceShortest == null && priceTallest == null) {
 			productsPrice = null;
@@ -141,28 +153,28 @@ public class HomeController {
 		} else if (priceShortest != null && priceTallest != null) {
 			Float MinPrice = Float.parseFloat(priceShortest);
 			Float MaxPrice = Float.parseFloat(priceTallest);
-			productsPrice = productDAO.getAllProductByPrice(MinPrice,MaxPrice);
+			productsPrice = productDAO.getAllProductByPrice(MinPrice, MaxPrice);
 		}
-		
-		//Lấy sản phẩm theo sắp xếp
-		
+
+		// Lấy sản phẩm theo sắp xếp
+
 		List<Product> productsSortBy = new ArrayList<Product>();
-		if(sortBy == null ) {
+		if (sortBy == null) {
 			productsSortBy = null;
-		}else if(sortBy.equals("new") || sortBy.equals("sales")|| sortBy.equals("relevancy")) {
+		} else if (sortBy.equals("new") || sortBy.equals("sales") || sortBy.equals("relevancy")) {
 			productsSortBy = productDAO.getAllProductBySortBy(sortBy);
-		}else if(sortBy.equals("Price")) {
+		} else if (sortBy.equals("Price")) {
 			productsSortBy = productDAO.getAllProductBySortPrice(sortByPrice);
 		}
-		
-		//Tìm kiếm theo KeySearch
+
+		// Tìm kiếm theo KeySearch
 		List<Product> productsKeys = new ArrayList<Product>();
-		if(KeySearch == null) {
+		if (KeySearch == null) {
 			productsKeys = null;
-		}else {
+		} else {
 			productsKeys = productDAO.getAllProductByKey(KeySearch);
 		}
-		
+
 		List<Product> productAll = productDAO.getAllProduct();
 		List<Product> lst0 = productDAO.lstPro(productAll, productsKeys);
 		List<Product> lst1 = productDAO.lstPro(lst0, productsProvider);
@@ -197,7 +209,6 @@ public class HomeController {
 		model.addAttribute("sortByPrice", sortByPrice);
 		model.addAttribute("KeySearch", KeySearch);
 
-
 		System.out.println("ProciderId la : " + lstProvider);
 		System.out.println("catalogName la : " + lstCataLog);
 		System.out.println("priceShortest la : " + priceShortest);
@@ -208,13 +219,13 @@ public class HomeController {
 		System.out.println("KeySearch : " + KeySearch);
 		return "user/index";
 	}
-	
+
 	@RequestMapping(value = { "/productDetails" })
-	public String Product(@PathParam("productId") Integer productId , Model model) {
+	public String Product(@PathParam("productId") Integer productId, Model model) {
 		Product productById = productDAO.getProductById(productId);
 		List<String> allImageProduct = imageLinkDAO.getAllImageProduct(productId);
 		List<String> allColor = productColorDAO.getAllColorById(productId);
-		model.addAttribute("allImages",allImageProduct);
+		model.addAttribute("allImages", allImageProduct);
 		model.addAttribute("product", productById);
 		model.addAttribute("allcolor", allColor);
 		System.out.println("productId : " + productId);
@@ -222,33 +233,78 @@ public class HomeController {
 		System.out.println("allColor : " + allColor);
 		return "user/ProductDetails";
 	}
-	
+
 	@RequestMapping(value = { "/initLoginFontend" })
 	public String initLoginFontend(Model model) {
 		Users users = new Users();
 		model.addAttribute("users", users);
 		return "user/login";
 	}
-	
+
 	@RequestMapping(value = { "/LoginFontend" })
-	public String initLoginFontend(@ModelAttribute("users")  Users users,HttpSession session, Model model ) {
-		System.out.println(users.getUserName() + ' ' + users.getPassWord() + ' '+ users.getFullName());
-		if(usersDAO.checkLogin(users)) {
+	public String initLoginFontend(@ModelAttribute("users") Users users, HttpSession session, Model model) {
+		System.out.println(users.getUserName() + ' ' + users.getPassWord() + ' ' + users.getFullName());
+		if (usersDAO.checkLogin(users)) {
 			Users userinfo = usersDAO.getUsers(users);
 			session.setAttribute("users", userinfo);
 			return "redirect:/home";
-		}else {
+		} else {
 			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng!");
-			
+
 			return "user/login";
-		}	
-		
+		}
+
 	}
-	
+
 	@RequestMapping(value = { "/LogoutFontend" })
-	public String LogoutFontend(Model model ,HttpSession session , HttpServletRequest request) {
+	public String LogoutFontend(Model model, HttpSession session, HttpServletRequest request) {
 		request.getSession().invalidate();
 		return "redirect:/home";
 	}
-	
+
+	@RequestMapping(value = { "/initRegister" })
+	public String initRegister(Model model, HttpSession session, HttpServletRequest request) {
+		Users users = new Users();
+		model.addAttribute("users", users);
+		return "user/register";
+	}
+
+	@RequestMapping(value = { "/RegisterFontend" })
+	public String RegisterFontend(@ModelAttribute("users") Users users, Model model, HttpSession session,
+			HttpServletRequest request) {
+		boolean bl = usersDAO.checkUserName(users);
+		boolean bl2 = usersDAO.checkUserEmail(users);
+		boolean bl3 = usersDAO.checkUserPhone(users);
+		String errUserName = (bl) ? " Tên đăng nhập đã tồn tại " : "";
+		String errUserEmail = (bl2) ? " Email đã tồn tại " : "";
+		String errUserPhone = (bl3) ? " Số điện thoại đã tồn tại " : "";
+		List<String> lsterror = new ArrayList<String>(Arrays.asList(errUserName, errUserPhone, errUserEmail));
+		lsterror.removeAll(Arrays.asList("", null));
+		String error = ErrorRegister(lsterror);
+		if(!bl && !bl2 && !bl3) {
+			users.setStatus(true);
+			users.setUserImage("default.png");
+			users.setRoleId(1);
+			Date date=java.util.Calendar.getInstance().getTime();  
+			users.setCreated(date);
+			boolean insertUsers = usersDAO.insertUsers(users);
+			if(insertUsers) {
+				session.setAttribute("users", users);
+				return "redirect:/home";
+			}else {
+				return "user/error";
+			}
+		}else {
+			model.addAttribute("error",error);
+			return "user/register";
+		}
+	}
+
+	public String ErrorRegister(List<String> lsterror) {
+		String error = "";
+		for (int i = 0; i < lsterror.size(); i++) {
+			error += lsterror.get(i) + (i < lsterror.size() - 1 ? "," : "");
+		}
+		return error;
+	}
 }

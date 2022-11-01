@@ -10,9 +10,9 @@
 					<ul class="footer-list">
 						<li class="footer-item"><a href="" class="footer-item-link">Trung
 								Tâm Trợ Giúp</a></li>
-						<li class="footer-item"><a href="" class="footer-item-link">Shopee
+						<li class="footer-item"><a href="" class="footer-item-link">Shop
 								Blog</a></li>
-						<li class="footer-item"><a href="" class="footer-item-link">Shopee
+						<li class="footer-item"><a href="" class="footer-item-link">Shop
 								Mall</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Hướng
 								Dẫn Mua Hàng</a></li>
@@ -20,7 +20,7 @@
 								Dẫn Bán Hàng</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Thanh
 								Toán</a></li>
-						<li class="footer-item"><a href="" class="footer-item-link">Shopee
+						<li class="footer-item"><a href="" class="footer-item-link">Shop
 								Xu</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Vận
 								Chuyển</a></li>
@@ -33,14 +33,14 @@
 					</ul>
 				</div>
 				<div class="col l-2-4 m-4 c-6">
-					<h3 class="footer-heading">VỀ SHOPEE</h3>
+					<h3 class="footer-heading">VỀ SHOP</h3>
 					<ul class="footer-list">
 						<li class="footer-item"><a href="" class="footer-item-link">Giới
-								Thiệu Về Shopee Việt Nam</a></li>
+								Thiệu Về Shop Việt Nam</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Tuyển
 								Dụng</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Điều
-								Khoản Shopee</a></li>
+								Khoản Shop</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Chính
 								Sách Bảo Mật</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Chính
@@ -50,7 +50,7 @@
 						<li class="footer-item"><a href="" class="footer-item-link">Flash
 								Sales</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Chương
-								Trình Tiếp Thị Liên Kết Shopee</a></li>
+								Trình Tiếp Thị Liên Kết Shop</a></li>
 						<li class="footer-item"><a href="" class="footer-item-link">Liên
 								Hệ Với Truyền Thông</a></li>
 					</ul>
@@ -115,7 +115,7 @@
 					</ul>
 				</div>
 				<div class="col l-2-4 m-8 c-6">
-					<h3 class="footer-heading">TẢI ỨNG DỤNG SHOPEE</h3>
+					<h3 class="footer-heading">TẢI ỨNG DỤNG SHOP</h3>
 					<div class="footer-dowload">
 						<a href="" class="footer-dowload-link"> <img
 							src="./assets/img/qr/qr-code.png" alt=""
