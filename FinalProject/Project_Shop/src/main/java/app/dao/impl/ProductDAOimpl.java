@@ -170,7 +170,7 @@ public class ProductDAOimpl implements ProductDAO {
 		Session session = sessionFactory.openSession();
 		try {
 			List list = session.createQuery(
-					"from Product product where (product.priceOutput-(product.priceOutput * product.discount)) between (:priceShortest and :priceTallest) and product.status = 1")
+					"from Product product where ((product.priceOutput-(product.priceOutput * product.discount)) between :priceShortest and :priceTallest) and product.status = 1")
 					.setParameter("priceShortest", priceShortest).setParameter("priceTallest", priceTallest).list();
 			return list;
 		} catch (Exception e) {

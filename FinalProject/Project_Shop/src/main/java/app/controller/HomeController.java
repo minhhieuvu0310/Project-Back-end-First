@@ -245,4 +245,10 @@ public class HomeController {
 		
 	}
 	
+	@RequestMapping(value = { "/LogoutFontend" })
+	public String LogoutFontend(Model model ,HttpSession session , HttpServletRequest request) {
+		request.getSession().invalidate();
+		return "redirect:/home";
+	}
+	
 }

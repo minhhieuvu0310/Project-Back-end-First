@@ -161,7 +161,7 @@
 									Mua</a></li>
 							<li
 								class="header__navbar-user-menu-item header__navbar-user-menu-item-separate "><a
-								href="Login.html">Đăng Xuất</a></li>
+								href="LogoutFontend">Đăng Xuất</a></li>
 						</ul></li>
 				</c:if>
 
