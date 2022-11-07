@@ -10,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import app.dao.ProductDAO;
 import app.entities.Cart;
+import app.entities.Product;
 import app.entities.Users;
 
 @Controller
@@ -38,7 +40,7 @@ public class CartController {
 
 	@RequestMapping(value = "/addcart")
 	public String addcart(@RequestParam("productId") Integer productId, @RequestParam("quantity") Integer quantity,
-			HttpServletRequest request, HttpSession session,Model model) {
+			HttpServletRequest request, HttpSession session, Model model) {
 		String option = request.getParameter("option--selected");
 		String note = "";
 		String color = "";
@@ -62,6 +64,7 @@ public class CartController {
 						Integer a = cart.getQuantity();
 						cart.setQuantity(quantity + a);
 						flag = true;
+						
 					}
 				}
 				if (!flag) {
@@ -81,6 +84,58 @@ public class CartController {
 			return "user/login";
 		}
 
+	}
+
+	/**
+	 * sửa sản phẩm trong giỏ hàng
+	 * 
+	 * @param request
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping(value = "/updateCart")
+	public String updatecart(HttpServletRequest request, HttpSession session) {
+		// lấy danh sách sản phẩm khách hàng trong session
+		List<Cart> listCart = (List<Cart>) session.getAttribute("listCart");
+		// lấy danh sách sản lượng muốn mua
+		String[] arrQuantity = request.getParameterValues("quantity");
+		for (int i = 0; i < listCart.size(); i++) {
+			listCart.get(i).setQuantity(Integer.parseInt(arrQuantity[i]));
+			if (Integer.parseInt(arrQuantity[i]) == 0) {
+				listCart.remove(i);
+			}
+		}
+		session.setAttribute("listCart", listCart);
+		session.setAttribute("total", getTotal(listCart));
+
+		System.out.println("So luong san pham : " + listCart.size());
+		System.out.println("mang so luong san pham : " + arrQuantity.length);
+		return "redirect:/cart";
+	}
+	
+	/**
+     * xóa sản phẩm trong giỏ hàng
+     * @param id
+     * @param session
+     * @return 
+     */
+	@RequestMapping(value = "/removeCart", method = RequestMethod.GET)
+    public String removeCart(@RequestParam("productId") Integer productId, HttpSession session) {
+		
+		// lấy danh sách sản phẩm khách hàng trong session
+		List<Cart> listCart = (List<Cart>) session.getAttribute("listCart");
+		if(listCart != null) {
+			for (int i = 0; i < listCart.size(); i++) {
+				if(listCart.get(i).getProduct().getProductId() == productId) {
+					listCart.remove(i).getProduct().getProductId();
+					break;
+				}
+			}
+		}
+		session.setAttribute("listCart", listCart);
+        session.setAttribute("total", getTotal(listCart));
+		System.out.println("Id cua san pham la : " + productId);
+		return "redirect:/cart";
 	}
 
 	/**

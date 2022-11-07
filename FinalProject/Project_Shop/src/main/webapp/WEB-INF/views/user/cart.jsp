@@ -45,6 +45,8 @@
         }
 
         .btnCart--buy {
+        	text-decoration:none;
+        	color : #000;
             background-color: #e7e7e7;
             margin-left: 8px;
         }
@@ -179,8 +181,8 @@
                                             <ul
                                                 class="cart__product-manipulation-list item--manipulation hiden-on-mobile">
                                                 <li class="cart__product-manipulation-item manipulation-item--remove">
-                                                    <a href="#" class="cart-link--remove"
-                                                        style="text-decoration: none;">Xóa</a>
+                                                    <a href="removeCart?productId=${cart.getProduct().productId }" class="cart-link--remove"
+                                                        style="text-decoration: none; color: #000;"  onclick="return confirm('Bạn muốn xóa?')">Xóa</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -195,7 +197,7 @@
                                         <div class="PayandUpdateCart__UpdateorBuy">
                                             <button type="submit" class="btn btn--primary btnCart--Update">Cập
                                                 Nhật</button>
-                                            <p class="btn btnCart--buy">Tiếp tục mua hàng</p>
+                                            <a href="home" class="btn btnCart--buy">Tiếp tục mua hàng</a>
                                         </div>
                                         <div class="PayandUpdateCart__btn">
                                             <div class="totalmoney">
@@ -226,7 +228,7 @@
         <jsp:include page="footer.jsp"></jsp:include>
         <!-- *End Footer -->
     </div>
-    <script src="<c:url value=" resources/js/cart.js" />"></script>
+    <script src="<c:url value=" resources/js/eventcart.js" />"></script>
 </body>
 
 </html>

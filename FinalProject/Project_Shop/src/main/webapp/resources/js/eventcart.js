@@ -26,7 +26,7 @@ try {
             var maxquantity = btnsubitem.parentNode.querySelector('.maxQuantity').value;
             var totalmoneyProductitems = btnsubitem.parentNode.parentNode.querySelector('.totalmoneyProductitems');
             var price = btnsubitem.parentNode.querySelector('.priceOutput');
-            if(parseInt(quantity) > 1 && parseInt(quantity) < parseInt(maxquantity)){
+            if(parseInt(quantity) > 0 && parseInt(quantity) < parseInt(maxquantity)){
                 this.parentNode.querySelector('.cart__product-quantity-value-input').value = parseInt(quantity) - 1;
                 var totalmoney = parseFloat(price.value) * (parseInt(quantity) - 1);
                 totalmoneyProductitems.innerHTML = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(totalmoney);

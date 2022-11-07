@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <style>
 .icon-shopee-logo--official-shop {
 	background-position: 50%;
@@ -139,22 +140,20 @@
 						class="header__navbar-icon far fa-question-circle"></i> Hỗ Trợ
 				</a></li>
 				<c:if test="${sessionScope.users == null }">
-					<li class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
+					<li
+						class="header__navbar-item header__navbar-item--strong header__navbar-item--separate">
 						<a href="initRegister" style="text-decoration: none; color: #fff;">
-							Đăng kí
-						</a>						
+							Đăng kí </a>
 					</li>
-					<li class="header__navbar-item header__navbar-item--strong">
-						<a href="initLoginFontend" style="text-decoration: none; color: #fff;">
-							Đăng Nhập
-						</a>
-					</li>
+					<li class="header__navbar-item header__navbar-item--strong"><a
+						href="initLoginFontend"
+						style="text-decoration: none; color: #fff;"> Đăng Nhập </a></li>
 				</c:if>
 
 				<c:if test="${sessionScope.users != null }">
 					<li class="header__navbar-item header__navbar-user"><img
-						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage == null ? 'default.png' : sessionScope.users.userImage}" alt=""
-						class="header__navbar-user-img"> <span
+						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage == null ? 'default.png' : sessionScope.users.userImage}"
+						alt="" class="header__navbar-user-img"> <span
 						class="header__navbar-user-name">${sessionScope.users.fullName}</span>
 						<ul class="header__navbar-user-menu">
 							<li class="header__navbar-user-menu-item"><a href="">Tài
@@ -199,181 +198,73 @@
 			<div class="header__cart">
 				<div class="header__cart-wrap">
 					<i class="header__cart-icon fa-solid fa-cart-shopping"></i>
-					<div class="header__cart-list header__cart-list--has-cart">
-						<!-- No-Cart : header__cart-list--no-cart -->
-						<!-- Has-Cart : header__cart-list--has-cart -->
-
-						<img src="./assets/img/no_cart.png" alt=""
-							class="header__cart-no-cart-img"> <span
-							class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
-						<!--begin cart with product -->
-						<h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
-						<ul class="header__cart-list-product">
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/2.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Thanh Thanh 2000 1m57
-											46kg 88-62-89</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/3.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Hồng Ánh 1998 1m62
-											48kg 89-64-91</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/1.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Quỳnh Như 1999 1m65
-											49kg 90-62-89</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/4.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Kim Ngân 2001 1m55
-											45kg 86-60-87</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/5.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Kim Ngân 2001 1m55
-											45kg 86-60-87</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/6.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Kim Ngân 2001 1m55
-											45kg 86-60-87</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/7.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Thanh Thanh 2000 1m57
-											46kg 88-62-89</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-
-							<li class="header__cart-item"><img
-								src="./assets/img/buy/8.PNG" alt=""
-								class="header__cart-item-img">
-								<div class="header__cart-item-info">
-									<div class="header__cart-item-head">
-										<h5 class="header__cart-item-name">Kim Ngân 2001 1m55
-											45kg 86-60-87</h5>
-										<span class="header__cart-item-price">2.000.000đ</span>
-									</div>
-									<div class="header__cart-item-body">
-										<span class="header__cart-item-number">x 2</span>
-										<div class="header__cart-item-remove">
-											Xóa <i
-												class="header__cart-item-remove-icon fa-solid fa-xmark"></i>
-										</div>
-									</div>
-								</div></li>
-						</ul>
-						<!--end cart with product -->
-						<div class="header__cart-footer">
-							<button class="btn btn--primary header__cart-see-cart"
-								id="header__cart-see-cart">Xem giỏ hàng</button>
+					<c:if test="${sessionScope.listCart == null }">
+						<div class="header__cart-list header__cart-list--no-cart">
+							<!-- No-Cart : header__cart-list--no-cart -->
+							<!-- Has-Cart : header__cart-list--has-cart -->
+							<img src="<c:url value="resources"/>/image/Nocart/no_cart.png"
+								alt="" class="header__cart-no-cart-img"> <span
+								class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
 						</div>
-					</div>
-					<span class="header__cart-count">4</span>
+					</c:if>
+					<c:if test="${sessionScope.listCart != null }">
+						<c:if test="${sessionScope.listCart.size() == 0 }">
+							<div class="header__cart-list header__cart-list--no-cart">
+								<!-- No-Cart : header__cart-list--no-cart -->
+								<!-- Has-Cart : header__cart-list--has-cart -->
+								<img src="<c:url value="resources"/>/image/Nocart/no_cart.png"
+									alt="" class="header__cart-no-cart-img"> <span
+									class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
+							</div>
+						</c:if>
+						<c:if test="${sessionScope.listCart.size() != 0 }">
+							<div class="header__cart-list header__cart-list--has-cart">
+								<!-- No-Cart : header__cart-list--no-cart -->
+								<!-- Has-Cart : header__cart-list--has-cart -->
+								<!--begin cart with product -->
+								<h4 class="header__cart-heading">Sản phẩm đã thêm</h4>
+								<ul class="header__cart-list-product">
+									<c:forEach items="${sessionScope.listCart}" var="cart">
+										<li class="header__cart-item"><img
+										src="<c:url value="resources"/>/image/buy/${cart.getProduct().getImages() }" alt="NoImage"
+										class="header__cart-item-img">
+										<div class="header__cart-item-info">
+											<div class="header__cart-item-head">
+												<h5 class="header__cart-item-name">
+													${cart.getProduct().getProductContent() }
+												</h5>
+												<span class="header__cart-item-price">
+													<fmt:formatNumber type="currency" currencySymbol="" value="${cart.getProduct().getProductHasDiscount() }">
+													</fmt:formatNumber>đ
+												</span>
+											</div>
+											<div class="header__cart-item-body">
+												<span class="header__cart-item-number">x ${cart.getQuantity() }</span>
+											</div>
+										</div></li>
+									</c:forEach>
+									
+								</ul>
+								<!--end cart with product -->
+								<div class="header__cart-footer">
+									<a href="cart" class="btn btn--primary header__cart-see-cart"
+										id="header__cart-see-cart">Xem giỏ hàng</a>
+								</div>
+							</div>
+							<span class="header__cart-count">${sessionScope.listCart.size() }</span>
+						</c:if>
+					</c:if>
+
 				</div>
 			</div>
-			<!-- End Cart -->
-
-		</div>
-	</div>
-	<ul class="header-sort-bar">
-		<li class="header-sort-item"><a href="" class="header-sort-link">Liên
-				Quan</a></li>
-		<li class="header-sort-item header-sort-item--active"><a href=""
-			class="header-sort-link ">Mới Nhất</a></li>
-		<li class="header-sort-item"><a href="" class="header-sort-link ">Bán
-				Chạy</a></li>
-		<li class="header-sort-item "><a href="" class="header-sort-link">Giá</a>
-		</li>
-	</ul>
+			<ul class="header-sort-bar">
+				<li class="header-sort-item"><a href=""
+					class="header-sort-link">Liên Quan</a></li>
+				<li class="header-sort-item header-sort-item--active"><a
+					href="" class="header-sort-link ">Mới Nhất</a></li>
+				<li class="header-sort-item"><a href=""
+					class="header-sort-link ">Bán Chạy</a></li>
+				<li class="header-sort-item "><a href=""
+					class="header-sort-link">Giá</a></li>
+			</ul>
 </header>
