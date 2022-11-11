@@ -38,14 +38,14 @@
 					class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
 					Tải ứng dụng
 					<div class="header__qr">
-						<img src="./assets/img/qr_code.png" alt="QR Code"
+						<img src="<c:url value="resources"/>/image/qr/qr-code.png" alt="QR Code"
 							class="header__qr-img">
 						<div class="header__qr-apps">
 							<a href="" class="header_qr-link"> <img
-								src="./assets/img/app_store.png" alt="App Store"
+								src="<c:url value="resources"/>/image/qr/app-store.png" alt="App Store"
 								class="header_qr-dowload-img">
 							</a> <a href="" class="header_qr-link"> <img
-								src="./assets/img/google_play.png" alt="Google Play"
+								src="<c:url value="resources"/>/image/qr/gg-play.png" alt="Google Play"
 								class="header_qr-dowload-img">
 							</a>
 						</div>

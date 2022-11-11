@@ -30,16 +30,25 @@
 		</div>
 	</div>
 	<div class="home-filter__page">
-		<div class="home-filter__page-number">
-			<span class="home-filter__page-current">${page == null ? "1" : page }</span>
-			/${totalPage }
-		</div>
+		<c:if test="${listProduct == null || listProduct.isEmpty()}">
+			<div class="home-filter__page-number">
+				<span class="home-filter__page-current">0</span>
+				/0
+			</div>
+		</c:if>
+		<c:if test="${listProduct != null && !listProduct.isEmpty()}">
+			<div class="home-filter__page-number">
+				<span class="home-filter__page-current">${page == null ? "1" : page }</span>
+				/${totalPage }
+			</div>
+		</c:if>
+		
 		<div class="home-filter__page-control">
-			<a href=""
-				class="home-filter__page-btn home-filter__page-btn--disabled"> <i
-				class="home-filter__page-icon fas fa-angle-left"></i>
-			</a> <a href="" class="home-filter__page-btn"> <i
-				class="home-filter__page-icon fas fa-angle-right"></i>
+			<a href="" class="home-filter__page-btn home-filter__page-btn--disabled">
+				<i class="home-filter__page-icon fas fa-angle-left"></i>
+			</a> 
+			<a href="" class="home-filter__page-btn">
+				<i class="home-filter__page-icon fas fa-angle-right"></i>
 			</a>
 		</div>
 	</div>

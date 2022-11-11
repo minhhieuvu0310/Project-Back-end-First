@@ -89,11 +89,11 @@
         <div class="cart-container">
             <div class="grid wide">
                 <c:if test="${listCart == null }">
-                    <h4>Không có sản phẩm nào trong giỏ hàng</h4>
+                    <jsp:include page="NoCart.jsp"></jsp:include>
                 </c:if>
                 <c:if test="${listCart != null }">
                     <c:if test="${listCart.size() == 0}">
-                        <h4>Không có sản phẩm trong giỏ hàng</h4>
+                        <jsp:include page="NoCart.jsp"></jsp:include>
                     </c:if>
                     <c:if test="${listCart.size() > 0}">
                         <form action="updateCart" method="post">

@@ -59,15 +59,15 @@
 					<div class="">
 						<h3 class="footer-heading">THANH TOÁN</h3>
 						<div class="footer-sale-ship">
-							<img src="./assets/img/pay/1.PNG" alt=""
+							<img src="<c:url value="resources"/>/image/pay/1.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/pay/2.PNG" alt=""
+								src="<c:url value="resources"/>/image/pay/2.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/pay/3.PNG" alt=""
+								src="<c:url value="resources"/>/image/pay/3.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/pay/4.PNG" alt=""
+								src="<c:url value="resources"/>/image/pay/4.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/pay/5.PNG" alt=""
+								src="<c:url value="resources"/>/image/pay/5.PNG" alt=""
 								class="footer-sale-ship__img">
 						</div>
 					</div>
@@ -75,23 +75,23 @@
 					<div class="">
 						<h3 class="footer-heading">ĐƠN VỊ VẬN CHUYỂN</h3>
 						<div class="footer-sale-ship">
-							<img src="./assets/img/ship/1.PNG" alt=""
+							<img src="<c:url value="resources"/>/image/ship/1.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/2.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/2.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/3.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/3.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/4.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/4.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/5.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/5.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/6.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/6.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/7.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/7.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/8.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/8.PNG" alt=""
 								class="footer-sale-ship__img"> <img
-								src="./assets/img/ship/9.PNG" alt=""
+								src="<c:url value="resources"/>/image/ship/9.PNG" alt=""
 								class="footer-sale-ship__img">
 						</div>
 					</div>
@@ -118,21 +118,21 @@
 					<h3 class="footer-heading">TẢI ỨNG DỤNG SHOP</h3>
 					<div class="footer-dowload">
 						<a href="" class="footer-dowload-link"> <img
-							src="./assets/img/qr/qr-code.png" alt=""
+							src="<c:url value="resources"/>/image/qr/qr-code.png" alt=""
 							class="footer-dowload-qr__img">
 						</a>
 						<div class="footer-dowload-app">
 							<a href="" class="footer-dowload-link"> <img
-								src="./assets/img/qr/gg-play.png" alt=""
+								src="<c:url value="resources"/>/image/qr/gg-play.png" alt=""
 								class="footer-dowload-app__img">
 							</a> <a href="" class="footer-dowload-link"> <img
-								src="./assets/img/qr/app-store.png" alt=""
+								src="<c:url value="resources"/>/image/qr/app-store.png" alt=""
 								class="footer-dowload-app__img">
 							</a> <a href="" class="footer-dowload-link"> <img
-								src="./assets/img/qr/app-gallery.png" alt=""
+								src="<c:url value="resources"/>/image/qr/app-gallery.png" alt=""
 								class="footer-dowload-app__img">
 							</a> <a href="" class="footer-dowload-link"> <img
-								src="./assets/img/qr/ltp-img.png" alt=""
+								src="<c:url value="resources"/>/image/qr/ltp-img.png" alt=""
 								class="footer-dowload-app__img">
 							</a>
 						</div>
