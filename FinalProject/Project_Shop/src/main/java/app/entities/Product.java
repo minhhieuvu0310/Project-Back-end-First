@@ -39,7 +39,7 @@ public class Product {
 	@Column(name = "priceOutput")
 	private Float priceOutput;
 	@Column(name = "quantity")
-	private Float quantity;
+	private Integer quantity;
 	@Column(name = "created")
 	private Date created;
 	@Column(name = "Discount")
@@ -60,15 +60,18 @@ public class Product {
 	private Set<ImageLink> imagelink;
 	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
 	private Set<Orderdetail> orderdetails;
+	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+	private Set<CartItem> cartItem;
 
 	public Product() {
 		super();
 	}
 
 	public Product(Integer productId, String productName, String productContent, String productContentDetail,
-			String images, Integer views, Integer buyItem, Float priceInput, Float priceOutput, Float quantity,
+			String images, Integer views, Integer buyItem, Float priceInput, Float priceOutput, Integer quantity,
 			Date created, Float discount, Boolean status, Provider provider, CataLogs catalog,
-			Set<ProductColor> productColors, Set<ImageLink> imagelink, Set<Orderdetail> orderdetails) {
+			Set<ProductColor> productColors, Set<ImageLink> imagelink, Set<Orderdetail> orderdetails,
+			Set<CartItem> cartItem) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -88,6 +91,7 @@ public class Product {
 		this.productColors = productColors;
 		this.imagelink = imagelink;
 		this.orderdetails = orderdetails;
+		this.cartItem = cartItem;
 	}
 
 	public Integer getProductId() {
@@ -162,11 +166,11 @@ public class Product {
 		this.priceOutput = priceOutput;
 	}
 
-	public Float getQuantity() {
+	public Integer getQuantity() {
 		return quantity;
 	}
 
-	public void setQuantity(Float quantity) {
+	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
 
@@ -232,6 +236,14 @@ public class Product {
 
 	public void setOrderdetails(Set<Orderdetail> orderdetails) {
 		this.orderdetails = orderdetails;
+	}
+
+	public Set<CartItem> getCartItem() {
+		return cartItem;
+	}
+
+	public void setCartItem(Set<CartItem> cartItem) {
+		this.cartItem = cartItem;
 	}
 	
 	public Float getProductHasDiscount() {

@@ -31,6 +31,8 @@ public class Users {
 	private String phone;
 	@Column(name = "created")
 	private Date created;
+	@Column(name = "updated")
+	private Date updated;
 	@Column(name = "userImage")
 	private String userImage;
 	@Column(name = "status")
@@ -38,13 +40,18 @@ public class Users {
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	private Set<User_Role> userRoles;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private Set<Orders> orders;
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	private Set<Cart> cart;
 	
 	public Users() {
 		super();
 	}
 
 	public Users(Integer userId, String userName, String passWord, String fullName, String email, String phone,
-			Date created, String userImage, Boolean status, Set<User_Role> userRoles) {
+			Date created, Date updated, String userImage, Boolean status, Set<User_Role> userRoles, Set<Orders> orders,
+			Set<Cart> cart) {
 		super();
 		UserId = userId;
 		this.userName = userName;
@@ -53,9 +60,12 @@ public class Users {
 		this.email = email;
 		this.phone = phone;
 		this.created = created;
+		this.updated = updated;
 		this.userImage = userImage;
 		this.status = status;
 		this.userRoles = userRoles;
+		this.orders = orders;
+		this.cart = cart;
 	}
 
 	public Integer getUserId() {
@@ -114,6 +124,14 @@ public class Users {
 		this.created = created;
 	}
 
+	public Date getUpdated() {
+		return updated;
+	}
+
+	public void setUpdated(Date updated) {
+		this.updated = updated;
+	}
+
 	public String getUserImage() {
 		return userImage;
 	}
@@ -138,7 +156,21 @@ public class Users {
 		this.userRoles = userRoles;
 	}
 
+	public Set<Orders> getOrders() {
+		return orders;
+	}
 
+	public void setOrders(Set<Orders> orders) {
+		this.orders = orders;
+	}
 
+	public Set<Cart> getCart() {
+		return cart;
+	}
 
+	public void setCart(Set<Cart> cart) {
+		this.cart = cart;
+	}
+
+	
 }

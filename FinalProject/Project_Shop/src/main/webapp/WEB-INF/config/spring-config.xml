@@ -17,14 +17,11 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	<bean id="dataSource"
-		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName"
-			value="oracle.jdbc.driver.OracleDriver"></property>
-		<property name="url"
-			value="jdbc:oracle:thin:@localhost:1521:orcldb"></property>
-		<property name="username" value="SYS AS SYSDBA"></property>
-		<property name="password" value="12345"></property>
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=LapTop"></property>
+		<property name="username" value="sa"></property>
+		<property name="password" value="1234$"></property>
 	</bean>
 
 	<bean id="sessionFactory"
@@ -34,7 +31,7 @@
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.dialect">org.hibernate.dialect.Oracle12cDialect</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.SQLServer2016Dialect</prop>
 			</props>
 		</property>
 	</bean>

@@ -18,12 +18,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpSession;
 
+import app.dao.CartDAO;
+import app.dao.CartItemDAO;
 import app.dao.CataLogsDAO;
 import app.dao.ImageLinkDAO;
 import app.dao.ProductColorDAO;
 import app.dao.ProductDAO;
 import app.dao.ProviderDAO;
 import app.dao.UsersDAO;
+import app.entities.Cart;
+import app.entities.CartItem;
 import app.entities.CataLogs;
 import app.entities.Product;
 import app.entities.Provider;
@@ -48,6 +52,12 @@ public class HomeController {
 
 	@Autowired
 	private UsersDAO usersDAO;
+	
+	@Autowired
+	private CartDAO cartDAO;
+	
+	@Autowired
+	private CartItemDAO cartItemDAO;
 
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
@@ -239,6 +249,9 @@ public class HomeController {
 		if (usersDAO.checkLogin(users)) {
 			Users userinfo = usersDAO.getUsers(users);
 			session.setAttribute("users", userinfo);
+			Cart cartOfUser = cartDAO.CartOfUser(userinfo.getUserId());
+			List<CartItem> listCart = cartItemDAO.getAllCartItemByCartId(cartOfUser.getCartId());
+			session.setAttribute("listCart", listCart);
 			if(action.equals("productDetails")) {
 				int productId = 0;
 				if(request.getParameter("productId") != null) {
@@ -251,7 +264,12 @@ public class HomeController {
 			}
 			
 		} else {
-			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng!");
+			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng !");
+			if(action.equals("productDetails")) {
+				model.addAttribute("action",action);
+				model.addAttribute("productId",Integer.parseInt(request.getParameter("productId")));
+			}
+			
 			return "user/login";
 		}
 
@@ -287,11 +305,19 @@ public class HomeController {
 			users.setUserImage("default.png");
 			Date date = java.util.Calendar.getInstance().getTime();
 			users.setCreated(date);
+			//tạo tài khoản
 			boolean insertUsers = usersDAO.insertUsers(users);
-			if (insertUsers) {
-				session.setAttribute("users", users);
+			//tạo giỏ hàng
+			Cart cart = new Cart();
+			cart.setUser(users);
+			cart.setCreated(date);
+			cart.setStatus(true);
+			Boolean insertCart = cartDAO.InsertCart(cart);
+			if (insertUsers && insertCart) {
+				session.setAttribute("users", users);				
 				return "redirect:/home";
-			} else {
+			} 
+			else {
 				return "user/error";
 			}
 		} else {

@@ -1,0 +1,151 @@
+.cart-container{
+    background-color: #f5f5f5;
+}
+.myAccount{
+    padding: 20px 0 50px 0;
+}
+
+.myAccount-info{
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.myAccount-info__avatar{
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 0.0625rem solid rgba(0,0,0,.09);
+}
+
+.myAccount-info__name{
+    flex: 1;
+    height: 50px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+.myAccount-info__name p{
+    margin: 0;
+    min-height: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.editprofile{
+    text-decoration: none;
+    color:rgb(136 136 136);
+}
+
+.editprofile__icon{
+    color:rgb(136 136 136);
+}
+
+.myAccount-info-detail{
+    background-color: #fff;
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 13%);
+    border-radius:4px ;
+    min-width: 0;
+    padding: 0 30px 10px;
+    font-size: 1.4rem;
+}
+.myAccount__title{
+    padding: 18px 0;
+    border-bottom: 1px solid #efefef;
+}
+.myAccount__title h3{
+    font-family:Helvetica Neue;
+    font-size: 2.4rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    text-transform:capitalize;
+    margin: 0;
+}
+
+.myAccount__title p{
+    margin: 8px 0 0;
+    line-height: 1.68rem;
+}
+
+.myAccount__form{
+    padding-top: 30px;
+    display: flex;
+    
+}
+
+.myAccount__editInfo{
+    width: 70%;
+    flex: 1;
+    padding-right: 50px;
+}
+
+.myAccount__group{
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.myAccount__label{
+    display: inline-block;
+    width: 20%;
+    text-align: right;
+}
+
+.myAccount__input{
+    width: 80%;
+    margin-left: 20px;
+    padding: 12px;
+    outline: none;
+    filter: none;
+    border: 1px solid rgba(0,0,0,.14);
+    height: 40px;
+    border-radius: 2px;
+    box-shadow: inset 0 2px 0 rgb(0 0 0 / 2%);
+}
+
+.myAccount__form-control{
+    padding-left: calc(20% + 20px);
+    margin-bottom: 60px;
+}
+
+.btn--saveUsers{
+    height: 40px;
+    min-width: 70px;
+    max-width: 220px
+}
+
+.myAccount__editAvatar{
+    width: 23.2rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid  #efefef;;
+}
+
+.myAccount__avatar{
+    width: 10rem;
+    height: 10rem;
+    border-radius: 50%;
+}
+
+.btn--choose-photo{
+    background: rgba(0,0,0,.02);
+    border: 1px solid rgba(0,0,0,.09);
+    text-transform: capitalize;
+    height: 40px;
+    margin: 20px 0 0;
+}
+
+.myAccount__avatar-descirption{
+    margin-top: 12px;
+}
+

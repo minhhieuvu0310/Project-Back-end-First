@@ -1,59 +1,124 @@
 package app.entities;
 
+import java.util.Date;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Cart")
 public class Cart {
-	private Product product;
-	private Integer quantity;
-	private String color;
-	private String note;
+	@Id
+	@Column(name = "cartId")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer cartId;
+	@Column(name = "totalmoney")
+	private Float totalmoney;
+	@Column(name = "created")
+	private Date created;
+	@Column(name = "updated")
+	private Date updated;
+	@Column(name = "status")
+	private Boolean status;
+	@Column(name = "content")
+	private String content;
+	
+	@ManyToOne
+	@JoinColumn(name = "userId", referencedColumnName = "userId")
+	private Users user;
+	
+	@OneToMany(mappedBy = "cart", fetch = FetchType.EAGER)
+	private Set<CartItem> cartItem;
 
 	public Cart() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-
-	public Cart(Product product, Integer quantity, String color, String note) {
+	public Cart(Integer cartId, Float totalmoney, Date created, Date updated, Boolean status, String content,
+			Users user, Set<CartItem> cartItem) {
 		super();
-		this.product = product;
-		this.quantity = quantity;
-		this.color = color;
-		this.note = note;
+		this.cartId = cartId;
+		this.totalmoney = totalmoney;
+		this.created = created;
+		this.updated = updated;
+		this.status = status;
+		this.content = content;
+		this.user = user;
+		this.cartItem = cartItem;
 	}
 
-
-	public Product getProduct() {
-		return product;
+	public Integer getCartId() {
+		return cartId;
 	}
 
-	public void setProduct(Product product) {
-		this.product = product;
+	public void setCartId(Integer cartId) {
+		this.cartId = cartId;
 	}
 
-	public Integer getQuantity() {
-		return quantity;
+	public Float getTotalmoney() {
+		return totalmoney;
 	}
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
+	public void setTotalmoney(Float totalmoney) {
+		this.totalmoney = totalmoney;
 	}
 
-	public String getNote() {
-		return note;
+	public Date getCreated() {
+		return created;
 	}
 
-	public void setNote(String note) {
-		this.note = note;
+	public void setCreated(Date created) {
+		this.created = created;
 	}
 
-
-	public String getColor() {
-		return color;
+	public Date getUpdated() {
+		return updated;
 	}
 
-
-	public void setColor(String color) {
-		this.color = color;
+	public void setUpdated(Date updated) {
+		this.updated = updated;
 	}
-	
+
+	public Boolean getStatus() {
+		return status;
+	}
+
+	public void setStatus(Boolean status) {
+		this.status = status;
+	}
+
+	public String getContent() {
+		return content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
+	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	public Set<CartItem> getCartItem() {
+		return cartItem;
+	}
+
+	public void setCartItem(Set<CartItem> cartItem) {
+		this.cartItem = cartItem;
+	}
 	
 }

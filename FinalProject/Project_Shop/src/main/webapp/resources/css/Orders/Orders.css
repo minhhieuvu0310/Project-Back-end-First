@@ -1,0 +1,319 @@
+.cart-container {
+    background-color: #f5f5f5;
+}
+
+.myAccount {
+    padding: 20px 0 50px 0;
+}
+
+.myAccount-info {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+    padding: 15px 0;
+    display: flex;
+    align-items: center;
+    height: 50px;
+}
+
+.myAccount-info__avatar {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    border: 0.0625rem solid rgba(0, 0, 0, .09);
+}
+
+.myAccount-info__name {
+    flex: 1;
+    height: 50px;
+    padding-left: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.myAccount-info__name p {
+    margin: 0;
+    min-height: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.editprofile {
+    text-decoration: none;
+    color: rgb(136 136 136);
+}
+
+.editprofile__icon {
+    color: rgb(136 136 136);
+}
+
+/*
+*CSS MyOrders
+*/
+.MyOrders__menubar {
+    background-color: #fff;
+}
+
+.menubar-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    max-height: 52px;
+    border-radius: 2px;
+}
+
+.menubar-items {
+    padding: 16px 0;
+    flex: 1;
+    text-align: center;
+    border-bottom: 2px solid rgba(0, 0, 0, .09);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.menubar-items__links {
+    text-decoration: none;
+    color: #000;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    max-height: 2rem;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-transform: capitalize;
+}
+
+.MyOrders__Search{
+    margin: 12px 0;
+    padding: 12px 0;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 1px 1px 0 rgb(0 0 0 / 5%);
+    color: #212121;
+    background: #eaeaea;
+    border-radius: 2px;
+}
+
+.MyOrders__Search > svg{
+    margin: 0 15px;
+    stroke: #bbb;
+}
+
+.MyOrders__Search-input{
+    flex: 1;
+    font-size: 14px;
+    line-height: 16px;
+    border: 0;
+    outline: none;
+    background-color: inherit;
+}
+
+/*
+*Css My Orders
+*/
+
+.MyOrders__list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1.4rem;
+}
+
+.MyOrders__items{
+    overflow: hidden;
+    border-radius: 4px;
+    margin: 12px 0;
+}
+
+.MyOrders__items-container{
+    padding: 0 24px 12px 24px;
+    background-color: #fff;
+    border-radius: 4px;
+}
+
+.MyOrders__items-header{
+    background-color: #fff;
+    display: flex;
+    padding: 24px 0;
+    justify-content: space-between;
+}
+
+.MyOrders__logoshop{
+    display: flex;
+    align-items: center;
+}
+
+.MyOrders__shopname{
+    max-width: 200px;
+    margin:0 0 0 8px;
+    font-size: 14px;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.MyOrders__favorite{
+    width: 62px;
+    height: 20px;
+    padding: 4px;
+    font-size: 1.2rem;
+    background-color: var(--primary-color);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.MyOrders__status{
+    display: flex;
+    align-items: center;
+}
+
+.MyOrders__status-title{
+    color: #00bfa5;
+    vertical-align: middle;
+    font-size: 1.6rem;
+    padding-right: 5px;
+    margin-right: 10px;
+    border-right: 1px solid #e0e0e0;
+}
+
+.shopiconship{
+    font-size: 1.6rem;
+    vertical-align: middle;
+    color: #00bfa5;
+    stroke: #26aa99;
+    width: 1em;
+    height: 1em;
+    fill: currentColor;
+    margin-right: 4px;
+}
+
+.MyOrders__status-content{
+    color: #ee4d2d;
+    text-align: right;
+    vertical-align: middle;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.MyOrders__items-content{
+    padding: 24px 0;
+    background-color: #fff;
+    border-top: 1px solid rgba(0,0,0,.09);
+}
+
+
+.MyOrders__orderlist{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.MyOrder__orderitem{
+    display: flex;
+    padding-top: 12px;
+}
+
+.MyOrder__orderitem + .MyOrder__orderitem{
+    border-top: 1px solid rgba(0,0,0,.09);
+}
+
+.MyOrder__orderitem-img{
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border: 1px solid #e1e1e1;
+}
+
+.MyOrder__orderitem-product-description{
+    padding-left: 12px;
+}
+
+.MyOrder__orderitem-product-name{
+    overflow: hidden;
+    display: -webkit-box;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    margin: 0 0 5px;
+    font-size: 16px;
+    line-height: 22px;
+    max-height: 48px;
+}
+
+.MyOrder__orderitem-classify{
+    color: rgba(0,0,0,.54);
+    margin-bottom: 5px;
+}
+
+.MyOrder__orderitem-quantity{
+    margin-bottom: 5px;
+}
+
+.MyOrder__orderitem-price{
+    display: flex;
+    align-items: center;
+}
+
+.MyOrder__orderitem-oldprice{
+    text-decoration-line: line-through;
+    color: #000;
+    opacity: .26;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 4px;
+}
+
+.MyOrder__orderitem-newprice{
+    vertical-align: middle;
+    font-size: 14px;
+    line-height: 16px;
+    color: var(--primary-color);
+}
+
+.MyOrders__items-footer{
+    background: #fffefb;
+    padding: 24px;
+    border-top: 1px dotted rgba(0,0,0,.09);
+    border-radius: 4px;
+}
+
+.MyOrders__items-totalmoney{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.MyOrders__shop-img{
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    user-select: none;
+    margin: 0 5px 0 0;
+}
+
+.MyOrders__items-totalmoney-title{
+    margin: 0 10px 0 0;
+    font-size: 16px;
+    line-height: 20px;
+}
+
+.MyOrders__items-totalmoney-content{
+    color: #ee4d2d;
+    font-size: 24px;
+    line-height: 30px;
+    margin: 0;
+}

@@ -40,10 +40,6 @@
     color: var(--text-color);
     white-space: nowrap;
 }
-.category-group-item__link{
-    text-decoration: none;
-    color: unset;
-}
 .category-group-item-check{
     margin-right: 12px;
 }

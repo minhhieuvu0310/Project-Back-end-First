@@ -9,6 +9,8 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -35,21 +37,23 @@ public class Orders {
 	private Date createddate;
 	@Column(name = "paymentmethod")
 	private String paymentmethod;
-	@Column(name = "userid")
-	private Integer userid;
 	@Column(name = "status")
 	private Boolean status;
-	
+
 	@OneToMany(mappedBy = "orders", fetch = FetchType.EAGER)
 	private Set<Orderdetail> orderdetails;
+
+	@ManyToOne
+	@JoinColumn(name = "userid", referencedColumnName = "userid")
+	private Users user;
 
 	public Orders() {
 		super();
 	}
 
 	public Orders(Integer ordersId, String orderName, String orderNumber, String phone, String address,
-			String totalamount, Date paymentdate, Date createddate, String paymentmethod, Integer userid,
-			Boolean status, Set<Orderdetail> orderdetails) {
+			String totalamount, Date paymentdate, Date createddate, String paymentmethod, Boolean status,
+			Set<Orderdetail> orderdetails, Users user) {
 		super();
 		this.ordersId = ordersId;
 		this.orderName = orderName;
@@ -60,9 +64,9 @@ public class Orders {
 		this.paymentdate = paymentdate;
 		this.createddate = createddate;
 		this.paymentmethod = paymentmethod;
-		this.userid = userid;
 		this.status = status;
 		this.orderdetails = orderdetails;
+		this.user = user;
 	}
 
 	public Integer getOrdersId() {
@@ -137,14 +141,6 @@ public class Orders {
 		this.paymentmethod = paymentmethod;
 	}
 
-	public Integer getUserid() {
-		return userid;
-	}
-
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
-
 	public Boolean getStatus() {
 		return status;
 	}
@@ -160,4 +156,14 @@ public class Orders {
 	public void setOrderdetails(Set<Orderdetail> orderdetails) {
 		this.orderdetails = orderdetails;
 	}
+
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+
+	
 }

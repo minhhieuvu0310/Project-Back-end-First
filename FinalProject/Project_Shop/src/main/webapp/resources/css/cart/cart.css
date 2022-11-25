@@ -308,3 +308,125 @@
     margin-left: 10px;
     color: var(--primary-color);
 }
+
+/*
+*Pay and Update
+*/
+.PayandUpdateCart{
+    padding: 24px 0;
+}
+
+
+.shop__voucher{
+    display: flex; 
+    align-items: center;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 12px ;
+    justify-content: end;
+}
+
+.shop__voucher-label{
+    display: flex;
+    align-items: center;
+}
+
+
+.shop__voucher-icon{
+    color: #ee4d2d;
+    fill: currentColor;
+    width: 2.1rem;
+    height: 2.1rem;
+}
+.shop__voucher-text{
+    font-size: 1.6rem;
+    margin: 0 5px;
+}
+.shop__voucher-link{
+    text-decoration: none;
+    color: #05a;
+    text-transform: capitalize;
+    white-space: nowrap;
+    font-size: 1.4rem;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+
+.shop__makepay{
+    padding-top:12px ;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.PayandUpdateCart__UpdateorBuy{
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+.btnCart--buy{
+    background-color: #e7e7e7;
+    margin: 0 0 0 8px;
+    color: #000;
+}
+
+.totalmoney__title{
+    font-size: 1.9rem;
+    margin: 0;
+}
+
+.total{
+    background-color: #e7e7e7;
+    height: 32px;
+    width: 240px;
+    line-height: 32px;
+    padding-left:16px ;
+}
+
+.money{
+    margin-left: 16px;
+}
+
+.PayandUpdateCart__btn{
+    font-size: 1.4rem;
+    margin-right: 64px;
+}
+
+.btnCart--pay{
+    margin-top: 16px;
+    width: 170px;
+}
+
+/*
+* Css No Cart
+*/
+
+.no-cart{
+    padding: 76px 0;
+    height: 40rem;
+}
+
+.no-cart-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.no-cart__img{
+    width: 14.8rem;
+    height: 14.8rem;
+}
+
+.no-cart__title{
+    font-size: 1.4rem;
+    margin-top: 18px;
+    color: rgba(0,0,0,.4);
+    font-weight: 700;
+}
+
+.btnNoCart--home{
+    margin-top: 17px;
+    text-transform: uppercase;
+}
