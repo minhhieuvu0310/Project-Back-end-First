@@ -95,4 +95,15 @@ public interface ProductDAO {
      */
 	public Product getProductById(Integer proId);
 	
+	/**
+     * update sản phẩm 
+     * @return list product
+     */
+	public Boolean updateProduct(Product product);
+	
+	/**
+     * update lại sản phẩm khi thay đổi số lượng mua 
+     * @return list product
+     */
+	public Boolean updatebuyItem(Product product , Integer orderquantity);
 }

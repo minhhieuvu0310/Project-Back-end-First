@@ -29,6 +29,8 @@ public class Users {
 	private String email;
 	@Column(name = "phone")
 	private String phone;
+	@Column(name = "address")
+	private String address;
 	@Column(name = "created")
 	private Date created;
 	@Column(name = "updated")
@@ -49,9 +51,11 @@ public class Users {
 		super();
 	}
 
+	
+
 	public Users(Integer userId, String userName, String passWord, String fullName, String email, String phone,
-			Date created, Date updated, String userImage, Boolean status, Set<User_Role> userRoles, Set<Orders> orders,
-			Set<Cart> cart) {
+			String address, Date created, Date updated, String userImage, Boolean status, Set<User_Role> userRoles,
+			Set<Orders> orders, Set<Cart> cart) {
 		super();
 		UserId = userId;
 		this.userName = userName;
@@ -59,6 +63,7 @@ public class Users {
 		this.fullName = fullName;
 		this.email = email;
 		this.phone = phone;
+		this.address = address;
 		this.created = created;
 		this.updated = updated;
 		this.userImage = userImage;
@@ -67,6 +72,8 @@ public class Users {
 		this.orders = orders;
 		this.cart = cart;
 	}
+
+
 
 	public Integer getUserId() {
 		return UserId;
@@ -170,6 +177,14 @@ public class Users {
 
 	public void setCart(Set<Cart> cart) {
 		this.cart = cart;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	

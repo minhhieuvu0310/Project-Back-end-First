@@ -26,6 +26,9 @@ public class Orderdetail {
 	private Boolean status;
 	@Column(name = "note")
 	private String note;
+	@Column(name = "color")
+	private String color;
+
 
 	@ManyToOne
 	@JoinColumn(name = "productid", referencedColumnName = "productid")
@@ -114,4 +117,12 @@ public class Orderdetail {
 	public void setOrders(Orders orders) {
 		this.orders = orders;
 	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}	
 }

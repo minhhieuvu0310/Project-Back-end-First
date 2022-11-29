@@ -31,8 +31,9 @@
 }
 
 .paymentmethod-item{
+    cursor: pointer;
     text-transform: capitalize;
-    color: #a9acb1;
+    color: #635c5c;
     list-style: none;
     outline: none;
     cursor: pointer;
@@ -43,6 +44,7 @@
 }
 
 .paymentmethod__label{
+    cursor: pointer;
     display: block;
     width: 100%;
     padding: 20px 0;
@@ -56,8 +58,17 @@
 }
 
 .paymentmethod__img{
+    cursor: pointer;
     max-width: 77px;
     max-height: 77px;
+}
+
+.paymentmethod-item--active .paymentmethod__label{
+    border: 1px solid var(--primary-color);
+}
+
+.paymentmethod-item.paymentmethod-item--active{
+    color: var(--primary-color);
 }
 
 .paymentmethod__btn{
@@ -78,10 +89,11 @@
     display: none;
 }
 
-.paymentmethod__content{
+.paymentmethod__content {
     font-size: 1.6rem;
     font-weight: 500;
     margin-bottom: 36px;
+    line-height: 1.8;
 }
 
 .btn.btn--Pay{

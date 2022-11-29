@@ -187,7 +187,7 @@ public class ProductDAOimpl implements ProductDAO {
 		try {
 			if (SortBy.equals("new")) {
 				List list = session.createQuery(
-						"from Product product where trunc(mod(months_between(sysdate,product.created),12)) <= 2 and product.status = 1")
+						"from Product product where DATEDIFF(month , product.created , GETDATE()) < 2 and (product.created < GETDATE()) and product.status = 1")
 						.list();
 				return list;
 			} else if (SortBy.equals("sales")) {
@@ -242,7 +242,6 @@ public class ProductDAOimpl implements ProductDAO {
 					return list;
 			}
 			
-			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -263,6 +262,46 @@ public class ProductDAOimpl implements ProductDAO {
 			session.close();
 		}
 		return null;
+	}
+
+	@Override
+	public Boolean updateProduct(Product product) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.update(product);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			session.getTransaction().rollback();
+		}finally {
+			session.close();
+		}
+		return false;
+	}
+
+	@Override
+	public Boolean updatebuyItem(Product product, Integer orderquantity) {
+		Session session = sessionFactory.openSession();
+		try {
+			Integer slc = product.getQuantity() - product.getBuyItem();
+			if(slc > orderquantity) {
+				product.setBuyItem(slc - orderquantity);
+				session.beginTransaction();
+				session.update(product);
+				session.getTransaction().commit();
+				return true;
+			}else {
+				return false;
+			}		
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			session.getTransaction().rollback();
+		}finally {
+			session.close();
+		}
+		return false;
 	}
 
 }

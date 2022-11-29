@@ -29,8 +29,10 @@ public class Orders {
 	private String phone;
 	@Column(name = "address")
 	private String address;
+	@Column(name = "email")
+	private String email;
 	@Column(name = "totalamount")
-	private String totalamount;
+	private Float totalamount;
 	@Column(name = "paymentdate")
 	private Date paymentdate;
 	@Column(name = "createddate")
@@ -51,8 +53,8 @@ public class Orders {
 		super();
 	}
 
-	public Orders(Integer ordersId, String orderName, String orderNumber, String phone, String address,
-			String totalamount, Date paymentdate, Date createddate, String paymentmethod, Boolean status,
+	public Orders(Integer ordersId, String orderName, String orderNumber, String phone, String address, String email,
+			Float totalamount, Date paymentdate, Date createddate, String paymentmethod, Boolean status,
 			Set<Orderdetail> orderdetails, Users user) {
 		super();
 		this.ordersId = ordersId;
@@ -60,6 +62,7 @@ public class Orders {
 		this.orderNumber = orderNumber;
 		this.phone = phone;
 		this.address = address;
+		this.email = email;
 		this.totalamount = totalamount;
 		this.paymentdate = paymentdate;
 		this.createddate = createddate;
@@ -109,11 +112,19 @@ public class Orders {
 		this.address = address;
 	}
 
-	public String getTotalamount() {
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Float getTotalamount() {
 		return totalamount;
 	}
 
-	public void setTotalamount(String totalamount) {
+	public void setTotalamount(Float totalamount) {
 		this.totalamount = totalamount;
 	}
 

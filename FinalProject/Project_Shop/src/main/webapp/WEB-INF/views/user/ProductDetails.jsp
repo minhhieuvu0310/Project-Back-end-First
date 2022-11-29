@@ -97,23 +97,27 @@
 								</div>
 								<div class="product-detail__price">
 									<div class="product-detail__price-wrap">
-										<div class="product-detail__price-old">
-											<fmt:formatNumber type="currency" currencySymbol=""
-												value="${product.priceOutput}">
-											</fmt:formatNumber>
-										</div>
+										<c:if test="${product.discount > 0 }">
+											<div class="product-detail__price-old">
+												<fmt:formatNumber type="currency" currencySymbol=""
+													value="${product.priceOutput}">
+												</fmt:formatNumber>
+											</div>
+										</c:if>										
 										<div class="product-detail__price-new">
 											<fmt:formatNumber type="currency" currencySymbol=""
 												value="${product.priceOutput - (product.priceOutput  * product.discount)}">
 											</fmt:formatNumber>
 										</div>
-										<div class="product-detail__sale-off">
-											<div class="product-detail__sale-off-value">
-												<fmt:formatNumber type="percent" maxIntegerDigits="3"
-													value="${product.discount}" />
+										<c:if test="${product.discount > 0 }">
+											<div class="product-detail__sale-off">
+												<div class="product-detail__sale-off-value">
+													<fmt:formatNumber type="percent" maxIntegerDigits="3"
+														value="${product.discount}" />
+												</div>											
+												<div class="product-detail__sale-off-lable">Giảm</div>
 											</div>
-											<div class="product-detail__sale-off-lable">Giảm</div>
-										</div>
+										</c:if>
 									</div>
 								</div>
 								<div class="product-detail__Configuration">

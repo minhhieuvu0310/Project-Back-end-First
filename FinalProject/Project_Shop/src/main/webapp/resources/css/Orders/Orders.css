@@ -225,10 +225,15 @@
 .MyOrder__orderitem{
     display: flex;
     padding-top: 12px;
+    justify-content: space-between;
 }
 
 .MyOrder__orderitem + .MyOrder__orderitem{
     border-top: 1px solid rgba(0,0,0,.09);
+}
+
+.MyOrder__orderitem-wrap{
+    display: flex;
 }
 
 .MyOrder__orderitem-img{
@@ -316,4 +321,15 @@
     font-size: 24px;
     line-height: 30px;
     margin: 0;
+}
+
+.MyOrders__items-add{
+    font-size: 20px; 
+    margin: 0 8px;
+}
+
+.MyOrders__items-moneyship{
+    color: #00bfa5;
+    line-height: 30px;
+    font-size: 24px;
 }

@@ -80,27 +80,27 @@ public class CartController {
 			List<CartItem> listCart = cartItemDAO.getAllCartItemByCartId(cartOfUser.getCartId());
 			// Lấy ra sản phẩm khách hàng muốn thêm
 			Product product = productDAO.getProductById(productId);
+			Date date = java.util.Calendar.getInstance().getTime();
 			if (listCart == null || listCart.isEmpty()) {
 				CartItem cartItem = new CartItem();
 				cartItem.setCart(cartOfUser);
 				cartItem.setProduct(product);
 				cartItem.setQuantity(quantity);
 				cartItem.setPrice(product.getProductHasDiscount());
-				cartItem.setAmount(product.getProductHasDiscount() * quantity);
-				Date date = java.util.Calendar.getInstance().getTime();
+				cartItem.setAmount(product.getProductHasDiscount() * quantity);;
 				cartItem.setCreated(date);
 				cartItem.setNote(note);
 				cartItem.setColor(color);
 				cartItem.setStatus(false);
 				bl = cartItemDAO.InserCartItem(cartItem);
+				//
 			} else {
 				boolean flag = false;
 				for (CartItem cartItem : listCart) {
 					if (cartItem.getProduct().getProductId() == productId && cartItem.getColor().equals(color)) {
 						Integer a = cartItem.getQuantity();
 						cartItem.setQuantity(quantity + a);
-						cartItem.setAmount((quantity + a) * product.getProductHasDiscount());
-						Date date = java.util.Calendar.getInstance().getTime();
+						cartItem.setAmount((quantity + a) * product.getProductHasDiscount());						
 						cartItem.setUpdated(date);
 						String noteUpdate = "Color : " + option + "; Quantity : " + (quantity + a);
 						cartItem.setNote(noteUpdate);
@@ -108,7 +108,6 @@ public class CartController {
 						flag = true;
 					}
 				}
-
 				if (!flag) {
 					CartItem cartItem = new CartItem();
 					cartItem.setCart(cartOfUser);
@@ -116,17 +115,17 @@ public class CartController {
 					cartItem.setQuantity(quantity);
 					cartItem.setPrice(product.getProductHasDiscount());
 					cartItem.setAmount(product.getProductHasDiscount() * quantity);
-					Date date = java.util.Calendar.getInstance().getTime();
 					cartItem.setCreated(date);
 					cartItem.setNote(note);
 					cartItem.setColor(color);
 					cartItem.setStatus(false);
 					bl = cartItemDAO.InserCartItem(cartItem);
 				}
-
+				//
 			}
-			if (bl)
+			if (bl) {
 				return "redirect:/cart";
+			}
 			else {
 				model.addAttribute("error", "Thêm Sản phẩm vào giỏ hàng không thành công");
 				model.addAttribute("productId", productId);
@@ -156,16 +155,17 @@ public class CartController {
 		Users users = (Users) session.getAttribute("users");
 		Cart cartOfUser = cartDAO.CartOfUser(users.getUserId());
 		List<CartItem> listCart = cartItemDAO.getAllCartItemByCartId(cartOfUser.getCartId());
+		Date date = java.util.Calendar.getInstance().getTime();
 		// lấy danh sách sản lượng muốn mua
 		String[] arrQuantity = request.getParameterValues("quantity");
 		for (int i = 0; i < listCart.size(); i++) {
 			listCart.get(i).setQuantity(Integer.parseInt(arrQuantity[i]));
+			listCart.get(i).setUpdated(date);
 			cartItemDAO.UpdateCartItem(listCart.get(i));
 			if (Integer.parseInt(arrQuantity[i]) == 0) {
 				cartItemDAO.DeleteCartItem(listCart.get(i));
 			}
 		}
-
 		System.out.println("So luong san pham : " + listCart.size());
 		System.out.println("mang so luong san pham : " + arrQuantity.length);
 		return "redirect:/cart";
@@ -192,7 +192,8 @@ public class CartController {
 					break;
 				}
 			}
-		}
+		}		
+		
 		System.out.println("Id cua san pham la : " + productId);
 		return "redirect:/cart";
 	}

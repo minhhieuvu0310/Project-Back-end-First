@@ -259,7 +259,10 @@ public class HomeController {
 				}
 				model.addAttribute("productId",productId);
 				return "redirect:/productDetails";
-			}else {
+			}else if(action.equals("payment")) {
+				return "redirect:/cart";
+			}			
+			else {
 				return "redirect:/home";
 			}
 			
