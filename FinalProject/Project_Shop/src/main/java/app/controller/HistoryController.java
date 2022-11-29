@@ -38,13 +38,13 @@ public class HistoryController {
 			}
 			model.addAttribute("listOrders",listOrders);
 			model.addAttribute("users",users);
-			model.addAttribute("listOrderdetail",listOrderdetail);
-			Orders orders = new Orders();
-			
-			Orderdetail orderdetail = new Orderdetail();			
+			model.addAttribute("listOrderdetail",listOrderdetail);		
 			return "user/purchaseHistory";			
 		}else {
-			return null;
+			Users user = new Users();
+			model.addAttribute("users", user);
+			model.addAttribute("action", "history");
+			return "user/login";
 		}
 		
 	}

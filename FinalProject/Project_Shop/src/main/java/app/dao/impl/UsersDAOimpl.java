@@ -139,4 +139,22 @@ public class UsersDAOimpl implements UsersDAO{
 		return false;
 	}
 
+	@Override
+	public boolean updateUsers(Users users) {
+		Session session = sessionFactory.openSession();
+		try {
+			session.beginTransaction();
+			session.update(users);
+			session.getTransaction().commit();
+			return true;
+		} catch (Exception e1) {
+			// TODO: handle exception
+			e1.printStackTrace();
+			session.getTransaction().rollback();
+		}finally {
+			session.close();
+		}
+		return false;
+	}
+
 }

@@ -26,16 +26,6 @@
 <!-- Footer -->
 <link href="<c:url value=" resources/css/Footer/footer.css" />"
 	rel="stylesheet">
-<style>
-.cart__product-detail__details {
-	border-bottom: 1px solid rgba(0, 0, 0, .09);
-}
-
-.cart__product-detail__details:last-child {
-	border: none;
-}
-
-</style>
 </head>
 
 <body>
@@ -164,9 +154,7 @@
 	                                            </div>
 	                                        </div>
 	                                    </li>                               		
-                                	</c:forEach>
-                                    
-                                    
+                                	</c:forEach>                                                                  
                                 </ul>
                             </div>
                         </div>
@@ -180,7 +168,6 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- *End Footer -->
 	</div>
-	<script src="<c:url value=" resources/js/eventcart.js" />"></script>
 </body>
 
 </html>

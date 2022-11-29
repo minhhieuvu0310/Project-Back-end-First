@@ -17,9 +17,12 @@
 			<value>.jsp</value>
 		</property>
 	</bean>
-	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
-		<property name="url" value="jdbc:sqlserver://localhost:1433;databaseName=LapTop"></property>
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName"
+			value="com.microsoft.sqlserver.jdbc.SQLServerDriver"></property>
+		<property name="url"
+			value="jdbc:sqlserver://localhost:1433;databaseName=LapTop"></property>
 		<property name="username" value="sa"></property>
 		<property name="password" value="1234$"></property>
 	</bean>
@@ -37,4 +40,8 @@
 	</bean>
 	<mvc:resources location="/resources/"
 		mapping="/resources/**"></mvc:resources>
+	<bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<property name="maxUploadSize" value="5000000"></property>
+	</bean>
 </beans>

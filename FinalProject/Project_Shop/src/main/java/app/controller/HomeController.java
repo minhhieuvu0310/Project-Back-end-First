@@ -16,6 +16,11 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import javax.servlet.http.HttpSession;
 
 import app.dao.CartDAO;
@@ -52,10 +57,10 @@ public class HomeController {
 
 	@Autowired
 	private UsersDAO usersDAO;
-	
+
 	@Autowired
 	private CartDAO cartDAO;
-	
+
 	@Autowired
 	private CartItemDAO cartItemDAO;
 
@@ -243,7 +248,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/LoginFontend" })
-	public String initLoginFontend(@ModelAttribute("users") Users users, HttpSession session,HttpServletRequest request, Model model) {
+	public String initLoginFontend(@ModelAttribute("users") Users users, HttpSession session,
+			HttpServletRequest request, Model model) {
 		System.out.println(users.getUserName() + ' ' + users.getPassWord() + ' ' + users.getFullName());
 		String action = request.getParameter("action");
 		if (usersDAO.checkLogin(users)) {
@@ -252,27 +258,30 @@ public class HomeController {
 			Cart cartOfUser = cartDAO.CartOfUser(userinfo.getUserId());
 			List<CartItem> listCart = cartItemDAO.getAllCartItemByCartId(cartOfUser.getCartId());
 			session.setAttribute("listCart", listCart);
-			if(action.equals("productDetails")) {
+			if (action.equals("productDetails")) {
 				int productId = 0;
-				if(request.getParameter("productId") != null) {
+				if (request.getParameter("productId") != null) {
 					productId = Integer.parseInt(request.getParameter("productId"));
 				}
-				model.addAttribute("productId",productId);
+				model.addAttribute("productId", productId);
 				return "redirect:/productDetails";
-			}else if(action.equals("payment")) {
+			} else if (action.equals("payment")) {
 				return "redirect:/cart";
-			}			
-			else {
+			} else if (action.equals("history")) {
+				return "redirect:/history";
+			} else if (action.equals("myAccount")) {
+				return "redirect:/initUpdateMyAccount";
+			} else {
 				return "redirect:/home";
 			}
-			
+
 		} else {
 			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng !");
-			if(action.equals("productDetails")) {
-				model.addAttribute("action",action);
-				model.addAttribute("productId",Integer.parseInt(request.getParameter("productId")));
+			if (action.equals("productDetails")) {
+				model.addAttribute("action", action);
+				model.addAttribute("productId", Integer.parseInt(request.getParameter("productId")));
 			}
-			
+
 			return "user/login";
 		}
 
@@ -308,24 +317,73 @@ public class HomeController {
 			users.setUserImage("default.png");
 			Date date = java.util.Calendar.getInstance().getTime();
 			users.setCreated(date);
-			//tạo tài khoản
+			// tạo tài khoản
 			boolean insertUsers = usersDAO.insertUsers(users);
-			//tạo giỏ hàng
+			// tạo giỏ hàng
 			Cart cart = new Cart();
 			cart.setUser(users);
 			cart.setCreated(date);
 			cart.setStatus(true);
 			Boolean insertCart = cartDAO.InsertCart(cart);
 			if (insertUsers && insertCart) {
-				session.setAttribute("users", users);				
+				session.setAttribute("users", users);
 				return "redirect:/home";
-			} 
-			else {
+			} else {
 				return "user/error";
 			}
 		} else {
 			model.addAttribute("error", error);
 			return "user/register";
+		}
+	}
+
+	@RequestMapping(value = { "/initUpdateMyAccount" })
+	public String initUpdateMyAccount(Model model, HttpSession session) {
+		Users users = (Users) session.getAttribute("users");
+		if (users != null) {
+			model.addAttribute("users", users);
+			return "user/myAccount";
+		} else {
+			Users user = new Users();
+			model.addAttribute("users", user);
+			model.addAttribute("action", "myAccount");
+			return "user/login";
+		}
+	}
+
+	@RequestMapping(value = { "/UpdateMyAccount" })
+	public String UpdateMyAccount(Model model, HttpSession session, @ModelAttribute("users") Users users,
+			HttpServletRequest request, @RequestParam(name = "imageUser", required = false) MultipartFile imageFile) {
+		Users usersUpdate = (Users) session.getAttribute("users");
+		Date date = java.util.Calendar.getInstance().getTime();
+		if (imageFile.getOriginalFilename() != "") {
+			String path = request.getServletContext().getRealPath("resources/image/User");
+			File f = new File(path);
+
+			File dest = new File(f.getAbsolutePath() + "/" + imageFile.getOriginalFilename());
+			if (!dest.exists()) {
+				try {
+					Files.write(dest.toPath(), imageFile.getBytes(), StandardOpenOption.CREATE);
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			usersUpdate.setUserImage(imageFile.getOriginalFilename());
+		}
+		usersUpdate.setFullName(users.getFullName());
+		usersUpdate.setEmail(users.getEmail());
+		usersUpdate.setPhone(users.getPhone());
+		usersUpdate.setAddress(users.getAddress());
+		usersUpdate.setUpdated(date);
+		boolean bl = usersDAO.updateUsers(usersUpdate);
+		if (bl) {
+			session.setAttribute("users", usersUpdate);
+			model.addAttribute("users",usersUpdate);
+			return "user/myAccount";
+		} else {
+			System.out.println("userId : " + users.getUserId());
+			model.addAttribute("error", "Cập Nhật Hồ Sơ Không Thành Công");
+			return "user/error";
 		}
 	}
 

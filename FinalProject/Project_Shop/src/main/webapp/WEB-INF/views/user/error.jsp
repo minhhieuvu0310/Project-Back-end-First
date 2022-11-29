@@ -46,7 +46,7 @@
                                 </div>
                                 <p class="error__text">Error</p>
                             </div>
-                            <p class="error__content">Xin lỗi bạn đăng kí tài khoản không thành công</p>
+                            <p class="error__content">${error }</p>
                         </div>
                     </div>
                 </div>

@@ -156,7 +156,7 @@
 						alt="" class="header__navbar-user-img"> <span
 						class="header__navbar-user-name">${sessionScope.users.fullName}</span>
 						<ul class="header__navbar-user-menu">
-							<li class="header__navbar-user-menu-item"><a href="">Tài
+							<li class="header__navbar-user-menu-item"><a href="initUpdateMyAccount">Tài
 									Khoản Của Tôi</a></li>
 							<li class="header__navbar-user-menu-item"><a href="history">Đơn
 									Mua</a></li>

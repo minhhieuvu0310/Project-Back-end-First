@@ -51,8 +51,6 @@ public class Users {
 		super();
 	}
 
-	
-
 	public Users(Integer userId, String userName, String passWord, String fullName, String email, String phone,
 			String address, Date created, Date updated, String userImage, Boolean status, Set<User_Role> userRoles,
 			Set<Orders> orders, Set<Cart> cart) {
