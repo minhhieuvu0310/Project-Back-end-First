@@ -86,7 +86,7 @@
 		<div class="container-login">
 			<div class="grid wide">
 				<div class="from-login">
-					<div class="from-login-img hiden-on-mobile-tablet" style="height: 700px;"></div>
+					<div class="from-login-img hiden-on-mobile-tablet" style="height: 800px;"></div>
 					<div class="form-login-body"
 						style="right: calc(50% - 25%); top: 40px;">
 						<form:form action="RegisterFontend" modelAttribute="users"
@@ -110,23 +110,23 @@
                                     	</c:if>
 										<div class="auth-from__group">
 											<form:input type="text" class="auth-from__input" placeholder="Tên đăng nhập của bạn" id="register-name__input" path="userName" />
-											<span class="error_login" id="error_nameregister"></span>
+											<form:errors cssClass="error_login" path="userName"></form:errors>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="text" class="auth-from__input" placeholder="Họ Và Tên" id="register-name__input" path="fullName" />
-											<span class="error_login" id="error_nameregister"></span>
+											<form:errors cssClass="error_login" path="fullName"></form:errors>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="text" class="auth-from__input" placeholder="Email" id="register-name__input" path="email"/>
-											<span class="error_login" id="error_nameregister"></span>
+											<form:errors cssClass="error_login" path="email"></form:errors>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="text" class="auth-from__input" placeholder="Số Điện Thoại" id="register-name__input" path="phone"/>
-											<span class="error_login" id="error_nameregister"></span>
+											<form:errors cssClass="error_login" path="phone"></form:errors>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="password" class="auth-from__input" placeholder="Nhập Mật Khẩu" id="register-pass__input" path="passWord"/>
-											<span class="error_login" id="error_passregister"></span>
+											<form:errors cssClass="error_login" path="passWord"></form:errors>
 										</div>
 									</div>
 									<!-- Policy -->

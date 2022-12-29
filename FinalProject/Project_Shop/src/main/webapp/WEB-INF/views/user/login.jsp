@@ -105,11 +105,9 @@
 										
 										<div class="auth-from__group">
 											<form:input type="text" placeholder="Tên Đăng Nhập Của Bạn" id="login-name__input" class="auth-from__input" path="userName"/>
-											<span class="error_login" id="error_namelogin"></span>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="password" class="auth-from__input" placeholder="Nhập Mật Khẩu" id="login-password__input" path="passWord"/> 
-											<span class="error_login" id="error_passwordlogin"></span>
 										</div>
 									</div>
 									<!-- Policy -->

@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,6 +23,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.StandardOpenOption;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import app.dao.CartDAO;
 import app.dao.CartItemDAO;
@@ -250,9 +252,8 @@ public class HomeController {
 	@RequestMapping(value = { "/LoginFontend" })
 	public String initLoginFontend(@ModelAttribute("users") Users users, HttpSession session,
 			HttpServletRequest request, Model model) {
-		System.out.println(users.getUserName() + ' ' + users.getPassWord() + ' ' + users.getFullName());
 		String action = request.getParameter("action");
-		if (usersDAO.checkLogin(users)) {
+		if (usersDAO.checkLogin(users) && !users.getUserName().isEmpty() && !users.getPassWord().isEmpty()) {
 			Users userinfo = usersDAO.getUsers(users);
 			session.setAttribute("users", userinfo);
 			Cart cartOfUser = cartDAO.CartOfUser(userinfo.getUserId());
@@ -275,13 +276,19 @@ public class HomeController {
 				return "redirect:/home";
 			}
 
+		} else if (users.getUserName().isEmpty() || users.getPassWord().isEmpty()) {
+			model.addAttribute("error", "Vui Lòng Điền Đầy Đủ Thông Tin!");
+			if (action.equals("productDetails")) {
+				model.addAttribute("action", action);
+				model.addAttribute("productId", Integer.parseInt(request.getParameter("productId")));
+			}
+			return "user/login";
 		} else {
 			model.addAttribute("error", "Tên Đăng Nhập Hoặc mật khẩu không đúng !");
 			if (action.equals("productDetails")) {
 				model.addAttribute("action", action);
 				model.addAttribute("productId", Integer.parseInt(request.getParameter("productId")));
 			}
-
 			return "user/login";
 		}
 
@@ -301,8 +308,8 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = { "/RegisterFontend" })
-	public String RegisterFontend(@ModelAttribute("users") Users users, Model model, HttpSession session,
-			HttpServletRequest request) {
+	public String RegisterFontend(@Valid @ModelAttribute("users") Users users, BindingResult result, Model model,
+			HttpSession session, HttpServletRequest request) {
 		boolean bl = usersDAO.checkUserName(users);
 		boolean bl2 = usersDAO.checkUserEmail(users);
 		boolean bl3 = usersDAO.checkUserPhone(users);
@@ -312,7 +319,7 @@ public class HomeController {
 		List<String> lsterror = new ArrayList<String>(Arrays.asList(errUserName, errUserPhone, errUserEmail));
 		lsterror.removeAll(Arrays.asList("", null));
 		String error = ErrorRegister(lsterror);
-		if (!bl && !bl2 && !bl3) {
+		if (!bl && !bl2 && !bl3 && !result.hasErrors()) {
 			users.setStatus(true);
 			users.setUserImage("default.png");
 			Date date = java.util.Calendar.getInstance().getTime();
@@ -378,7 +385,7 @@ public class HomeController {
 		boolean bl = usersDAO.updateUsers(usersUpdate);
 		if (bl) {
 			session.setAttribute("users", usersUpdate);
-			model.addAttribute("users",usersUpdate);
+			model.addAttribute("users", usersUpdate);
 			return "user/myAccount";
 		} else {
 			System.out.println("userId : " + users.getUserId());

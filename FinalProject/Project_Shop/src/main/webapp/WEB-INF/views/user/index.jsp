@@ -132,7 +132,7 @@
 		}
 	</script>
 	<script src="<c:url value="resources/js/UpdateParam.js" />"></script>
-	<script src="<c:url value="resources/js/EventCheckbox__Click.js" />"></script>
+	<script src="<c:url value="resources/js/eventCheckbox__Click.js" />"></script>
 	<script src="<c:url value="resources/js/eventBtnPrice__Click.js" />"></script>
 	<script src="<c:url value="resources/js/sortFilter.js" />"></script>
 	<script src="<c:url value="resources/js/KeySearch.js" />"></script>

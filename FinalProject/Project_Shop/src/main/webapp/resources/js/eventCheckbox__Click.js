@@ -108,12 +108,22 @@ function insertParamCheckBox(key1, value1, key2, value2) {
 			kvp[kvp.length] = [key2, value2].join('=');
 		}
 	} else if (value1 != '' && value2 != '') {
-		if (i >= kvp.length) {
-			kvp[kvp.length] = [key1, value1].join('=');
+		if(i>j){
+			if (i >= kvp.length) {
+				kvp[kvp.length] = [key1, value1].join('=');
+			}
+			if (j >= kvp.length - 1) {
+				kvp[kvp.length - 1] = [key2, value2].join('=');
+			}
+		}else if(i<j){
+			if (i+1 >= kvp.length) {
+				kvp[kvp.length] = [key1, value1].join('=');
+			}
+			if (j >= kvp.length - 1) {
+				kvp[kvp.length - 1] = [key2, value2].join('=');
+			}
 		}
-		if (j >= kvp.length - 1) {
-			kvp[kvp.length-1] = [key2, value2].join('=');
-		}
+		
 	}
 
 
@@ -158,4 +168,3 @@ function insertParamCheckBox(key1, value1, key2, value2) {
 
 	}
 }
-

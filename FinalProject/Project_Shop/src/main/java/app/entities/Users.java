@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "Users")
@@ -19,17 +20,24 @@ public class Users {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "UserId")
 	private Integer UserId;
+	
 	@Column(name = "UserName")
-	private String userName;
+	@NotEmpty(message = "Tên Đăng Nhập Không Được Bỏ Trống")
+	private String userName;	
 	@Column(name = "passWord")
-	private String passWord;
+	@NotEmpty(message = "Mật Khẩu Không Được Bỏ Trống")
+	private String passWord;	
 	@Column(name = "fullName")
-	private String fullName;
+	@NotEmpty(message = "Họ Và Tên Không Được Để Trống")
+	private String fullName;	
 	@Column(name = "email")
-	private String email;
+	@NotEmpty(message = "Email Không Được Bỏ Trống")
+	private String email;	
 	@Column(name = "phone")
-	private String phone;
+	@NotEmpty(message = "Số Điện Thoại Không Được Bỏ Trống")
+	private String phone;	
 	@Column(name = "address")
+	@NotEmpty(message = "Địa Chỉ Không Được Bỏ Trống")
 	private String address;
 	@Column(name = "created")
 	private Date created;
