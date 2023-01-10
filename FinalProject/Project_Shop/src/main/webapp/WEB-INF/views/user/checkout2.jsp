@@ -14,17 +14,17 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value=" resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value=" resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value=" resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/base.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value=" resources/css/Header/Header.css" />"
+<link href="<c:url value=" resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/CheckOut2/checkout2.css" />"
+<link href="<c:url value=" resources/user/css/CheckOut2/checkout2.css" />"
 	rel="stylesheet">
 <!-- Footer -->
-<link href="<c:url value=" resources/css/Footer/footer.css" />"
+<link href="<c:url value=" resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
 <style>
 

@@ -14,17 +14,17 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value=" resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value=" resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value=" resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/base.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value=" resources/css/Header/Header.css" />"
+<link href="<c:url value=" resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/cart/cart.css" />"
+<link href="<c:url value=" resources/user/css/cart/cart.css" />"
 	rel="stylesheet">
 <!-- Footer -->
-<link href="<c:url value=" resources/css/Footer/footer.css" />"
+<link href="<c:url value=" resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
 <style>
 .cart__product-detail__details {
@@ -82,7 +82,7 @@
 													href="productDetails?productId=${cart.getProduct().productId }"
 													class="cart__product-link">
 													<div class="cart__product-img"
-														style="background-image: url(<c:url value='resources'/>/image/buy/${cart.getProduct().getImages() });">
+														style="background-image: url(<c:url value='resources'/>/user/image/buy/${cart.getProduct().getImages() });">
 													</div>
 												</a>
 												<div class="cart__product-name-classify">

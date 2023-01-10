@@ -14,17 +14,17 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value=" resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value=" resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value=" resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/base.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value=" resources/css/Header/Header.css" />"
+<link href="<c:url value=" resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/Orders/Orders.css" />"
+<link href="<c:url value=" resources/user/css/Orders/Orders.css" />"
 	rel="stylesheet">
 <!-- Footer -->
-<link href="<c:url value=" resources/css/Footer/footer.css" />"
+<link href="<c:url value=" resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
 </head>
 
@@ -40,7 +40,7 @@
                 <div class="row  sm-gutter myAccount">
                     <div class="col l-2 m-12 c-12">
                         <div class="myAccount-info">
-                            <img src="<c:url value="resources"/>/image/User/${users.getUserImage()}" alt="NoImage" class="myAccount-info__avatar" />
+                            <img src="<c:url value="resources"/>/user/image/User/${users.getUserImage()}" alt="NoImage" class="myAccount-info__avatar" />
                             <div class="myAccount-info__name">
                                 <p>${users.getUserName() }</p>
                                 <a href="#" class="editprofile">
@@ -112,7 +112,7 @@
 	                                                    	<c:if test="${orderdetail.getOrders().getOrdersId() == orders.getOrdersId() }">
 		                                                    	<li class="MyOrder__orderitem">
 		                                                    		<div class="MyOrder__orderitem-wrap">
-				                                                        <img src="<c:url value="resources"/>/image/buy/${orderdetail.getProduct().getImages() }" alt="" class="MyOrder__orderitem-img">
+				                                                        <img src="<c:url value="resources"/>/user/image/buy/${orderdetail.getProduct().getImages() }" alt="" class="MyOrder__orderitem-img">
 				                                                        <div class="MyOrder__orderitem-product-description">
 				                                                            <div class="MyOrder__orderitem-product-name">${orderdetail.getProduct().getProductContent() }</div>
 				                                                            <div class="MyOrder__orderitem-classify">Phân Loại Hàng : ${orderdetail.getColor() }</div>

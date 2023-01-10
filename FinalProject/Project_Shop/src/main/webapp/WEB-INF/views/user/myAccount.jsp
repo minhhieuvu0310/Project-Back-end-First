@@ -15,17 +15,17 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value=" resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value=" resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value=" resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value=" resources/user/css/base.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value=" resources/css/Header/Header.css" />"
+<link href="<c:url value=" resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
-<link href="<c:url value=" resources/css/MyAccount/MyAccount.css" />"
+<link href="<c:url value=" resources/user/css/MyAccount/MyAccount.css" />"
 	rel="stylesheet">
 <!-- Footer -->
-<link href="<c:url value=" resources/css/Footer/footer.css" />"
+<link href="<c:url value=" resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
 </head>
 
@@ -42,7 +42,7 @@
 					<div class="col l-2 m-12 c-12">
 						<div class="myAccount-info">
 							<img
-								src="<c:url value="resources"/>/image/User/${users.getUserImage()}"
+								src="<c:url value="resources"/>/user/image/User/${users.getUserImage()}"
 								alt="NoImage" class="myAccount-info__avatar" />
 							<div class="myAccount-info__name">
 								<p>minhhieu0310</p>
@@ -97,7 +97,7 @@
 									</div>
 									<div class="myAccount__editAvatar">
 										<img
-											src="<c:url value="resources"/>/image/User/${users.getUserImage()}"
+											src="<c:url value="resources"/>/user/image/User/${users.getUserImage()}"
 											alt="NoImage" class="myAccount__avatar" id="coverPreview">
 										<input type="file" accept=".jpg,.jpeg,.png"
 											style="display: none;" id="userImg" name="imageUser">

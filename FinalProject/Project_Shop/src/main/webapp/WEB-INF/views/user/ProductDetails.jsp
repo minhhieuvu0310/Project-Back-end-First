@@ -13,20 +13,20 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value="resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value="resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value="resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value="resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/base.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value="resources/css/Header/Header.css" />"
+<link href="<c:url value="resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
 
 <link
-	href="<c:url value="resources/css/product__details/product__detail.css" />"
+	href="<c:url value="resources/user/css/product__details/product__detail.css" />"
 	rel="stylesheet">
 
 <!-- Footer -->
-<link href="<c:url value="resources/css/Footer/footer.css" />"
+<link href="<c:url value="resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
 	
 
@@ -52,13 +52,13 @@
 						<div class="product-detail__introduce">
 							<div class="product-detail__img-top">
 								<img
-									src="<c:url value="resources"/>/image/buy/${product.images }"
+									src="<c:url value="resources"/>/user/image/buy/${product.images }"
 									alt="No Image" class="product-detail__img-main" />
 							</div>
 							<div class="product-detail__img-bottom">
 								<c:forEach items="${allImages }" var="image">
 									<img
-										src="<c:url value="resources"/>/image/All__ImageProduct/${image}"
+										src="<c:url value="resources"/>/user/image/All__ImageProduct/${image}"
 										alt="NoIamge" class="product-detail__img-sub">
 								</c:forEach>
 							</div>
@@ -209,8 +209,8 @@
 		<jsp:include page="footer.jsp"></jsp:include>
 		<!-- *End Footer -->
 	</div>
-	<script src="<c:url value="resources/js/UpdateParam.js" />"></script>
-	<script src="<c:url value="resources/js/KeySearch.js" />"></script>
-	<script src="<c:url value="resources/js/producDetails.js" />"></script>
+	<script src="<c:url value="resources/user/js/UpdateParam.js" />"></script>
+	<script src="<c:url value="resources/user/js/KeySearch.js" />"></script>
+	<script src="<c:url value="resources/user/js/producDetails.js" />"></script>
 </body>
 </html>

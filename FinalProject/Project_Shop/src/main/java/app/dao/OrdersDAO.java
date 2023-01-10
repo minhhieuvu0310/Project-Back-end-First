@@ -20,6 +20,14 @@ public interface OrdersDAO {
 	//tìm kiếm hóa đơn theo uesrsId
 	public List<Orders> findOrdersByUsersId(Integer userId);
 	
+	//Tình Tổng số hóa đơn 
+	public Integer getTotalOrders();
+	
+	//Lấy tất cả hóa đơn
+	public List<Orders> getAllOrders();
+	
+	//Tính Tổng doanh thu
+	public Float getTotalMoney(List<Orders> lstOrders);
 	
 	
 }

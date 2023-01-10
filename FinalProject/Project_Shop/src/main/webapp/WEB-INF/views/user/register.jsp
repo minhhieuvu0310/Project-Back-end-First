@@ -14,19 +14,19 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value="resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value="resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
-<link href="<c:url value="resources/css/grid.css" />" rel="stylesheet">
-<link href="<c:url value="resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/base.css" />" rel="stylesheet">
 <link
-	href="<c:url value="resources/css/Login_and_ Register/Login_and_Register.css" />"
+	href="<c:url value="resources/user/css/Login_and_ Register/Login_and_Register.css" />"
 	rel="stylesheet">
-<link href="<c:url value="resources/css/Footer/footer.css" />"
+<link href="<c:url value="resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
-<link href="<c:url value="resources/css/Responsive/responsive.css" />"
+<link href="<c:url value="resources/user/css/Responsive/responsive.css" />"
 	rel="stylesheet">
 <link
-	href="<c:url value="resources/css/Responsive/responsive__login.css" />"
+	href="<c:url value="resources/user/css/Responsive/responsive__login.css" />"
 	rel="stylesheet">
 <style>
 .icon-shopee-logo--official-shop {
@@ -123,6 +123,10 @@
 										<div class="auth-from__group">
 											<form:input type="text" class="auth-from__input" placeholder="Số Điện Thoại" id="register-name__input" path="phone"/>
 											<form:errors cssClass="error_login" path="phone"></form:errors>
+										</div>
+										<div class="auth-from__group">
+											<form:input type="text" class="auth-from__input" placeholder="Địa Chỉ" id="register-pass__input" path="address"/>
+											<form:errors cssClass="error_login" path="address"></form:errors>
 										</div>
 										<div class="auth-from__group">
 											<form:input type="password" class="auth-from__input" placeholder="Nhập Mật Khẩu" id="register-pass__input" path="passWord"/>

@@ -32,12 +32,15 @@ import app.dao.ImageLinkDAO;
 import app.dao.ProductColorDAO;
 import app.dao.ProductDAO;
 import app.dao.ProviderDAO;
+import app.dao.User_RoleDAO;
 import app.dao.UsersDAO;
 import app.entities.Cart;
 import app.entities.CartItem;
 import app.entities.CataLogs;
 import app.entities.Product;
 import app.entities.Provider;
+import app.entities.Role;
+import app.entities.User_Role;
 import app.entities.Users;
 
 @Controller
@@ -66,6 +69,9 @@ public class HomeController {
 	@Autowired
 	private CartItemDAO cartItemDAO;
 
+	@Autowired
+	private User_RoleDAO user_roleDAO;
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
@@ -332,10 +338,19 @@ public class HomeController {
 			cart.setCreated(date);
 			cart.setStatus(true);
 			Boolean insertCart = cartDAO.InsertCart(cart);
-			if (insertUsers && insertCart) {
+			//tạo quyền cho tài khoản
+			User_Role user_role = new User_Role();
+			Role role = new Role();
+			role.setRoleId(1);
+			user_role.setRole(role);
+			user_role.setUser(users);
+			user_role.getUser().setUserId(users.getUserId());
+			boolean insertRoleForUser = user_roleDAO.insertRoleForUser(user_role);
+			if (insertUsers && insertCart && insertRoleForUser) {
 				session.setAttribute("users", users);
 				return "redirect:/home";
 			} else {
+				model.addAttribute("error", "Đã Xảy ra lỗi khi đăng Nhập !!!");
 				return "user/error";
 			}
 		} else {
@@ -364,7 +379,7 @@ public class HomeController {
 		Users usersUpdate = (Users) session.getAttribute("users");
 		Date date = java.util.Calendar.getInstance().getTime();
 		if (imageFile.getOriginalFilename() != "") {
-			String path = request.getServletContext().getRealPath("resources/image/User");
+			String path = request.getServletContext().getRealPath("resources/user/image/User");
 			File f = new File(path);
 
 			File dest = new File(f.getAbsolutePath() + "/" + imageFile.getOriginalFilename());

@@ -157,4 +157,19 @@ public class UsersDAOimpl implements UsersDAO{
 		return false;
 	}
 
+	@Override
+	public int getTotalUsers() {
+		Session session = sessionFactory.openSession();
+		try {
+			Integer total = (Integer) session.createQuery("from Users").list().size();
+			return total;
+		} catch (Exception e1) {
+			e1.printStackTrace();
+			session.getTransaction().rollback();
+		}finally {
+			session.close();
+		}
+		return 0;
+	}
+
 }

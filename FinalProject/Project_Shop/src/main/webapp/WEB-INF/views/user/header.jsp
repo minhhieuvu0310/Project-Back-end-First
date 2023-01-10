@@ -38,14 +38,14 @@
 					class="header__navbar-item header__navbar-item--has-qr header__navbar-item--separate">
 					Tải ứng dụng
 					<div class="header__qr">
-						<img src="<c:url value="resources"/>/image/qr/qr-code.png" alt="QR Code"
+						<img src="<c:url value="resources"/>/user/image/qr/qr-code.png" alt="QR Code"
 							class="header__qr-img">
 						<div class="header__qr-apps">
 							<a href="" class="header_qr-link"> <img
-								src="<c:url value="resources"/>/image/qr/app-store.png" alt="App Store"
+								src="<c:url value="resources"/>/user/image/qr/app-store.png" alt="App Store"
 								class="header_qr-dowload-img">
 							</a> <a href="" class="header_qr-link"> <img
-								src="<c:url value="resources"/>/image/qr/gg-play.png" alt="Google Play"
+								src="<c:url value="resources"/>/user/image/qr/gg-play.png" alt="Google Play"
 								class="header_qr-dowload-img">
 							</a>
 						</div>
@@ -152,7 +152,7 @@
 
 				<c:if test="${sessionScope.users != null }">
 					<li class="header__navbar-item header__navbar-user"><img
-						src="<c:url value="resources"/>/image/User/${sessionScope.users.userImage == null ? 'default.png' : sessionScope.users.userImage}"
+						src="<c:url value="resources"/>/user/image/User/${sessionScope.users.userImage == null ? 'default.png' : sessionScope.users.userImage}"
 						alt="" class="header__navbar-user-img"> <span
 						class="header__navbar-user-name">${sessionScope.users.fullName}</span>
 						<ul class="header__navbar-user-menu">
@@ -202,7 +202,7 @@
 						<div class="header__cart-list header__cart-list--no-cart">
 							<!-- No-Cart : header__cart-list--no-cart -->
 							<!-- Has-Cart : header__cart-list--has-cart -->
-							<img src="<c:url value="resources"/>/image/Nocart/no_cart.png"
+							<img src="<c:url value="resources"/>/user/image/Nocart/no_cart.png"
 								alt="" class="header__cart-no-cart-img"> <span
 								class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
 						</div>
@@ -212,7 +212,7 @@
 							<div class="header__cart-list header__cart-list--no-cart">
 								<!-- No-Cart : header__cart-list--no-cart -->
 								<!-- Has-Cart : header__cart-list--has-cart -->
-								<img src="<c:url value="resources"/>/image/Nocart/no_cart.png"
+								<img src="<c:url value="resources"/>/user/image/Nocart/no_cart.png"
 									alt="" class="header__cart-no-cart-img"> <span
 									class="header__cart-list-no-cart-msg">Chưa có sản phẩm</span>
 							</div>
@@ -226,7 +226,7 @@
 								<ul class="header__cart-list-product">
 									<c:forEach items="${sessionScope.listCart}" var="cart">
 										<li class="header__cart-item"><img
-										src="<c:url value="resources"/>/image/buy/${cart.getProduct().getImages() }" alt="NoImage"
+										src="<c:url value="resources"/>/user/image/buy/${cart.getProduct().getImages() }" alt="NoImage"
 										class="header__cart-item-img">
 										<div class="header__cart-item-info">
 											<div class="header__cart-item-head">

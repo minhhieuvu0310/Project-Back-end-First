@@ -12,7 +12,7 @@
 				<a href="productDetails?productId=${product.productId }"
 					class="home-product-item-link">
 					<div class="home-product-item__img"
-						style="background-image:url(<c:url value='resources'/>/image/buy/${product.images });"></div>
+						style="background-image:url(<c:url value='resources'/>/user/image/buy/${product.images });"></div>
 					<div class="home-product-item__info">
 						<h4 class="home-product-item__name">${product.productContent }</h4>
 						<div class="home-product-item__price">

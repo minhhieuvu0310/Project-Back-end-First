@@ -28,4 +28,7 @@ public interface UsersDAO {
 	
 	//Thêm mới một người dùng
 	public boolean updateUsers(Users users);
+	
+	//Tính Tổng số Users
+	public int getTotalUsers();
 }

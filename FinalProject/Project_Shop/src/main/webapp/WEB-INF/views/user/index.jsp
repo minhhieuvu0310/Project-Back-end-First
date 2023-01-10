@@ -13,21 +13,21 @@
 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
 	rel="stylesheet">
 <link
-	href="<c:url value="resources/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
+	href="<c:url value="resources/user/fonts/fontawesome-free-6.1.1/css/all.min.css" />"
 	rel="stylesheet">
 
-<link href="<c:url value="resources/css/grid.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/grid.css" />" rel="stylesheet">
 <!-- Header -->
-<link href="<c:url value="resources/css/Header/Header.css" />"
+<link href="<c:url value="resources/user/css/Header/Header.css" />"
 	rel="stylesheet">
 <!-- Container -->
 <link
-	href="<c:url value="resources/css/category_and_product/container.css" />"
+	href="<c:url value="resources/user/css/category_and_product/container.css" />"
 	rel="stylesheet">
 <!-- Footer -->
-<link href="<c:url value="resources/css/Footer/footer.css" />"
+<link href="<c:url value="resources/user/css/Footer/footer.css" />"
 	rel="stylesheet">
-<link href="<c:url value="resources/css/base.css" />" rel="stylesheet">
+<link href="<c:url value="resources/user/css/base.css" />" rel="stylesheet">
 <style>
 .home-filter__sort-item.home-filter__sort-item--active .home-filter__sort-item-link{
 	background-color: var(--hover-color);
@@ -131,11 +131,11 @@
 			console.log(error);
 		}
 	</script>
-	<script src="<c:url value="resources/js/UpdateParam.js" />"></script>
-	<script src="<c:url value="resources/js/eventCheckbox__Click.js" />"></script>
-	<script src="<c:url value="resources/js/eventBtnPrice__Click.js" />"></script>
-	<script src="<c:url value="resources/js/sortFilter.js" />"></script>
-	<script src="<c:url value="resources/js/KeySearch.js" />"></script>
+	<script src="<c:url value="resources/user/js/UpdateParam.js" />"></script>
+	<script src="<c:url value="resources/user/js/eventCheckbox__Click.js" />"></script>
+	<script src="<c:url value="resources/user/js/eventBtnPrice__Click.js" />"></script>
+	<script src="<c:url value="resources/user/js/sortFilter.js" />"></script>
+	<script src="<c:url value="resources/user/js/KeySearch.js" />"></script>
 	<script>
 		try {
 			$(document).ready(function() {
